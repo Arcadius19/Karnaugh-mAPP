@@ -1,0 +1,32 @@
+<table id="kmap_table">
+
+  <tr>
+    <td rowspan="2" colspan="2"></td>
+    <th colspan="4">CD</th>
+  </tr>
+  <tr>
+    <th>00</th>
+    <th>01</th>
+    <th>11</th>
+    <th>10</th>
+  </tr>
+
+  <tr>
+    <th rowspan="4">AB</th>
+    <th>00</th>
+    <td *ngFor="let evaluation of kmap_evals_matrix[0]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{ kmap_binary[0][i] }}</div></td>
+  </tr>
+  <tr>
+    <th>01</th>
+    <td *ngFor="let evaluation of kmap_evals_matrix[1]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{ kmap_binary[1][i] }}</div></td>
+  </tr>
+  <tr>
+    <th>11</th>
+    <td *ngFor="let evaluation of kmap_evals_matrix[2]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{ kmap_binary[2][i] }}</div></td>
+  </tr>
+  <tr>
+    <th>10</th>
+    <td *ngFor="let evaluation of kmap_evals_matrix[3]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{ kmap_binary[3][i] }}</div></td>
+  </tr>
+
+</table>

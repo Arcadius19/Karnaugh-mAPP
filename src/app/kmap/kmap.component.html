@@ -14,24 +14,28 @@
   <tr>
     <th rowspan="4">AB</th>
     <th>00</th>
-    <td *ngFor="let evaluation of kmap_evals_matrix[0]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{ kmap_binary[0][i] }}</div></td>
+    <td *ngFor="let evaluation of kmapEvaluations[0]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{
+      kmapIDs[0][i] }}</div></td>
   </tr>
   <tr>
     <th>01</th>
-    <td *ngFor="let evaluation of kmap_evals_matrix[1]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{ kmap_binary[1][i] }}</div></td>
+    <td *ngFor="let evaluation of kmapEvaluations[1]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{
+      kmapIDs[1][i] }}</div></td>
   </tr>
   <tr>
     <th>11</th>
-    <td *ngFor="let evaluation of kmap_evals_matrix[2]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{ kmap_binary[2][i] }}</div></td>
+    <td *ngFor="let evaluation of kmapEvaluations[2]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{
+      kmapIDs[2][i] }}</div></td>
   </tr>
   <tr>
     <th>10</th>
-    <td *ngFor="let evaluation of kmap_evals_matrix[3]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{ kmap_binary[3][i] }}</div></td>
+    <td *ngFor="let evaluation of kmapEvaluations[3]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{
+      kmapIDs[3][i] }}</div></td>
   </tr>
 
 </table>
 
-<p>{{ check_group(0,0,4,4) }}</p>
-<p>{{ check_group(1,0,2,2) }}</p>
-<p>{{ check_group(3,0,2,2) }}</p>
-<p>{{ check_group(0,3,2,2) }}</p>
+<p>{{ checkGroup(0,0,4,4) }}</p>
+<p>{{ checkGroup(1,0,2,2) }}</p>
+<p>{{ checkGroup(3,0,2,2) }}</p>
+<p>{{ checkGroup(0,3,2,2) }}</p>

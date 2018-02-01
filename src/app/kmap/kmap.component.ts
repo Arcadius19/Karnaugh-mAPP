@@ -62,11 +62,6 @@ export class KmapComponent implements OnInit {
 
   }
 
-  bin_to_dec(binary: string): number {
-    const decimal = parseInt(binary, 2);
-    return decimal;
-  }
-
   // check if a group of cells starting at [off_row][off_col] spanning to [off_row+ran_row][off_col+ran_col] is a valid group, i.e.
   // all cells in a group evaluate the expression to true
   check_group(off_row: number, off_col: number, ran_row: number, ran_col, number): boolean {

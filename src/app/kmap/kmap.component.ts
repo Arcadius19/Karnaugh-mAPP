@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as Parser from 'expr-eval';
 import { ParserService } from '../parser.service';
 
 @Component({
@@ -12,9 +11,11 @@ export class KmapComponent implements OnInit {
   FLAG_B = 4; // 0100
   FLAG_C = 2; // 0010
   FLAG_D = 1; // 0001
-  kmap_evals: number[] = [];
 
-  kmap_evals_matrix: number[][] = [[], [], [], []];
+  n_rows = 4;
+  n_columns = 4;
+
+  kmap_evals_matrix: number[][] = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
   kmap_binary: number[][] = [[], [], [], []];
 
   evaluate_expr(): Boolean {
@@ -29,16 +30,6 @@ export class KmapComponent implements OnInit {
     let expr;
     try {
       expr = parser.parse(query);
-      for (let i = 0; i < 16; i++) {
-        a_var = !!(i & this.FLAG_A);
-        b_var = !!(i & this.FLAG_B);
-        c_var = !!(i & this.FLAG_C);
-        d_var = !!(i & this.FLAG_D);
-        evaluation = expr.evaluate({ A: a_var, B: b_var, C: c_var, D: d_var });
-        this.kmap_evals[i] = (evaluation) ? 1 : 0;
-        console.log('For ' + i + ' (' + i.toString(2) + ')' + ' expression is ' + evaluation);
-      }
-
       for (let i in this.kmap_binary) {
         for (let j in this.kmap_binary[i]) {
           let dec_number = this.kmap_binary[i][j];
@@ -50,7 +41,6 @@ export class KmapComponent implements OnInit {
           this.kmap_evals_matrix[i][j] = (evaluation) ? 1 : 0;
         }
       }
-
     } catch (err) {
       console.log(err);
     }
@@ -67,20 +57,29 @@ export class KmapComponent implements OnInit {
     for (let i in binaries) {
       for (let j in binaries) {
         this.kmap_binary[i][j] = parseInt(binaries[i] + binaries[j], 2);
-        console.log('[', i, '][', j, '] = ', this.kmap_binary[i][j]);
       }
     }
 
   }
 
-  kmap_value(cell_id: string): number {
-    const cell_id_number = parseInt(cell_id, 2);
-    return this.kmap_evals[cell_id_number];
-  }
-
   bin_to_dec(binary: string): number {
     const decimal = parseInt(binary, 2);
     return decimal;
+  }
+
+  // check if a group of cells starting at [off_row][off_col] spanning to [off_row+ran_row][off_col+ran_col] is a valid group, i.e.
+  // all cells in a group evaluate the expression to true
+  check_group(off_row: number, off_col: number, ran_row: number, ran_col, number): boolean {
+    let is_valid = true;
+    for (let i = off_row; i < off_row + ran_row; i++) {
+      for (let j = off_col; j < off_col + ran_col; j++) {
+        if (this.kmap_evals_matrix[i % this.n_rows][j % this.n_columns] == 0) {
+          is_valid = false;
+          break;
+        }
+      }
+    }
+    return is_valid;
   }
 
 }

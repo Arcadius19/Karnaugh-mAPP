@@ -15,15 +15,37 @@ export class KmapComponent implements OnInit {
   nRows = 4;
   nColumns = 4;
 
-  kmapEvaluations: number[][] = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
   kmapIDs: number[][] = [[], [], [], []];
 
-  evaluateExpression(): Boolean {
+  kmapEvaluations: number[][];
+  bestGroups: number[][];
+
+  constructor(private parserService: ParserService) { }
+
+  ngOnInit() {
+    this.kmapEvaluations = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+
+    const binaries = ['00', '01', '11', '10'];
+    for (let i in binaries) {
+      for (let j in binaries) {
+        this.kmapIDs[i][j] = parseInt(binaries[i] + binaries[j], 2);
+      }
+    }
+  }
+
+  onClick() {
+    let kmapMarked = this.evaluateExpression();         // essentially kmapMarked is a copy of this.kmapEvaluations
+    this.bestGroups = this.findBestGroups(kmapMarked);  // but operating directly on the class property caused some asynchronous issues
+  }
+
+  evaluateExpression(): number[][] {
     let a_var: Boolean;
     let b_var: Boolean;
     let c_var: Boolean;
     let d_var: Boolean;
     let evaluation: Boolean;
+
+    let markedKmap: number[][] = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 
     const parser = this.parserService.getParser();
     const query = this.parserService.getQuery();
@@ -38,28 +60,16 @@ export class KmapComponent implements OnInit {
           c_var = !!(dec_number & this.FLAG_C);
           d_var = !!(dec_number & this.FLAG_D);
           evaluation = expr.evaluate({ A: a_var, B: b_var, C: c_var, D: d_var });
-          this.kmapEvaluations[i][j] = (evaluation) ? 1 : 0;
+          let evaluationNumber = (evaluation) ? 1 : 0;
+          this.kmapEvaluations[i][j] = evaluationNumber;
+          markedKmap[i][j] = evaluationNumber;
         }
       }
     } catch (err) {
       console.log(err);
     }
 
-    return false;
-  }
-
-  constructor(private parserService: ParserService) { }
-
-  ngOnInit() {
-    this.evaluateExpression();
-
-    const binaries = ['00', '01', '11', '10'];
-    for (let i in binaries) {
-      for (let j in binaries) {
-        this.kmapIDs[i][j] = parseInt(binaries[i] + binaries[j], 2);
-      }
-    }
-
+    return markedKmap;
   }
 
   // check if a group of cells starting at [off_row][off_col] spanning to [off_row+ran_row][off_col+ran_col] is a valid group, i.e.
@@ -86,21 +96,68 @@ export class KmapComponent implements OnInit {
     return group;
   }
 
-  findBestGroups(): number[][] {
-    let markedKMap = this.kmapEvaluations.slice();
-    let bestGroups: number[][];
+  checkMarked(group: number[][], offRow: number, offCol: number, rangeRow: number, rangeCol: number): boolean {
+    let hasUngrouped = false;
+    for (let i = offRow; i < offRow + rangeRow; i++) {
+      for (let j = offCol; j < offCol + rangeCol; j++) {
+        if (group[i % this.nRows][j % this.nColumns] == 1) {
+          hasUngrouped = true;
+          break;
+        }
+      }
+    }
+    return hasUngrouped;
+  }
+
+  checkPushMark(pair: {markedArray: number[][], bestArray: number[][]},
+                offRow: number, offCol: number, rangeRow: number, rangeCol: number) {
+
+    // console.log('checkPushMark for', offRow, offCol, rangeRow, rangeCol);
+
+    if (this.checkGroup(offRow, offCol, rangeRow, rangeCol)
+        && this.checkMarked(pair.markedArray, offRow, offCol, rangeRow, rangeCol)) {
+
+      // console.log('Got here');
+
+      pair.bestArray.push([offRow, offCol, rangeRow, rangeCol]);
+      pair.markedArray = this.markGroup(pair.markedArray, offRow, offCol, rangeRow, rangeCol);
+    }
+
+    return pair;
+  }
+
+  findBestGroups(kmapMarked: number[][]): number[][] {
+    let bestGroups: number[][] = [];
 
     // Check 16x
-    if (this.checkGroup(0, 0, 4, 4)) {
-      bestGroups.push([0, 0, 4, 4]);
-    }
+    this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, 0, 0, 4, 4);
 
     // Check 8x
     for (let i = 0 ; i < this.nRows; i++) {
-      this.checkGroup(i, 0, 2, 4);
+      this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, i, 0, 2, 4);
     }
     for (let j; j < this.nColumns; j++) {
-      this.checkGroup(0, j, 4, 2);
+      this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, 0, j, 4, 2);
+    }
+
+    // Check 4x
+    for (let i = 0 ; i < this.nRows; i++) {
+      this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, i, 0, 1, 4);
+    }
+    for (let j; j < this.nColumns; j++) {
+      this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, 0, j, 4, 1);
+    }
+    for (let i = 0 ; i < this.nRows; i++) {
+      for (let j = 0; j < this.nColumns; j++) {
+        this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, i, j, 2, 2);
+
+    // Check 2x
+        this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, i, j, 1, 2);
+        this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, i, j, 2, 1);
+
+    // Check 1x
+        this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, i, j, 1, 1);
+      }
     }
 
     return bestGroups;

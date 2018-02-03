@@ -35,7 +35,5 @@
 
 </table>
 
-<p>{{ checkGroup(0,0,4,4) }}</p>
-<p>{{ checkGroup(1,0,2,2) }}</p>
-<p>{{ checkGroup(3,0,2,2) }}</p>
-<p>{{ checkGroup(0,3,2,2) }}</p>
+<div>Best groups</div>
+<p *ngFor="let group of bestGroups">{{group}}</p>

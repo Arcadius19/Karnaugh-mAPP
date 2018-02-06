@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ParserService } from '../parser.service';
+import { ExpressionGroup } from '../expression-group';
 
 @Component({
   selector: 'app-kmap',
@@ -182,6 +183,11 @@ export class KmapComponent implements OnInit {
         this.highlightedKmap[i % this.nRows][j % this.nRows] = !this.highlightedKmap[i % this.nRows][j % this.nRows];
       }
     }
+  }
+
+  findExpression (offRow: number, offCol: number, rangeRow: number, rangeCol: number): string {
+    let expressionGroup = ExpressionGroup.fromGridToGroup(offRow, offCol, rangeRow, rangeCol);
+    return expressionGroup.toString();
   }
 
 }

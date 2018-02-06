@@ -35,3 +35,7 @@ th .content, td .content {
   left: 0;
   right: 0;
 }
+
+.highlight {
+  background: #35bdc7;
+}

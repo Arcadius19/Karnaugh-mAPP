@@ -14,26 +14,27 @@
   <tr>
     <th rowspan="4">AB</th>
     <th>00</th>
-    <td *ngFor="let evaluation of kmapEvaluations[0]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{
+    <td id="T{{kmapIDs[0][i]}}" *ngFor="let evaluation of kmapEvaluations[0]; index as i" [ngClass]="{'cellTrue':evaluation, 'cellFalse':!evaluation, 'highlight':highlightedKmap[0][i]}"><div class="content">{{ evaluation }}<br/>{{
       kmapIDs[0][i] }}</div></td>
   </tr>
   <tr>
     <th>01</th>
-    <td *ngFor="let evaluation of kmapEvaluations[1]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{
+    <td id="T{{kmapIDs[1][i]}}" *ngFor="let evaluation of kmapEvaluations[1]; index as i" [ngClass]="{'cellTrue':evaluation, 'cellFalse':!evaluation, 'highlight':highlightedKmap[1][i]}"><div class="content">{{ evaluation }}<br/>{{
       kmapIDs[1][i] }}</div></td>
   </tr>
   <tr>
     <th>11</th>
-    <td *ngFor="let evaluation of kmapEvaluations[2]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{
+    <td id="T{{kmapIDs[2][i]}}" *ngFor="let evaluation of kmapEvaluations[2]; index as i" [ngClass]="{'cellTrue':evaluation, 'cellFalse':!evaluation, 'highlight':highlightedKmap[2][i]}"><div class="content">{{ evaluation }}<br/>{{
       kmapIDs[2][i] }}</div></td>
   </tr>
   <tr>
     <th>10</th>
-    <td *ngFor="let evaluation of kmapEvaluations[3]; index as i" [ngClass]="{'cellTrue': evaluation, 'cellFalse': !evaluation}"><div class="content">{{ evaluation }}<br/>{{
+    <td id="T{{kmapIDs[3][i]}}" *ngFor="let evaluation of kmapEvaluations[3]; index as i" [ngClass]="{'cellTrue':evaluation, 'cellFalse':!evaluation, 'highlight':highlightedKmap[3][i]}"><div class="content">{{ evaluation }}<br/>{{
       kmapIDs[3][i] }}</div></td>
   </tr>
 
 </table>
 
 <div>Best groups</div>
-<p *ngFor="let group of bestGroups">{{group}}</p>
+<p *ngFor="let group of bestGroups" (mouseenter)="highlightGroup(group[0],group[1],group[2],group[3])"
+   (mouseleave)="highlightGroup(group[0],group[1],group[2],group[3])">{{group}}</p>

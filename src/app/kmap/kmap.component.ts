@@ -15,15 +15,19 @@ export class KmapComponent implements OnInit {
   nRows = 4;
   nColumns = 4;
 
-  kmapIDs: number[][] = [[], [], [], []];
+  kmapIDs: number[][];
 
   kmapEvaluations: number[][];
   bestGroups: number[][];
+  highlightedKmap: boolean[][];
 
   constructor(private parserService: ParserService) { }
 
   ngOnInit() {
     this.kmapEvaluations = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    this.kmapIDs = [[], [], [], []];
+    this.highlightedKmap = [[false, false, false, false], [false, false, false, false],
+      [false, false, false, false], [false, false, false, false]];
 
     const binaries = ['00', '01', '11', '10'];
     for (let i in binaries) {
@@ -49,9 +53,9 @@ export class KmapComponent implements OnInit {
 
     const parser = this.parserService.getParser();
     const query = this.parserService.getQuery();
-    let expr;
+    let expression;
     try {
-      expr = parser.parse(query);
+      expression = parser.parse(query);
       for (let i in this.kmapIDs) {
         for (let j in this.kmapIDs[i]) {
           let dec_number = this.kmapIDs[i][j];
@@ -59,7 +63,7 @@ export class KmapComponent implements OnInit {
           b_var = !!(dec_number & this.FLAG_B);
           c_var = !!(dec_number & this.FLAG_C);
           d_var = !!(dec_number & this.FLAG_D);
-          evaluation = expr.evaluate({ A: a_var, B: b_var, C: c_var, D: d_var });
+          evaluation = expression.evaluate({ A: a_var, B: b_var, C: c_var, D: d_var });
           let evaluationNumber = (evaluation) ? 1 : 0;
           this.kmapEvaluations[i][j] = evaluationNumber;
           markedKmap[i][j] = evaluationNumber;
@@ -136,7 +140,7 @@ export class KmapComponent implements OnInit {
     for (let i = 0 ; i < this.nRows; i++) {
       this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, i, 0, 2, 4);
     }
-    for (let j; j < this.nColumns; j++) {
+    for (let j = 0; j < this.nColumns; j++) {
       this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, 0, j, 4, 2);
     }
 
@@ -144,23 +148,40 @@ export class KmapComponent implements OnInit {
     for (let i = 0 ; i < this.nRows; i++) {
       this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, i, 0, 1, 4);
     }
-    for (let j; j < this.nColumns; j++) {
+    for (let j = 0; j < this.nColumns; j++) {
       this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, 0, j, 4, 1);
     }
     for (let i = 0 ; i < this.nRows; i++) {
       for (let j = 0; j < this.nColumns; j++) {
         this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, i, j, 2, 2);
+      }
+    }
 
     // Check 2x
+    for (let i = 0 ; i < this.nRows; i++) {
+      for (let j = 0; j < this.nColumns; j++) {
         this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, i, j, 1, 2);
         this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, i, j, 2, 1);
+      }
+    }
 
     // Check 1x
+    for (let i = 0 ; i < this.nRows; i++) {
+      for (let j = 0; j < this.nColumns; j++) {
         this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, i, j, 1, 1);
       }
     }
 
     return bestGroups;
+  }
+
+  highlightGroup(offRow: number, offCol: number, rangeRow: number, rangeCol: number) {
+    let cellsInGroup: number[] = [];
+    for (let i = offRow; i < offRow + rangeRow; i++) {
+      for (let j = offCol; j < offCol + rangeCol; j++) {
+        this.highlightedKmap[i % this.nRows][j % this.nRows] = !this.highlightedKmap[i % this.nRows][j % this.nRows];
+      }
+    }
   }
 
 }

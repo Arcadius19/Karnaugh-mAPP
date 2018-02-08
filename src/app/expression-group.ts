@@ -75,5 +75,35 @@ export class ExpressionGroup {
     return resultString;
   }
 
+  containedIn(expression: ExpressionGroup): boolean {
+    if (expression.aVar != null && this.aVar != expression.aVar) { return false; }
+    if (expression.bVar != null && this.bVar != expression.bVar) { return false; }
+    if (expression.cVar != null && this.cVar != expression.cVar) { return false; }
+    if (expression.dVar != null && this.dVar != expression.dVar) { return false; }
+
+    return true;
+  }
+
+  resolutionAux(var1: boolean, var2: boolean): boolean {
+    let result: boolean = null;
+
+    if (var1 == var2) { result = var1; }
+    if (var1 == null) { result = var2; }
+    if (var2 == null) { result = var1; }
+
+    return result;
+}
+
+  resolute(expression: ExpressionGroup): ExpressionGroup {
+    let result = new ExpressionGroup(null, null, null, null);
+
+    result.aVar = this.resolutionAux(this.aVar, expression.aVar);
+    result.bVar = this.resolutionAux(this.bVar, expression.bVar);
+    result.cVar = this.resolutionAux(this.cVar, expression.cVar);
+    result.dVar = this.resolutionAux(this.dVar, expression.dVar);
+
+    return result;
+  }
+
 }
 ExpressionGroup.initilize();

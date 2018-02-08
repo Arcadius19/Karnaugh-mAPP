@@ -187,7 +187,20 @@ export class KmapComponent implements OnInit {
 
   findExpression (offRow: number, offCol: number, rangeRow: number, rangeCol: number): string {
     let expressionGroup = ExpressionGroup.fromGridToGroup(offRow, offCol, rangeRow, rangeCol);
+
     return expressionGroup.toString();
+  }
+
+  onClickDebug() {
+    let temp1 = new ExpressionGroup(true, true, null, false);
+    let temp2 = new ExpressionGroup(true, true, null, null);
+    let checkIfContained = temp1.containedIn(temp2);
+    console.log('1st expression is contained in temp2: ', checkIfContained);
+
+    let temp3 = new ExpressionGroup(true, null, true, null);
+    let temp4 = new ExpressionGroup(null, false, false, null);
+    let resolution = temp3.resolute(temp4);
+    console.log('3rd expression resoluted with 4th: ', resolution);
   }
 
 }

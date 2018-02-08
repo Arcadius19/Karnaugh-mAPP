@@ -105,5 +105,14 @@ export class ExpressionGroup {
     return result;
   }
 
+  equals(expression: ExpressionGroup): boolean {
+    if (this.aVar != expression.aVar) { return false; }
+    if (this.bVar != expression.bVar) { return false; }
+    if (this.cVar != expression.cVar) { return false; }
+    if (this.dVar != expression.dVar) { return false; }
+
+    return true;
+  }
+
 }
 ExpressionGroup.initilize();

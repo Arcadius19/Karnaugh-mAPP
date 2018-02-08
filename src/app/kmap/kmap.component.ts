@@ -173,6 +173,9 @@ export class KmapComponent implements OnInit {
       }
     }
 
+    let bestGroupExpressions = this.findMinimal(bestGroups);
+    console.log('Best groups as expressions', bestGroupExpressions);
+
     return bestGroups;
   }
 
@@ -201,6 +204,35 @@ export class KmapComponent implements OnInit {
     let temp4 = new ExpressionGroup(null, false, false, null);
     let resolution = temp3.resolute(temp4);
     console.log('3rd expression resoluted with 4th: ', resolution);
+  }
+
+  findMinimal(groups: number[][]): ExpressionGroup[] {
+    let expressions: ExpressionGroup[] = [];
+    for (let group of groups) {
+      expressions.push(ExpressionGroup.fromGridToGroup(group[0], group[1], group[2], group[3]));
+    }
+
+    let index = 0;
+    indexLoop:
+      while (index < expressions.length) {
+        for (let i = 0; i < expressions.length; i++) {
+          for (let j = i + 1; j < expressions.length; j++) {
+            if (index != i && index != j) {
+              console.log('index: ' + index + ', i: ' + i + ', j: ' + j +
+                ', array length: ' + expressions.length);
+              if (expressions[index].equals(expressions[i].resolute(expressions[j]))) {
+                console.log('Found the resolution');
+                expressions.splice(index, 1);
+                console.log(expressions);
+                continue indexLoop;
+              }
+            }
+          }
+        }
+        index++;
+      }
+
+    return expressions;
   }
 
 }

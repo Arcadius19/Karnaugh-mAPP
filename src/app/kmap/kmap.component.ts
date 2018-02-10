@@ -197,13 +197,10 @@ export class KmapComponent implements OnInit {
   onClickDebug() {
     let temp1 = new ExpressionGroup(true, true, null, false);
     let temp2 = new ExpressionGroup(true, true, null, null);
-    let checkIfContained = temp1.containedIn(temp2);
-    console.log('1st expression is contained in temp2: ', checkIfContained);
-
-    let temp3 = new ExpressionGroup(true, null, true, null);
-    let temp4 = new ExpressionGroup(null, false, false, null);
-    let resolution = temp3.resolute(temp4);
-    console.log('3rd expression resoluted with 4th: ', resolution);
+    let temp1Cells = temp1.findCells();
+    let temp2Cells = temp2.findCells();
+    console.log('1st expression cells: ', temp1Cells);
+    console.log('2nd expression cells: ', temp2Cells);
   }
 
   findMinimal(groups: number[][]): ExpressionGroup[] {

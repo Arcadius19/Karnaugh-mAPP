@@ -54,6 +54,7 @@ export class ExpressionGroup {
     }
 
     // check which variables remain the same across all cells
+    // if variable changes its value, set to null (does not determine a group)
     for (let i = offRow; i < offRow + rangeRow; i++) {
       for (let j = offCol; j < offCol + rangeCol; j++) {
         for (let k in varValues) {
@@ -70,9 +71,18 @@ export class ExpressionGroup {
     return resultGroup;
   }
 
+  static findNumberArray(variable: boolean, flag: number): number[] {
+    if (variable == null) {
+      return [0, flag];
+    } else if (variable == true) {
+      return [flag];
+    } else {
+      return [0];
+    }
+  }
+
   toString(): string {
-    let resultString = 'A: ' + this.aVar + ', B: ' + this.bVar + ', C: ' + this.cVar + ', D: ' + this.dVar;
-    return resultString;
+    return ('A: ' + this.aVar + ', B: ' + this.bVar + ', C: ' + this.cVar + ', D: ' + this.dVar);
   }
 
   containedIn(expression: ExpressionGroup): boolean {
@@ -92,7 +102,7 @@ export class ExpressionGroup {
     if (var2 == null) { result = var1; }
 
     return result;
-}
+  }
 
   resolute(expression: ExpressionGroup): ExpressionGroup {
     let result = new ExpressionGroup(null, null, null, null);
@@ -112,6 +122,36 @@ export class ExpressionGroup {
     if (this.dVar != expression.dVar) { return false; }
 
     return true;
+  }
+
+  // fromGroupToGrid(): number[] {
+  //   let result = [];
+  //   for (let i = 0; i < 4; i++) {
+  //     for (let j = 0; j < 4; j++) {
+  //       if (this.aVar == null || !!(ExpressionGroup.kmapIDs[i][j] & ExpressionGroup.FLAG_A) == this.aVar) {
+  //
+  //       }
+  //     }
+  //   }
+  // }
+
+  findCells(): number[] {
+    let aNumber = ExpressionGroup.findNumberArray(this.aVar, ExpressionGroup.FLAG_A);
+    let bNumber = ExpressionGroup.findNumberArray(this.bVar, ExpressionGroup.FLAG_B);
+    let cNumber = ExpressionGroup.findNumberArray(this.cVar, ExpressionGroup.FLAG_C);
+    let dNumber = ExpressionGroup.findNumberArray(this.dVar, ExpressionGroup.FLAG_D);
+
+    let result: number[] = [];
+    for (let a of aNumber) {
+      for (let b of bNumber) {
+        for (let c of cNumber) {
+          for (let d of dNumber) {
+            result.push(a + b + c + d);
+          }
+        }
+      }
+    }
+    return result;
   }
 
 }

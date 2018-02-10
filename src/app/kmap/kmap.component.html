@@ -38,4 +38,4 @@
 <div>Best groups</div>
 <p *ngFor="let group of bestGroups" (mouseenter)="highlightGroup(group[0],group[1],group[2],group[3])"
    (mouseleave)="highlightGroup(group[0],group[1],group[2],group[3])"
-   (click)="onClickDebug()">{{group}} {{findExpression(group[0],group[1],group[2],group[3])}}</p>
+   (click)="onClickDebug(group[0],group[1],group[2],group[3])">{{group}} {{findExpression(group[0],group[1],group[2],group[3])}}</p>

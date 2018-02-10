@@ -194,13 +194,12 @@ export class KmapComponent implements OnInit {
     return expressionGroup.toString();
   }
 
-  onClickDebug() {
-    let temp1 = new ExpressionGroup(true, true, null, false);
-    let temp2 = new ExpressionGroup(true, true, null, null);
+  onClickDebug(offRow: number, offCol: number, rangeRow: number, rangeCol: number) {
+    let temp1 = ExpressionGroup.fromGridToGroup(offRow, offCol, rangeRow, rangeCol);
     let temp1Cells = temp1.findCells();
-    let temp2Cells = temp2.findCells();
-    console.log('1st expression cells: ', temp1Cells);
-    console.log('2nd expression cells: ', temp2Cells);
+    let temp1BackToGrid = temp1.fromGroupToGrid();
+    console.log('Expression cells: ', temp1Cells);
+    console.log('Back to Grid: ', temp1BackToGrid);
   }
 
   findMinimal(groups: number[][]): ExpressionGroup[] {

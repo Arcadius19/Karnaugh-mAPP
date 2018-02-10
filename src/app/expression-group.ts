@@ -124,16 +124,83 @@ export class ExpressionGroup {
     return true;
   }
 
-  // fromGroupToGrid(): number[] {
-  //   let result = [];
-  //   for (let i = 0; i < 4; i++) {
-  //     for (let j = 0; j < 4; j++) {
-  //       if (this.aVar == null || !!(ExpressionGroup.kmapIDs[i][j] & ExpressionGroup.FLAG_A) == this.aVar) {
-  //
-  //       }
-  //     }
-  //   }
-  // }
+  fromGroupToGrid(): number[] {
+    let nRow = 4;
+    let nCol = 4;
+
+    let endRow = nRow;
+    let endCol = nCol;
+
+    let i = 0;
+    let j = 0;
+
+    let candidate: number[];
+
+    loop:
+      for (let rowAdd = 0; rowAdd < nRow; rowAdd++) {
+        for (let colAdd = 0; colAdd < nCol; colAdd++) {
+          candidate = this.findCandidateGrid(i + rowAdd, j + colAdd, nRow, nCol, endRow + rowAdd, endCol + colAdd);
+
+          console.log('rowAdd: ', rowAdd, ' colAdd: ', colAdd);
+          console.log('candidate: ', candidate);
+          console.log(ExpressionGroup.fromGridToGroup(candidate[0], candidate[1], candidate[2], candidate[3]));
+
+          if (this.equals(ExpressionGroup.fromGridToGroup(candidate[0], candidate[1], candidate[2], candidate[3]))) {
+            break loop;
+          }
+        }
+      }
+
+    return candidate;
+
+  }
+
+  findCandidateGrid(i: number, j: number, nRow: number, nCol: number, rowEnd: number, colEnd: number): number[] {
+    let cells = this.findCells();
+
+    let offRow = -1;
+    let offCol = -1;
+    let rangeRow = 0;
+    let rangeCol = 0;
+
+    let goRow = true;
+    let goCol = true;
+
+    let startColScan = j;
+
+    findGrid:
+      while (i < rowEnd) {
+        goRow = true;
+        j = startColScan;
+        while (j < colEnd) {
+          if (cells.includes(ExpressionGroup.kmapIDs[i % nRow][j % nCol])) {
+            if (offRow < 0 && offCol < 0) {
+              offRow = i % nRow;
+              offCol = j % nCol;
+              startColScan = j;
+            }
+            if (goRow) {
+              rangeRow++;
+              goRow = false;
+            }
+            if (goCol) { rangeCol++; }
+            if (j == colEnd - 1) { goCol = false; }
+          } else if (offCol >= 0) {
+            goCol = false;
+            if (j != startColScan) {
+              break findGrid;
+            } else {
+              i++;
+              continue findGrid;
+            }
+          }
+          j++;
+        }
+        i++;
+      }
+
+    return [offRow, offCol, rangeRow, rangeCol];
+  }
 
   findCells(): number[] {
     let aNumber = ExpressionGroup.findNumberArray(this.aVar, ExpressionGroup.FLAG_A);

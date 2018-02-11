@@ -6,18 +6,6 @@ export class ParserService {
   parser: Parser;
   query: string;
 
-  setQuery(query) {
-    this.query = query;
-  }
-
-  getQuery(): string {
-    return this.query;
-  }
-
-  getParser(): Parser {
-    return this.parser;
-  }
-
   constructor() {
     this.parser = new Parser({operators: {
         add: false,
@@ -31,9 +19,21 @@ export class ParserService {
         subtract: false,
         logical: true,
         comparison: false
-    }});
+      }});
 
     this.query = '';
+  }
+
+  setQuery(query) {
+    this.query = query;
+  }
+
+  getQuery(): string {
+    return this.query;
+  }
+
+  getParser(): Parser {
+    return this.parser;
   }
 
 }

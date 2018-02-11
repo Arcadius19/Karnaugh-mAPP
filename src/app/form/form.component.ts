@@ -24,7 +24,7 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit(form: any): void {
-    console.log('You submitted value:', form);
+    console.log('Submitted value:', form);
     const query = form.query;
     this.parserService.setQuery(query);
     this.myEvent.emit(null);
@@ -35,11 +35,8 @@ export class FormComponent implements OnInit {
     const parser = this.parserService.getParser();
     try {
       const expr = parser.parse(query_string);
-      console.log(query_string, ' gives ');
-      console.log('Valid query', expr.evaluate({A: 1, B: 1, C: 1, D: 1}));
       return null;
     } catch (err) {
-      // console.log('Invalid query', err);
       return {'invalidQuery': true};
     }
   }

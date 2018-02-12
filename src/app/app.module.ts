@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { KmapComponent } from './kmap/kmap.component';
 import { FormComponent } from './form/form.component';
 import { ParserService } from './parser.service';
-import { MathjaxDirective } from './mathjax.directive';
+import { MathjaxDirective } from './mathjax-aux/mathjax.directive';
 
 
 @NgModule({

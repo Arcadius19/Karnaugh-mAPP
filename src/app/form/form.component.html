@@ -17,4 +17,6 @@
   </div>
 
   <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
+  <div>Input query: <span appMathJax [mathString]="mathText">{{mathString}}</span></div>
+
 </form>

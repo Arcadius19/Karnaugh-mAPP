@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ParserService } from '../parser.service';
+import {MathJax} from '../mathjax-aux/math-jax';
 
 @Component({
   selector: 'app-form',
@@ -10,6 +11,7 @@ import { ParserService } from '../parser.service';
 export class FormComponent implements OnInit {
   form: FormGroup;
   query: AbstractControl;
+  mathText = '\\(False\\)'; // field used for displaying MathJax text beneath the form
   @Output() myEvent = new EventEmitter();
 
   constructor(fb: FormBuilder, private parserService: ParserService) {
@@ -28,6 +30,7 @@ export class FormComponent implements OnInit {
     const query = form.query;
     this.parserService.setQuery(query);
     this.myEvent.emit(null);
+    this.toMathJax();
   }
 
   queryValidator(control: FormControl): { [s: string]: boolean} {
@@ -39,6 +42,10 @@ export class FormComponent implements OnInit {
     } catch (err) {
       return {'invalidQuery': true};
     }
+  }
+
+  toMathJax() {
+    this.mathText = MathJax.toMathJax(this.query.value);
   }
 
 }

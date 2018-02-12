@@ -23,8 +23,6 @@ export class KmapComponent implements OnInit {
   bestGroups: GridGroup[];
   highlightedKmap: boolean[][];
 
-  mathString = '$$ x = \\sqrt{2} $$';
-
   constructor(private parserService: ParserService) { }
 
   ngOnInit() {

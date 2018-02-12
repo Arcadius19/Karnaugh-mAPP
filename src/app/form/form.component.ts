@@ -11,7 +11,7 @@ import {MathJax} from '../mathjax-aux/math-jax';
 export class FormComponent implements OnInit {
   form: FormGroup;
   query: AbstractControl;
-  mathText = '\\(False\\)'; // field used for displaying MathJax text beneath the form
+  mathText = '\\(\\bot\\)'; // field used for displaying MathJax text beneath the form
   @Output() myEvent = new EventEmitter();
 
   constructor(fb: FormBuilder, private parserService: ParserService) {

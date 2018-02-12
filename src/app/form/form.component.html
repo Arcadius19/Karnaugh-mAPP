@@ -1,22 +1,27 @@
 <form [formGroup]="form"
   (ngSubmit)="onSubmit(form.value)">
 
-  <div class="form-group">
-    <label for="query">Type an expression you want to evaluate</label>
+  <label for="query">Type an expression you want to evaluate</label>
+
+  <div class="input-group">
     <input type="text"
            class="form-control"
            id="query"
            placeholder="Expression"
            [formControl]="form.controls['query']">
-    <div *ngIf="query.hasError('required') && (query.dirty || query.touched)" class="alert alert-danger">
-      Type an expression you want to evaluate.
-    </div>
-    <div *ngIf="query.hasError('invalidQuery') && (query.dirty || query.touched)" class="alert alert-danger">
-      Invalid syntax.
+
+    <div class="input-group-btn">
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
     </div>
   </div>
 
-  <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
-  <div>Input query: <span appMathJax [mathString]="mathText">{{mathString}}</span></div>
+  <div *ngIf="query.hasError('required') && (query.dirty || query.touched)" class="alert alert-danger">
+    Type an expression you want to evaluate.
+  </div>
+  <div *ngIf="query.hasError('invalidQuery') && (query.dirty || query.touched)" class="alert alert-danger">
+    Invalid syntax.
+  </div>
 
 </form>
+
+<div id="query-latex">Input query: <span appMathJax [mathString]="mathText">{{mathString}}</span></div>

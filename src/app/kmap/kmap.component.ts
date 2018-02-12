@@ -185,8 +185,8 @@ export class KmapComponent implements OnInit {
     }
   }
 
-  toExpressionGroup(gridGroup: GridGroup): ExpressionGroup {
-    return ExpressionGroup.parseGridGroup(gridGroup);
+  toExpressionGroup(gridGroup: GridGroup): string {
+    return ExpressionGroup.parseGridGroup(gridGroup).toMathJax();
   }
 
   onClickDebug(gridGroup: GridGroup) {

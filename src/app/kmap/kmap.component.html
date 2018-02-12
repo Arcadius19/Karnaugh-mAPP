@@ -39,4 +39,4 @@
 <p *ngFor="let group of bestGroups"
    (mouseenter)="highlightGroup(group)"
    (mouseleave)="highlightGroup(group)"
-   (click)="onClickDebug(group)">{{group}} => {{toExpressionGroup(group)}}</p>
+   (click)="onClickDebug(group)">{{group}} => <span appMathJax [mathString]="toExpressionGroup(group)"></span></p>

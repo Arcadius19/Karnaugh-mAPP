@@ -1,4 +1,5 @@
 import {GridGroup} from './grid-group';
+import {MathJax} from './mathjax-aux/math-jax';
 
 export class ExpressionGroup {
   static FLAG_A = 8; // 1000
@@ -116,8 +117,33 @@ export class ExpressionGroup {
     return result;
   }
 
+  static toMathJaxAux(variable: boolean, char: string): string {
+    let resultString = '';
+    if (variable == true) {
+      resultString = char + ' and ';
+    } else if (variable == false) {
+      resultString = ' not ' + char + ' and ';
+    }
+
+    return resultString;
+  }
+
   toString(): string {
     return ('A: ' + this.aVar + ', B: ' + this.bVar + ', C: ' + this.cVar + ', D: ' + this.dVar);
+  }
+
+  toMathJax(): string {
+    let resultString = ExpressionGroup.toMathJaxAux(this.aVar, 'A') +
+      ExpressionGroup.toMathJaxAux(this.bVar, 'B') +
+      ExpressionGroup.toMathJaxAux(this.cVar, 'C') +
+      ExpressionGroup.toMathJaxAux(this.dVar, 'D');
+
+    // remove and at the end if exists
+    if (resultString.substr(-4, 3) == 'and') {
+      resultString = resultString.slice(0, -4);
+    }
+
+    return MathJax.toMathJax(resultString);
   }
 
   equals(expression: ExpressionGroup): boolean {

@@ -6,7 +6,7 @@ import { GridGroup } from '../grid-group';
 @Component({
   selector: 'app-kmap',
   templateUrl: './kmap.component.html',
-  styleUrls: ['./kmap.component.css']
+  styleUrls: ['./kmap.component.css'],
 })
 export class KmapComponent implements OnInit {
   FLAG_A = 8; // 1000
@@ -22,6 +22,8 @@ export class KmapComponent implements OnInit {
   kmapEvaluations: number[][];
   bestGroups: GridGroup[];
   highlightedKmap: boolean[][];
+
+  mathString = '$$ x = \\sqrt{2} $$';
 
   constructor(private parserService: ParserService) { }
 

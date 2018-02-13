@@ -9,6 +9,7 @@ import { FormComponent } from './form/form.component';
 import { ParserService } from './parser.service';
 import { MathjaxDirective } from './mathjax-aux/mathjax.directive';
 import { TypeFormComponent } from './kmap/type-form/type-form.component';
+import {GlobalVariablesService} from './global-variables.service';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { TypeFormComponent } from './kmap/type-form/type-form.component';
     ReactiveFormsModule
   ],
   providers: [
-    ParserService
+    ParserService,
+    GlobalVariablesService
   ],
   bootstrap: [AppComponent]
 })

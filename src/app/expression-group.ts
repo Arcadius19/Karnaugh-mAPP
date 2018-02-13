@@ -31,15 +31,7 @@ export class ExpressionGroup {
   }
 
   // check the value of a given variable in the cell [offRow, offCol]
-  static findVarValue(offRow: number, offCol: number, variable: string) {
-    let flag: number;
-    switch (variable) {
-      case 'A': {flag = ExpressionGroup.FLAG_A; break; }
-      case 'B': {flag = ExpressionGroup.FLAG_B; break; }
-      case 'C': {flag = ExpressionGroup.FLAG_C; break; }
-      case 'D': {flag = ExpressionGroup.FLAG_D; break; }
-    }
-
+  static findVarValue(offRow: number, offCol: number, flag: number) {
     return !!(ExpressionGroup.kmapIDs[offRow % 4][offCol % 4] & flag);
   }
 
@@ -49,11 +41,11 @@ export class ExpressionGroup {
 
     let varValues = [];
     let varChanges = [false, false, false, false];
-    let varChars = ['A', 'B', 'C', 'D'];
+    let varFlags = [ExpressionGroup.FLAG_A, ExpressionGroup.FLAG_B, ExpressionGroup.FLAG_C, ExpressionGroup.FLAG_D];
 
     // check variables' value in most upper-left cells
-    for (let i in varChars) {
-      varValues[i] = ExpressionGroup.findVarValue(gridGroup.offRow, gridGroup.offCol, varChars[i]);
+    for (let i in varFlags) {
+      varValues[i] = ExpressionGroup.findVarValue(gridGroup.offRow, gridGroup.offCol, varFlags[i]);
     }
 
     // check which variables remain the same across all cells
@@ -61,7 +53,7 @@ export class ExpressionGroup {
     for (let i = gridGroup.offRow; i < gridGroup.offRow + gridGroup.rangeRow; i++) {
       for (let j = gridGroup.offCol; j < gridGroup.offCol + gridGroup.rangeCol; j++) {
         for (let k in varValues) {
-          if (!varChanges[k] && (varValues[k] != ExpressionGroup.findVarValue(i, j, varChars[k]))) {
+          if (!varChanges[k] && (varValues[k] != ExpressionGroup.findVarValue(i, j, varFlags[k]))) {
             varChanges[k] = true;
             varValues[k] = null;
           }

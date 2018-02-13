@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ParserService } from '../parser.service';
 import { ExpressionGroup } from '../expression-group';
 import { GridGroup } from '../grid-group';
+import {GlobalVariablesService} from '../global-variables.service';
 
 @Component({
   selector: 'app-kmap',
@@ -25,7 +26,8 @@ export class KmapComponent implements OnInit {
   bestGroups: GridGroup[];
   highlightedKmap: boolean[][];
 
-  constructor(private parserService: ParserService) { }
+  constructor(private parserService: ParserService,
+              private globalVariables: GlobalVariablesService) { }
 
   ngOnInit() {
     this.kmapEvaluations = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];

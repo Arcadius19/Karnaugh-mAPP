@@ -40,8 +40,9 @@
   </div>
 </div>
 
-<div>Best groups</div>
+<div>Groups for minimal solutions</div>
 <p *ngFor="let group of bestGroups"
    (mouseenter)="highlightGroup(group)"
    (mouseleave)="highlightGroup(group)"
-   (click)="onClickDebug(group)">{{group}} => <span appMathJax [mathString]="toExpressionGroup(group)"></span></p>
+   (click)="onClickDebug(group)">{{group}} => <span appMathJax [mathString]="toExpressionGroup(group)"></span>
+</p>

@@ -8,6 +8,7 @@ import { KmapComponent } from './kmap/kmap.component';
 import { FormComponent } from './form/form.component';
 import { ParserService } from './parser.service';
 import { MathjaxDirective } from './mathjax-aux/mathjax.directive';
+import { TypeFormComponent } from './kmap/type-form/type-form.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MathjaxDirective } from './mathjax-aux/mathjax.directive';
     AppComponent,
     KmapComponent,
     FormComponent,
-    MathjaxDirective
+    MathjaxDirective,
+    TypeFormComponent
   ],
   imports: [
     BrowserModule,

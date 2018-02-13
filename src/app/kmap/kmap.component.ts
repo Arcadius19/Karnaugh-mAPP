@@ -14,6 +14,8 @@ export class KmapComponent implements OnInit {
   FLAG_C = 2; // 0010
   FLAG_D = 1; // 0001
 
+  kmapType: number;
+
   nRows = 4;
   nColumns = 4;
 
@@ -195,6 +197,11 @@ export class KmapComponent implements OnInit {
     let temp1BackToGrid = temp1.toGridGroup();
     console.log('Expression cells: ', temp1Cells);
     console.log('Back to Grid: ', temp1BackToGrid);
+  }
+
+  onTypeChange(kmapType: number) {
+    this.kmapType = kmapType;
+    console.log('Kmap component got a Kmap type: ', this.kmapType);
   }
 
 }

@@ -47,7 +47,7 @@
      (mouseleave)="highlightGroup(group)"
      (click)="onClickDebug(group)">{{group}} => <span appMathJax [mathString]="toExpressionGroup(group)"></span>
   </p>
-  <div>Final solution: <span appMathJax [mathString]="displayWholeSolution(dnfGroups, true)"></span></div>
+  <div>Final solution: <span appMathJax [mathString]="displayWholeSolution(true)"></span></div>
 </div>
 
 <div *ngIf="!kmapType">
@@ -57,5 +57,5 @@
      (mouseleave)="highlightGroup(group)"
      (click)="onClickDebug(group)">{{group}} => <span appMathJax [mathString]="toExpressionGroup(group)"></span>
   </p>
-  <div>Final solution: <span appMathJax [mathString]="displayWholeSolution(cnfGroups, false)"></span></div>
+  <div>Final solution: <span appMathJax [mathString]="displayWholeSolution(false)"></span></div>
 </div>

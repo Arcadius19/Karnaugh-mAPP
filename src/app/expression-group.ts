@@ -125,7 +125,7 @@ export class ExpressionGroup {
     let result = groups[0].toMathJax(dnfType);
 
     for (let i = 1; i < groups.length; i++) {
-      result = '(' + result + ')' + connector + '(' + groups[i].toMathJax() + ')';
+      result = '(' + result + ')' + connector + '(' + groups[i].toMathJax(dnfType) + ')';
     }
 
     return MathJax.toMathJax(result);

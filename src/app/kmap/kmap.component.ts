@@ -198,8 +198,17 @@ export class KmapComponent implements OnInit {
     return ExpressionGroup.toWholeSolution([ExpressionGroup.parseGridGroup(gridGroup)]);
   }
 
-  displayWholeSolution(gridGroups: GridGroup[], dnfType = true): string {
-    return ExpressionGroup.toWholeSolution(gridGroups.map(ExpressionGroup.parseGridGroup), dnfType);
+  displayWholeSolution(dnfType = true): string {
+    if (dnfType) {
+      if (this.dnfGroups != undefined && this.dnfGroups.length > 0) {
+        return ExpressionGroup.toWholeSolution(this.dnfGroups.map(ExpressionGroup.parseGridGroup), dnfType);
+      }
+    } else {
+      if (this.cnfGroups != undefined && this.cnfGroups.length > 0) {
+        return ExpressionGroup.toWholeSolution(this.cnfGroups.map(ExpressionGroup.parseGridGroup), dnfType);
+      }
+    }
+    return '';
   }
 
   onClickDebug(gridGroup: GridGroup) {

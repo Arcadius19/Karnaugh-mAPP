@@ -109,33 +109,45 @@ export class ExpressionGroup {
     return result;
   }
 
-  static toMathJaxAux(variable: boolean, char: string): string {
+  static toMathJaxAux(variable: boolean, char: string, connector: string, notNegate = true): string {
     let resultString = '';
-    if (variable == true) {
-      resultString = char + ' and ';
-    } else if (variable == false) {
-      resultString = ' not ' + char + ' and ';
+    if (variable == notNegate) {
+      resultString = char + connector;
+    } else if (variable == !notNegate) {
+      resultString = ' not ' + char + connector;
     }
 
     return resultString;
+  }
+
+  static toWholeSolution(groups: ExpressionGroup[], dnfType = true): string {
+    let connector = dnfType ? ' or ' : ' and ';
+    let result = groups[0].toMathJax(dnfType);
+
+    for (let i = 1; i < groups.length; i++) {
+      result = '(' + result + ')' + connector + '(' + groups[i].toMathJax() + ')';
+    }
+
+    return MathJax.toMathJax(result);
   }
 
   toString(): string {
     return ('A: ' + this.aVar + ', B: ' + this.bVar + ', C: ' + this.cVar + ', D: ' + this.dVar);
   }
 
-  toMathJax(): string {
-    let resultString = ExpressionGroup.toMathJaxAux(this.aVar, 'A') +
-      ExpressionGroup.toMathJaxAux(this.bVar, 'B') +
-      ExpressionGroup.toMathJaxAux(this.cVar, 'C') +
-      ExpressionGroup.toMathJaxAux(this.dVar, 'D');
+  toMathJax(product = true): string {
+    let connector = product ? ' and ' : ' or ';
+    let resultString = ExpressionGroup.toMathJaxAux(this.aVar, 'A', connector, product) +
+      ExpressionGroup.toMathJaxAux(this.bVar, 'B', connector, product) +
+      ExpressionGroup.toMathJaxAux(this.cVar, 'C', connector, product) +
+      ExpressionGroup.toMathJaxAux(this.dVar, 'D', connector, product);
 
     // remove and at the end if exists
-    if (resultString.substr(-4, 3) == 'and') {
-      resultString = resultString.slice(0, -4);
+    if (resultString.substr(-connector.length, connector.length) == connector) {
+      resultString = resultString.slice(0, -connector.length);
     }
 
-    return MathJax.toMathJax(resultString);
+    return resultString;
   }
 
   equals(expression: ExpressionGroup): boolean {

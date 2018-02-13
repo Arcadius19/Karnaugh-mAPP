@@ -40,9 +40,22 @@
   </div>
 </div>
 
-<div>Groups for minimal solutions</div>
-<p *ngFor="let group of bestGroups"
-   (mouseenter)="highlightGroup(group)"
-   (mouseleave)="highlightGroup(group)"
-   (click)="onClickDebug(group)">{{group}} => <span appMathJax [mathString]="toExpressionGroup(group)"></span>
-</p>
+<div *ngIf="kmapType">
+  <div>Groups for DNF minimal solutions</div>
+  <p *ngFor="let group of dnfGroups"
+     (mouseenter)="highlightGroup(group)"
+     (mouseleave)="highlightGroup(group)"
+     (click)="onClickDebug(group)">{{group}} => <span appMathJax [mathString]="toExpressionGroup(group)"></span>
+  </p>
+  <div>Final solution: <span appMathJax [mathString]="displayWholeSolution(dnfGroups, true)"></span></div>
+</div>
+
+<div *ngIf="!kmapType">
+  <div>Groups for CNF minimal solutions</div>
+  <p *ngFor="let group of cnfGroups"
+     (mouseenter)="highlightGroup(group)"
+     (mouseleave)="highlightGroup(group)"
+     (click)="onClickDebug(group)">{{group}} => <span appMathJax [mathString]="toExpressionGroup(group)"></span>
+  </p>
+  <div>Final solution: <span appMathJax [mathString]="displayWholeSolution(cnfGroups, false)"></span></div>
+</div>

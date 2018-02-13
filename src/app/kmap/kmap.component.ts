@@ -15,7 +15,7 @@ export class KmapComponent implements OnInit {
   FLAG_C = 2; // 0010
   FLAG_D = 1; // 0001
 
-  kmapType: number;
+  kmapType = 1;
 
   nRows = 4;
   nColumns = 4;
@@ -23,8 +23,9 @@ export class KmapComponent implements OnInit {
   kmapIDs: number[][];
 
   kmapEvaluations: number[][];
-  bestGroups: GridGroup[];
   highlightedKmap: boolean[][];
+  dnfGroups: GridGroup[];
+  cnfGroups: GridGroup[];
 
   constructor(private parserService: ParserService,
               private globalVariables: GlobalVariablesService) { }
@@ -45,7 +46,8 @@ export class KmapComponent implements OnInit {
 
   onClick() {
     let kmapMarked = this.evaluateExpression();         // essentially kmapMarked is a copy of this.kmapEvaluations
-    this.bestGroups = this.findBestGroups(kmapMarked);  // but operating directly on the class property caused some asynchronous issues
+    this.dnfGroups = this.findBestGroups(kmapMarked, true);  // but operating directly on the class property caused some asynchronous issues
+    this.cnfGroups = this.findBestGroups(kmapMarked, false);
   }
 
   evaluateExpression(): number[][] {
@@ -75,6 +77,7 @@ export class KmapComponent implements OnInit {
           markedKmap[i][j] = evaluationNumber;
         }
       }
+    // that should never happen as the query was first validated in the form component
     } catch (err) {
       console.log(err);
     }
@@ -82,45 +85,49 @@ export class KmapComponent implements OnInit {
     return markedKmap;
   }
 
-  findBestGroups(kmapMarked: number[][]): GridGroup[] {
+  findBestGroups(kmapMarked: number[][], dnfType = true): GridGroup[] {
     let bestGroups: GridGroup[] = [];
 
+    if (!dnfType) {
+      kmapMarked = kmapMarked.map(x => x.map(y => (1 - y)));
+    }
+
     // Check 16x
-    this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(0, 0, 4, 4));
+    this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(0, 0, 4, 4), dnfType);
 
     // Check 8x
     for (let i = 0 ; i < this.nRows; i++) {
-      this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(i, 0, 2, 4));
+      this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(i, 0, 2, 4), dnfType);
     }
     for (let j = 0; j < this.nColumns; j++) {
-      this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(0, j, 4, 2));
+      this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(0, j, 4, 2), dnfType);
     }
 
     // Check 4x
     for (let i = 0 ; i < this.nRows; i++) {
-      this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(i, 0, 1, 4));
+      this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(i, 0, 1, 4), dnfType);
     }
     for (let j = 0; j < this.nColumns; j++) {
-      this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(0, j, 4, 1));
+      this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(0, j, 4, 1), dnfType);
     }
     for (let i = 0 ; i < this.nRows; i++) {
       for (let j = 0; j < this.nColumns; j++) {
-        this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(i, j, 2, 2));
+        this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(i, j, 2, 2), dnfType);
       }
     }
 
     // Check 2x
     for (let i = 0 ; i < this.nRows; i++) {
       for (let j = 0; j < this.nColumns; j++) {
-        this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(i, j, 1, 2));
-        this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(i, j, 2, 1));
+        this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(i, j, 1, 2), dnfType);
+        this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(i, j, 2, 1), dnfType);
       }
     }
 
     // Check 1x
     for (let i = 0 ; i < this.nRows; i++) {
       for (let j = 0; j < this.nColumns; j++) {
-        this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(i, j, 1, 1));
+        this.checkPushMark({markedArray: kmapMarked, bestArray: bestGroups}, new GridGroup(i, j, 1, 1), dnfType);
       }
     }
 
@@ -131,24 +138,22 @@ export class KmapComponent implements OnInit {
   }
 
   // to return two values, markedArray and bestArray are passed as an object, so they are modified in place
-  checkPushMark(pair: {markedArray: number[][], bestArray: GridGroup[]}, gridGroup: GridGroup) {
-
-    if (this.checkGroup(gridGroup) && this.checkMarked(pair.markedArray, gridGroup)) {
-
+  checkPushMark(pair: {markedArray: number[][], bestArray: GridGroup[]}, gridGroup: GridGroup, dnfType: boolean) {
+    if (this.checkGroup(gridGroup, dnfType) && this.checkMarked(pair.markedArray, gridGroup)) {
       pair.bestArray.push(gridGroup);
       pair.markedArray = this.markGroup(pair.markedArray, gridGroup);
     }
-
     return pair;
   }
 
   // check if a group of cells starting at [off_row][off_col] spanning to [off_row+ran_row][off_col+ran_col] is a valid group, i.e.
   // all cells in a group evaluate the expression to true
-  checkGroup(gridGroup: GridGroup): boolean {
+  checkGroup(gridGroup: GridGroup, dnfType: boolean): boolean {
+    let comparison = dnfType ? 0 : 1;
     let isValid = true;
     for (let i = gridGroup.offRow; i < gridGroup.offRow + gridGroup.rangeRow; i++) {
       for (let j = gridGroup.offCol; j < gridGroup.offCol + gridGroup.rangeCol; j++) {
-        if (this.kmapEvaluations[i % this.nRows][j % this.nColumns] == 0) {
+        if (this.kmapEvaluations[i % this.nRows][j % this.nColumns] == comparison) {
           isValid = false;
           break;
         }
@@ -190,7 +195,11 @@ export class KmapComponent implements OnInit {
   }
 
   toExpressionGroup(gridGroup: GridGroup): string {
-    return ExpressionGroup.parseGridGroup(gridGroup).toMathJax();
+    return ExpressionGroup.toWholeSolution([ExpressionGroup.parseGridGroup(gridGroup)]);
+  }
+
+  displayWholeSolution(gridGroups: GridGroup[], dnfType = true): string {
+    return ExpressionGroup.toWholeSolution(gridGroups.map(ExpressionGroup.parseGridGroup), dnfType);
   }
 
   onClickDebug(gridGroup: GridGroup) {
@@ -203,7 +212,6 @@ export class KmapComponent implements OnInit {
 
   onTypeChange(kmapType: number) {
     this.kmapType = kmapType;
-    console.log('Kmap component got a Kmap type: ', this.kmapType);
   }
 
 }

@@ -34,9 +34,10 @@ export class FormComponent implements OnInit {
   }
 
   queryValidator(control: FormControl): { [s: string]: boolean} {
-    const query_string = control.value;
+    let query_string = control.value;
     const parser = this.parserService.getParser();
     try {
+      query_string = this.parserService.preParse(query_string);
       const expr = parser.parse(query_string);
       return null;
     } catch (err) {

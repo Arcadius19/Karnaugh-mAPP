@@ -60,9 +60,10 @@ export class KmapComponent implements OnInit {
     let markedKmap: number[][] = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 
     const parser = this.parserService.getParser();
-    const query = this.parserService.getQuery();
+    let query = this.parserService.getQuery();
     let expression;
     try {
+      query = this.parserService.preParse(query);
       expression = parser.parse(query);
       for (let i in this.kmapIDs) {
         for (let j in this.kmapIDs[i]) {

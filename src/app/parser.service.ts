@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Parser, Expression } from 'expr-eval';
+import { Parser } from 'expr-eval';
 
 @Injectable()
 export class ParserService {
@@ -42,6 +42,13 @@ export class ParserService {
   }
 
   preParse(query: string): string {
+    let parsedQuery = this.ifThenParse(query);
+    parsedQuery = this.iffParse(parsedQuery);
+
+    return parsedQuery;
+  }
+
+  iffParse(query: string): string {
     let iffRep = / iff /gi;
     query = query.replace(iffRep, ' <=> ');
 
@@ -55,7 +62,6 @@ export class ParserService {
     let found = false;
 
     for (let i = 0; i < query.length; i++) {
-      console.log('L');
       if (query.charAt(i) == '(') {
         openBrackets.push(i);
       }
@@ -74,10 +80,6 @@ export class ParserService {
           firstTermEnd = i;
           secondTermStart = i + 5;
 
-          console.log('i: ', i);
-          console.log('char: ', query.charAt(i));
-          console.log('openBrackets: ', openBrackets);
-          console.log('openBrackets.length: ', openBrackets.length);
           if (openBrackets.length > 0) {
             firstTermStart = openBrackets[openBrackets.length - 1] + 1;
           } else {
@@ -88,6 +90,7 @@ export class ParserService {
         } else {
           if (openBrackets.length == 0 || openBrackets[openBrackets.length - 1] == firstTermStart - 1) {
             secondTermEnd = i;
+            break;
           }
         }
       }
@@ -98,11 +101,85 @@ export class ParserService {
       return query;
     } else {
 
-      // non-matching bracket will cause secondTermEnd have no value
-      if (secondTermEnd == undefined) {
-        console.log('Non-matching brackets');
-        throw new SyntaxError();
+      let beforeTerm = query.substring(0, firstTermStart);
+      let firstTerm = query.substring(firstTermStart, firstTermEnd);
+      let secondTerm = query.substring(secondTermStart, secondTermEnd);
+      let afterTerm = query.substring(secondTermEnd);
+
+      // if a term on any side is empty, throw an error
+      if (firstTerm == '' || secondTerm == '') {
+        throw new SyntaxError('Empty expression on one of the sides');
       }
+
+      let iffModifiedString =
+        beforeTerm +
+        '(((' + firstTerm + ') and (' + secondTerm + '))' +
+        ' or ' +
+        '(not (' + firstTerm + ') and not (' + secondTerm + ')))' +
+        afterTerm;
+
+      return this.preParse(iffModifiedString);
+    }
+  }
+
+  ifThenParse(query: string): string {
+    let openBrackets: number[] = [];
+
+    let firstTermStart = 0;
+    let firstTermEnd;
+    let secondTermStart;
+    let secondTermEnd = query.length;
+
+    let lastIff = 0;
+    let found = false;
+
+    for (let i = 0; i < query.length; i++) {
+      if (query.charAt(i) == '(') {
+        openBrackets.push(i);
+      }
+
+      if (query.charAt(i) == ')') {
+        if (found && openBrackets[openBrackets.length - 1] == firstTermStart - 1) {
+          secondTermEnd = i;
+          break;
+        }
+        openBrackets.pop();
+      }
+
+      if (query.substr(i, 4) == ' => ') {
+        if (!found) {
+          found = true;
+          firstTermEnd = i;
+          secondTermStart = i + 4;
+
+          if (openBrackets.length > 0 && lastIff - 1 < openBrackets[openBrackets.length - 1]) {
+            firstTermStart = openBrackets[openBrackets.length - 1] + 1;
+          } else {
+            firstTermStart = lastIff;
+          }
+
+        } else {
+          if (openBrackets.length == 0 || openBrackets[openBrackets.length - 1] == firstTermStart - 1) {
+            secondTermEnd = i;
+            break;
+          }
+        }
+      }
+
+      if (query.substr(i, 5) == ' <=> ') {
+        if (!found) {
+          lastIff = i + 5;
+        } else {
+          secondTermEnd = i;
+          break;
+        }
+      }
+    }
+
+    // After scanning
+    if (!found) {
+      return query;
+    } else {
 
       let beforeTerm = query.substring(0, firstTermStart);
       let firstTerm = query.substring(firstTermStart, firstTermEnd);
@@ -111,31 +188,29 @@ export class ParserService {
 
       // if a term on any side is empty, throw an error
       if (firstTerm == '' || secondTerm == '') {
-        console.log('Empty expression on one of the sides');
-        throw new SyntaxError();
+        throw new SyntaxError('Empty expression on one of the sides');
       }
 
       // DEBUG
-      console.log('After resolving');
-      console.log('firsTermStart: ', firstTermStart);
-      console.log('firsTermEnd: ', firstTermEnd);
-      console.log('secondTermStart: ', secondTermStart);
-      console.log('secondTermEnd: ', secondTermEnd);
-      console.log('before: ', beforeTerm);
-      console.log('first term: ', firstTerm);
-      console.log('second term: ', secondTerm);
-      console.log('after: ', afterTerm);
+      // console.log('After resolving');
+      // console.log('firstTermStart: ', firstTermStart);
+      // console.log('firstTermEnd: ', firstTermEnd);
+      // console.log('secondTermStart: ', secondTermStart);
+      // console.log('secondTermEnd: ', secondTermEnd);
+      // console.log('before: ', beforeTerm);
+      // console.log('first term: ', firstTerm);
+      // console.log('second term: ', secondTerm);
+      // console.log('after: ', afterTerm);
 
-      console.log('Starting recursion on');
-      let iffModifiedString =
+      let ifThenModifiedString =
         beforeTerm +
-        '(((' + firstTerm + ') and (' + secondTerm + '))' +
-        ' or ' +
-        '(not (' + firstTerm + ') and not (' + secondTerm + ')))' +
+        '(not (' + firstTerm + ') or (' + secondTerm + '))' +
         afterTerm;
 
-      console.log(iffModifiedString);
-      return this.preParse(iffModifiedString);
+      // console.log('Recursion for: ');
+      // console.log(ifThenModifiedString);
+
+      return this.preParse(ifThenModifiedString);
     }
   }
 

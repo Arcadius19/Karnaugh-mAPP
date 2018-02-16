@@ -10,6 +10,11 @@ import { ParserService } from './parser.service';
 import { MathjaxDirective } from './mathjax-aux/mathjax.directive';
 import { TypeFormComponent } from './kmap/type-form/type-form.component';
 import {GlobalVariablesService} from './global-variables.service';
+import {AppRoutingModule} from './app-routing.module';
+import { ExercisesComponent } from './exercises/exercises.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomeComponent } from './home/home.component';
+import { PlaygroundComponent } from './playground/playground.component';
 
 
 @NgModule({
@@ -18,12 +23,17 @@ import {GlobalVariablesService} from './global-variables.service';
     KmapComponent,
     FormComponent,
     MathjaxDirective,
-    TypeFormComponent
+    TypeFormComponent,
+    ExercisesComponent,
+    PageNotFoundComponent,
+    HomeComponent,
+    PlaygroundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [
     ParserService,

@@ -15,6 +15,7 @@ import { ExercisesComponent } from './exercises/exercises.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { PlaygroundComponent } from './playground/playground.component';
+import { ExercisesFormComponent } from './exercises/exercises-form/exercises-form.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { PlaygroundComponent } from './playground/playground.component';
     ExercisesComponent,
     PageNotFoundComponent,
     HomeComponent,
-    PlaygroundComponent
+    PlaygroundComponent,
+    ExercisesFormComponent
   ],
   imports: [
     BrowserModule,

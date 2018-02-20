@@ -1,18 +1,31 @@
-<span *ngIf="!(exercise$ | async) as exercise">
+<ng-container *ngIf="!(exercise$ | async) as exercise">
   <div class="page-header">
     <h2>Expression to Karnaugh Map <br>
       <small >Loading...</small>
     </h2>
   </div>
-</span>
+</ng-container>
 
-<span *ngIf="exercise$ | async as exercise">
+<ng-container *ngIf="exercise$ | async as exercise">
   <div class="page-header">
     <h2>Expression to Karnaugh Map <br>
       <small >Question {{exercise.id}}</small>
     </h2>
   </div>
 
-  <p *ngIf="markTrue">Mark all the states on the Karnaugh Map for which the following expression evaluates to true.</p>
-  <p *ngIf="!markTrue">Mark all the states on the Karnaugh Map that are excluded by the following expression</p>
-</span>
+  <div class="panel panel-default">
+    <div class="panel-heading" *ngIf="markTrue">
+      Mark all the states for which the following expression evaluates to true.
+    </div>
+    <div class="panel-heading" *ngIf="!markTrue">
+      Mark all the states that are excluded by the following expression
+    </div>
+
+    <div class="panel-body text-center"><span appMathJax [mathString]="latexExpression"></span></div>
+  </div>
+
+  <app-interactive-kmap [nVars]="nVars"></app-interactive-kmap>
+
+  <button class="btn btn-primary center-block">Verify</button>
+
+</ng-container>

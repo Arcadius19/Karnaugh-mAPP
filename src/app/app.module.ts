@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { PlaygroundComponent } from './playground/playground.component';
 import { ExExprToKmapComponent } from './exercises/ex-expr-to-kmap/ex-expr-to-kmap.component';
 import { ExIntroductionComponent } from './exercises/ex-introduction/ex-introduction.component';
+import { InteractiveKmapComponent } from './interactive-kmap/interactive-kmap.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ExIntroductionComponent } from './exercises/ex-introduction/ex-introduc
     HomeComponent,
     PlaygroundComponent,
     ExExprToKmapComponent,
-    ExIntroductionComponent
+    ExIntroductionComponent,
+    InteractiveKmapComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+    <table id="kmap_table">
+
+      <tr>
+        <td rowspan="2" colspan="2"></td>
+        <th colspan="4">
+          <ng-container *ngIf="kmap.nVars == 3">BC</ng-container>
+          <ng-container *ngIf="kmap.nVars == 4">CD</ng-container>
+        </th>
+      </tr>
+      <tr>
+        <th>00</th>
+        <th>01</th>
+        <th>11</th>
+        <th>10</th>
+      </tr>
+
+      <tr>
+        <th rowspan="4" *ngIf="kmap.nVars==4">AB</th>
+        <th rowspan="2" *ngIf="kmap.nVars==3">A</th>
+        <th>{{kmap.binariesVertical[0]}}</th>
+        <td *ngFor="let j of [0,1,2,3]"><div class="content">{{kmap.cellIds[0][j]}}</div></td>
+      </tr>
+
+      <ng-container *ngFor="let binary of kmap.binariesVertical; index as i">
+        <tr *ngIf="i != 0">
+          <th>{{binary}}</th>
+          <td *ngFor="let j of [0,1,2,3]"><div class="content">{{kmap.cellIds[i][j]}}</div></td>
+        </tr>
+      </ng-container>
+
+    </table>
+  </div>
+</div>

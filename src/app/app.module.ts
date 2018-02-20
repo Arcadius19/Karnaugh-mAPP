@@ -15,7 +15,8 @@ import { ExercisesComponent } from './exercises/exercises.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { PlaygroundComponent } from './playground/playground.component';
-import { ExercisesFormComponent } from './exercises/exercises-form/exercises-form.component';
+import { ExExprToKmapComponent } from './exercises/ex-expr-to-kmap/ex-expr-to-kmap.component';
+import { ExIntroductionComponent } from './exercises/ex-introduction/ex-introduction.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ExercisesFormComponent } from './exercises/exercises-form/exercises-for
     PageNotFoundComponent,
     HomeComponent,
     PlaygroundComponent,
-    ExercisesFormComponent
+    ExExprToKmapComponent,
+    ExIntroductionComponent
   ],
   imports: [
     BrowserModule,

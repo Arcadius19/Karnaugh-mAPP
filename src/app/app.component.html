@@ -14,12 +14,15 @@
 
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li><a routerLink="/" routerLinkActive="active"
-                 [routerLinkActiveOptions]="{exact: true}">Home</a></li>
-          <li><a routerLink="exercises" routerLinkActive="active"
-                 [routerLinkActiveOptions]="{exact: true}">Exercises</a></li>
-          <li><a routerLink="playground" routerLinkActive="active"
-                 [routerLinkActiveOptions]="{exact: true}">Playground</a></li>
+          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a routerLink="/">Home</a>
+          </li>
+          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a routerLink="exercises">Exercises</a>
+          </li>
+          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a routerLink="playground">Instant Solver</a>
+          </li>
         </ul>
       </div>
     </div>

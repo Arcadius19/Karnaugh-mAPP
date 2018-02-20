@@ -1,11 +1,23 @@
 <div class="row">
   <div class="col-sm-3">
-    <app-exercises-form></app-exercises-form>
+    <ul class="nav nav-pills nav-stacked">
+      <li class="dropdown" routerLinkActive="active">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Expression to Karnaugh Map<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a routerLink="expr-to-kmap/1">A</a></li>
+          <li><a routerLink="expr-to-kmap/2">A &or; B</a></li>
+          <li><a routerLink="expr-to-kmap/3">A &and; C</a></li>
+        </ul>
+      </li>
+
+
+      <li routerLinkActive="active"><a routerLink="kmap-to-expr">Karnaugh Map to Expression</a></li>
+      <li routerLinkActive="active"><a routerLink="numbering" >Number states</a></li>
+      <li routerLinkActive="active"><a routerLink="resolution">Resolution</a></li>
+    </ul>
   </div>
 
   <div class="col-sm-9">
-    <div class="jumbotron">
-      <h2>There will be an exercise here</h2>
-    </div>
+    <router-outlet></router-outlet>
   </div>
 </div>

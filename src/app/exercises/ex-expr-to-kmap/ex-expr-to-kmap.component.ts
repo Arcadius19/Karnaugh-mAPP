@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import {ExExprToKmap, ExExprToKmapService} from './ex-expr-to-kmap.service';
 import {Observable} from 'rxjs/Observable';
 import {MathJax} from '../../mathjax-aux/math-jax';
+import {InteractiveKmapComponent} from '../../interactive-kmap/interactive-kmap.component';
 
 @Component({
   selector: 'app-ex-expr-to-kmap',
@@ -11,6 +12,9 @@ import {MathJax} from '../../mathjax-aux/math-jax';
   styleUrls: ['./ex-expr-to-kmap.component.css']
 })
 export class ExExprToKmapComponent implements OnInit {
+
+  @ViewChild(InteractiveKmapComponent)
+  private interKmapComponent: InteractiveKmapComponent;
 
   exercise$: Observable<ExExprToKmap>;
   markTrue: boolean;
@@ -33,6 +37,10 @@ export class ExExprToKmapComponent implements OnInit {
       this.markTrue = Math.random() > 0.5;
       this.latexExpression = MathJax.toMathJax(exercise.expression);
     });
+  }
+
+  onVerify() {
+    console.log(this.interKmapComponent.marked);
   }
 
 }

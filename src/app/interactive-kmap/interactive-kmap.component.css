@@ -44,3 +44,11 @@ td:hover {
   background: #ddd;
   cursor: pointer;
 }
+
+td.selected-neutral:hover {
+  filter: brightness(85%);
+}
+
+td.selected-neutral {
+  background: dodgerblue;
+}

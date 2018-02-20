@@ -1,5 +1,5 @@
 <ng-container *ngIf="!(exercise$ | async) as exercise">
-  <div class="page-header">
+  <div class="page-header header-no-top-margin">
     <h2>Expression to Karnaugh Map <br>
       <small >Loading...</small>
     </h2>
@@ -7,7 +7,7 @@
 </ng-container>
 
 <ng-container *ngIf="exercise$ | async as exercise">
-  <div class="page-header">
+  <div class="custom-header">
     <h2>Expression to Karnaugh Map <br>
       <small >Question {{exercise.id}}</small>
     </h2>
@@ -21,11 +21,17 @@
       Mark all the states that are excluded by the following expression
     </div>
 
-    <div class="panel-body text-center"><span appMathJax [mathString]="latexExpression"></span></div>
+    <div class="panel-body text-center latex-height">
+      <span appMathJax [mathString]="latexExpression"></span>
+    </div>
   </div>
 
-  <app-interactive-kmap [nVars]="nVars"></app-interactive-kmap>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <app-interactive-kmap [nVars]="nVars"></app-interactive-kmap>
+    </div>
+  </div>
 
-  <button class="btn btn-primary center-block">Verify</button>
+  <button class="btn btn-primary center-block" (click)="onVerify()">Verify</button>
 
 </ng-container>

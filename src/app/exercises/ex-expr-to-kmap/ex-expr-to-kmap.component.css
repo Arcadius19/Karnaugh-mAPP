@@ -1,5 +1,5 @@
 .latex-height {
-  height: 50px;
+  min-height: 50px;
 }
 
 .custom-header {
@@ -10,4 +10,8 @@
 
 .custom-header h2 {
   margin-top: 0;
+}
+
+.panel-success {
+  border-color: #46da72;
 }

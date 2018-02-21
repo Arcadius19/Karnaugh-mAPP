@@ -13,7 +13,7 @@
     </h2>
   </div>
 
-  <div class="panel panel-default">
+  <div class="panel panel-default" [ngClass]="resultStyle">
     <div class="panel-heading" *ngIf="markTrue">
       Mark all the states for which the following expression evaluates to true.
     </div>
@@ -26,12 +26,16 @@
     </div>
   </div>
 
-  <div class="panel panel-default">
+  <div class="panel panel-default" [ngClass]="resultStyle">
     <div class="panel-body">
       <app-interactive-kmap [nVars]="nVars"></app-interactive-kmap>
     </div>
   </div>
 
   <button class="btn btn-primary center-block" (click)="onVerify()">Verify</button>
+
+  <div *ngIf="correct" class="alert alert-success">
+    <strong>Success!</strong> You gained {{exercise.points}} points.
+  </div>
 
 </ng-container>

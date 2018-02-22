@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ExExprToKmapService} from './ex-expr-to-kmap/ex-expr-to-kmap.service';
+import {ExExprToKmap, ExExprToKmapService} from './ex-expr-to-kmap/ex-expr-to-kmap.service';
+import {Observable} from 'rxjs/Observable';
+import {MathJax} from '../mathjax-aux/math-jax';
 
 @Component({
   selector: 'app-exercises',
@@ -8,10 +10,17 @@ import {ExExprToKmapService} from './ex-expr-to-kmap/ex-expr-to-kmap.service';
   providers: [ExExprToKmapService]
 })
 export class ExercisesComponent implements OnInit {
+  exprToKmapExercises: ExExprToKmap[];
 
-  constructor() { }
+  constructor(private exprToKmapService: ExExprToKmapService) {
+  }
 
   ngOnInit() {
+    this.exprToKmapExercises = this.exprToKmapService.getExercises();
+  }
+
+  toBrowserText(expression: string): string {
+    return MathJax.toBrowserText(expression);
   }
 
 }

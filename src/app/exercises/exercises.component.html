@@ -4,9 +4,11 @@
       <li class="dropdown" routerLinkActive="active">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Expression to Karnaugh Map<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a routerLink="expr-to-kmap/1">A</a></li>
-          <li><a routerLink="expr-to-kmap/2">A &or; B</a></li>
-          <li><a routerLink="expr-to-kmap/3">A &and; C</a></li>
+          <li *ngFor="let exercise of exprToKmapExercises">
+            <a routerLink="expr-to-kmap/{{exercise.id}}">
+            {{exercise.id}}. <span [innerHTML]="toBrowserText(exercise.expression)"></span>
+            </a>
+          </li>
         </ul>
       </li>
 

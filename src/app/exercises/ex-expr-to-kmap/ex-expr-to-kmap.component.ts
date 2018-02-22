@@ -18,6 +18,7 @@ export class ExExprToKmapComponent implements OnInit {
   private interKmapComponent: InteractiveKmapComponent;
 
   exercise$: Observable<ExExprToKmap>;
+  id: number;
   markTrue: boolean;          // whether user should select true or false states
   nVars = 4;                  // may be changed to dynamic in future
   latexExpression: string;    // expression in LaTeX form
@@ -38,28 +39,33 @@ export class ExExprToKmapComponent implements OnInit {
   ngOnInit() {
     this.exercise$ = this.route.paramMap
       .switchMap((params: ParamMap) =>
-        this.service.getExercise(params.get('id')));
+        this.service.getExerciseAsync(params.get('id')));
 
     // When a new exercise is loaded
     this.exercise$.subscribe(exercise => {
       if (!exercise) {
         // such an exercise does not exist
         this.router.navigate(['/exercises']);
-        return; }
+        return;
+      }
 
       this.markTrue = Math.random() > 0.5;
       this.latexExpression = MathJax.toMathJax(exercise.expression);
-      if (this.interKmapComponent) {
-        this.interKmapComponent.marked = this.interKmapComponent.marked.map(row => row.map(cell => 0)); // reset marked
-      }
       this.solution = (new KarnaughMap(this.nVars)).evaluate(exercise.expression);
-      this.correct = null;
-      this.resultStyle = null;
-      this.nGuessed = 0;
-      this.nTrue = 0;
-      this.nTrueCorrect = 0;
-      this.nTrueIncorrect = 0;
+      this.resetComponent();
     });
+  }
+
+  resetComponent() {
+    if (this.interKmapComponent) {
+      this.interKmapComponent.marked = this.interKmapComponent.marked.map(row => row.map(cell => 0)); // reset marked
+    }
+    this.correct = null;
+    this.resultStyle = null;
+    this.nGuessed = 0;
+    this.nTrue = 0;
+    this.nTrueCorrect = 0;
+    this.nTrueIncorrect = 0;
   }
 
   onVerify() {
@@ -98,11 +104,14 @@ export class ExExprToKmapComponent implements OnInit {
       this.correct = false;
       this.resultStyle = 'panel-danger';
     }
+  }
 
-    console.log('=== ', result, ' ===');
-    console.log('You have guessed: ', this.nGuessed, ' in total');
-    console.log('You have marked ', this.nTrueCorrect, ' out of ', this.nTrue);
-    console.log('You should have not marked ', this.nTrueIncorrect, ' squares');
+  onTryAgain() {
+    this.resetComponent();
+  }
+
+  onShowSolution() {
+    console.log(this.solution);
   }
 
 }

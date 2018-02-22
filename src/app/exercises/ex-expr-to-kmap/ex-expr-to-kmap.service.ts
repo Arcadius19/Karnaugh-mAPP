@@ -33,11 +33,16 @@ export class ExExprToKmapService {
     return EXERCISES;
   }
 
+  getExercise(id: number | string) {
+    return this.getExercises().find(exercise => exercise.id == +id);
+  }
+
   getExercisesAsync() {
     return Observable.of(EXERCISES);
   }
 
-  getExercise(id: number | string) {
+  getExerciseAsync(id: number | string) {
     return this.getExercisesAsync().map(exercises => exercises.find(exercise => exercise.id == +id));
   }
+
 }

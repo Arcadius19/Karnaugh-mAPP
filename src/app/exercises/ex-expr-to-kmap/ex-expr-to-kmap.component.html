@@ -32,7 +32,14 @@
     </div>
   </div>
 
-  <p><button class="btn btn-primary center-block" (click)="onVerify()">Verify</button></p>
+  <p class="text-center" *ngIf="correct == null">
+    <button class="btn btn-primary" (click)="onVerify()">Verify</button>
+  </p>
+
+  <p class="text-center" *ngIf="correct != null">
+    <button class="btn btn-primary" (click)="onTryAgain()">Try Again</button>
+    <button class="btn btn-success" (click)="onShowSolution()" *ngIf="correct == false">Show Answer</button>
+  </p>
 
   <div *ngIf="correct" class="alert alert-success">
     <strong>Success!</strong> You gained {{exercise.points}} points.

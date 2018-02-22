@@ -12,7 +12,7 @@ export class BestGroupsSolver {
 
   static bestGroups: GridGroup[];
 
-  public static findBestGroups(markedArray: number[][], dnfType: boolean): GridGroup[] {
+  public static findBestGroups(markedArray: number[][], dnfType = true): GridGroup[] {
     BestGroupsSolver.marked = markedArray.map(row => row.map(cell => cell));
     BestGroupsSolver.nRows = this.marked.length;
     BestGroupsSolver.nColumns = this.marked[0].length;

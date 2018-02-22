@@ -8,20 +8,28 @@ import {KarnaughMap} from '../karnaugh-map';
 })
 export class InteractiveKmapComponent implements OnInit {
   @Input() nVars = 4; // default
+  @Input() premarkedCells: number[] = null;
 
   kmap: KarnaughMap;
+  premarked: number[][];
   marked: number[][];
-  selectedStyle: 'selected-neutral';
+
+  // additional
+  highlight: number[][];
 
   constructor() { }
 
   ngOnInit() {
     this.kmap = new KarnaughMap(this.nVars);
     this.marked = this.kmap.cellIds.map(row => row.map(cell => 0));
+    this.premarked = this.kmap.cellsToMap(this.premarkedCells);
+    this.highlight = this.kmap.cellIds.map(row => row.map(cell => 0));
   }
 
   onClickCell(i: number, j: number) {
-    this.marked[i][j] = 1 - this.marked[i][j];
+    if (!this.premarkedCells || this.premarked[i][j] == 1) {
+      this.marked[i][j] = 1 - this.marked[i][j];
+    }
   }
 
 }

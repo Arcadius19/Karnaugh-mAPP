@@ -40,15 +40,24 @@ th .content, td .content {
   filter: brightness(85%);
 }
 
-td:hover {
+.hover:hover {
   background: #ddd;
   cursor: pointer;
 }
 
-td.selected-neutral:hover {
+td.selected-neutral:hover, td.premarked:hover {
   filter: brightness(85%);
+  cursor: pointer;
 }
 
 td.selected-neutral {
   background: dodgerblue;
+}
+
+.premarked {
+  background: #fff063;
+}
+
+.highlighted {
+  background: #947eff;
 }

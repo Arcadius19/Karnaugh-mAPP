@@ -24,7 +24,12 @@
           </ng-container>
 
           <th>{{binary}}</th>
-          <td *ngFor="let j of [0,1,2,3]" (click)="onClickCell(i, j)" [ngClass]='{"selected-neutral": marked[i][j]}'>
+          <td *ngFor="let j of [0,1,2,3]" (click)="onClickCell(i, j)"
+              [ngClass]='{
+              "hover": !premarkedCells,
+              "selected-neutral": marked[i][j],
+              "premarked": premarked[i][j],
+              "highlighted": highlight[i][j]}'>
             <div class="content">{{kmap.cellIds[i][j]}}</div>
           </td>
         </tr>

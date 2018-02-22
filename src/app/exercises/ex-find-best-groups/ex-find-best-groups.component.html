@@ -13,15 +13,52 @@
     </h2>
   </div>
 
-  <div class="panel panel-default">
+  <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
     <div class="panel-heading">
       Find the best possible groups for the marked states.
     </div>
 
-
-    <div class="panel-body text-center latex-height">
-      <app-interactive-kmap></app-interactive-kmap>
+    <div class="panel-body text-center">
+      <app-interactive-kmap [nVars]="exercise.nVars" [premarkedCells]="exercise.cells"></app-interactive-kmap>
     </div>
+  </div>
+
+  <!--TODO-->
+  <!--Make it be overlayed over the components above button-->
+  <!--<div [class.show]="doubleSelected" class="step alert-float">-->
+  <div *ngIf="doubleSelected" style="position: fixed; top: 60px; right: 15px">
+    <div class="alert alert-danger">
+      This group has already been added.
+    </div>
+  </div>
+
+  <div *ngIf="emptySelected" style="position: fixed; top: 60px; right: 15px">
+    <div class="alert alert-danger">
+      Select states to group.
+    </div>
+  </div>
+
+  <p class="text-center">
+    <button class="btn btn-primary" (click)="onGroup()">Group states</button>
+    <button class="btn btn-primary" (click)="onVerify()">Verify</button>
+  </p>
+
+  <div *ngIf="correct" class="alert alert-success">
+    <strong>Success!</strong> You gained {{exercise.points}} points.
+  </div>
+
+  <div class="list-group">
+    <li class="list-group-item" [ngClass]='{
+    "answer-heading": correct == null,
+    "list-group-item-success": correct,
+    "list-group-item-danger": correct == false}'>Your answer</li>
+    <li class="list-group-item" *ngIf="selectedGroups.length == 0"></li>
+    <li class="list-group-item answer-list"
+        *ngFor="let group of selectedGroups; index as i"
+        (mouseenter)="hoverGroup(i)"
+        (mouseleave)="unhoverGroup(i)">
+      <a (click)="removeAnswerGroup(i)" class="close" title="Remove a group">&times;</a>
+      {{group}}</li>
   </div>
 
 </ng-container>

@@ -84,4 +84,22 @@ export class KarnaughMap {
     return evaluations;
   }
 
+  cellsToMap(marked: number[]): number[][] {
+    return this.cellIds.map(row => row.map(cell => (marked) ? +marked.includes(cell) : 0 ));
+  }
+
+  mapToCells(map: number[][]): number[] {
+    let result = [];
+    for (let i in map) {
+      for (let j in map[i]) {
+        if (map[i][j] != 0) {
+          if (this.cellIds[i][j] != undefined) {
+            result.push(this.cellIds[i][j]);
+          }
+        }
+      }
+    }
+    return result;
+  }
+
 }

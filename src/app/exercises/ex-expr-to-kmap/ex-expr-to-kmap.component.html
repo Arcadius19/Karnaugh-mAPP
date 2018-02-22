@@ -32,10 +32,22 @@
     </div>
   </div>
 
-  <button class="btn btn-primary center-block" (click)="onVerify()">Verify</button>
+  <p><button class="btn btn-primary center-block" (click)="onVerify()">Verify</button></p>
 
   <div *ngIf="correct" class="alert alert-success">
     <strong>Success!</strong> You gained {{exercise.points}} points.
+  </div>
+
+  <div *ngIf="!correct && nTrueCorrect < nTrue && nTrueIncorrect == 0" class="alert alert-danger">
+    <strong>Wrong!</strong> Are you sure there are no more states that meet the requirement?
+  </div>
+
+  <div *ngIf="!correct && nTrueCorrect >= nTrue && nTrueIncorrect > 0" class="alert alert-danger">
+    <strong>Wrong!</strong> Some of the states seem to have been marked unnecessarily.
+  </div>
+
+  <div *ngIf="!correct && nTrueCorrect < nTrue && nTrueIncorrect > 0" class="alert alert-danger">
+    <strong>Wrong!</strong> Give it a second thought.
   </div>
 
 </ng-container>

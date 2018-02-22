@@ -17,12 +17,7 @@ export class InteractiveKmapComponent implements OnInit {
 
   ngOnInit() {
     this.kmap = new KarnaughMap(this.nVars);
-    if (this.nVars == 3) {
-      this.marked = [[0, 0, 0, 0], [0, 0, 0, 0]];
-    }
-    if (this.nVars == 4) {
-      this.marked = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-    }
+    this.marked = this.kmap.cellIds.map(row => row.map(cell => 0));
   }
 
   onClickCell(i: number, j: number) {

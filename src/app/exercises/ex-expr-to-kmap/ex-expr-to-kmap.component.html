@@ -37,7 +37,8 @@
   </p>
 
   <p class="text-center" *ngIf="correct != null">
-    <button class="btn btn-primary" (click)="onTryAgain()">Try Again</button>
+    <button class="btn btn-primary" (click)="onVerify()">Verify Again</button>
+    <button class="btn btn-default" (click)="onTryAgain()">Reset</button>
     <button class="btn btn-success" (click)="onShowSolution()" *ngIf="correct == false">Show Answer</button>
   </p>
 

@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-sm-3">
     <ul class="nav nav-pills nav-stacked">
+
       <li class="dropdown" routerLinkActive="active">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Expression to Karnaugh Map<span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -8,6 +9,15 @@
             <a routerLink="expr-to-kmap/{{exercise.id}}">
             {{exercise.id}}. <span [innerHTML]="toBrowserText(exercise.expression)"></span>
             </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="dropdown" routerLinkActive="active">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Find the Best Groups<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li *ngFor="let exercise of findBestGroupsExercises">
+            <a routerLink="find-groups/{{exercise.id}}">Set {{exercise.id}}</a>
           </li>
         </ul>
       </li>

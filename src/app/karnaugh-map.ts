@@ -1,6 +1,5 @@
 import {CustomParser} from './custom-parser';
 
-
 export class KarnaughMap {
   nVars: number;
   cellIds: number[][];

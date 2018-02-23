@@ -15,6 +15,14 @@ export class ExNameGroupComponent implements OnInit {
 
   exercise$: Observable<ExNameGroup>;
 
+  variables = [
+    {name: 'A', answer: null, solution: null},
+    {name: 'B', answer: null, solution: null},
+    {name: 'C', answer: null, solution: null},
+    {name: 'D', answer: null, solution: null}
+  ];
+  correct = null;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -38,6 +46,19 @@ export class ExNameGroupComponent implements OnInit {
         }
       }
     });
+  }
+
+  onVerify() {
+    for (let variable of this.variables) {
+      if (variable.answer == 'true') {
+        variable.answer = true;
+      } else if (variable.answer == 'false') {
+        variable.answer = false;
+      } else {
+        variable.answer = null;
+      }
+      console.log(variable.name + ': ' + variable.answer + ' (type: ' + typeof variable.answer + ')');
+    }
   }
 
 }

@@ -1,4 +1,5 @@
 import {CustomParser} from './custom-parser';
+import {BestGroupsSolver} from './best-groups-solver';
 
 export class KarnaughMap {
   nVars: number;
@@ -10,7 +11,7 @@ export class KarnaughMap {
   flagC: number;
   flagD: number;
 
-  constructor(nVars: number) {
+  constructor(nVars = 4) {
     if (!(nVars == 3 || nVars == 4)) {
       throw new Error('Invalid number of arguments. The number should be 3 or 4.');
     }

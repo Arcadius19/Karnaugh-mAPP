@@ -10,11 +10,13 @@ export class BestGroupsSolver {
 
   static dnfType: boolean;
 
-  static bestGroups: GridGroup[];
+  static bestGroups;
 
-  // TODO
-  // does not work for 3 variables
-  public static findBestGroups(markedArray: number[][], dnfType = true): GridGroup[] {
+  public static findBestGroupsAsGrid(markedArray: number[][], dnfType = true): GridGroup[] {
+    return BestGroupsSolver.findBestGroups(markedArray, dnfType).map(ExpressionGroup.toGridGroup);
+  }
+
+  public static findBestGroups(markedArray: number[][], dnfType = true): ExpressionGroup[] {
     BestGroupsSolver.marked = markedArray.map(row => row.map(cell => cell));
     BestGroupsSolver.nRows = this.marked.length;
     BestGroupsSolver.nColumns = this.marked[0].length;
@@ -95,7 +97,7 @@ export class BestGroupsSolver {
     let bestGroupExpressions = BestGroupsSolver.bestGroups.map(ExpressionGroup.parseGridGroup);
     bestGroupExpressions = ExpressionGroup.findMinimal(bestGroupExpressions);
 
-    return bestGroupExpressions.map(ExpressionGroup.toGridGroup);
+    return bestGroupExpressions;
   }
 
     // to return two values, markedArray and bestArray are passed as an object, so they are modified in place

@@ -15,12 +15,40 @@
 
   <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
     <div class="panel-heading">
-      Write an expression which describes the highlighted group.
+      Choose the right values for all variables for which the highlighted states evaluate to true
+      and the other states are excluded.
     </div>
 
     <div class="panel-body text-center">
       <app-interactive-kmap [premarkedCells]="exercise.cells" [active]="false"></app-interactive-kmap>
     </div>
+  </div>
+
+  <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
+    <div class="panel-heading">
+      Your answer
+    </div>
+
+    <div class="panel-body text-center">
+      <form (ngSubmit)="onVerify()" #answerForm="ngForm" id="answerForm">
+        <ng-container *ngFor="let variable of variables; index as i">
+          <div class="input-group">
+            <span class="input-group-addon">{{variable.name}}</span>
+            <div class="form-control equi-distance">
+              <label class="radio-inline"><input type="radio" name="{{variable.name}}" [(ngModel)]="variable.answer" value="true" required>True</label>
+              <label class="radio-inline"><input type="radio" name="{{variable.name}}" [(ngModel)]="variable.answer" value="false">False</label>
+              <label class="radio-inline"><input type="radio" name="{{variable.name}}" [(ngModel)]="variable.answer" value="null">Not important</label>
+            </div>
+          </div>
+          <br *ngIf="i != 3">
+        </ng-container>
+      </form>
+    </div>
+
+    <div class="panel-footer text-center">
+      <button type="submit" form="answerForm" class="btn btn-primary" [disabled]="!answerForm.valid">Verify</button>
+    </div>
+
   </div>
 
 </ng-container>

@@ -49,7 +49,7 @@ export class ExFindBestGroupsComponent implements OnInit {
         }
         this.kmap = new KarnaughMap(exercise.nVars);
         this.solution = BestGroupsSolver
-          .findBestGroups(this.kmap.cellsToMap(exercise.cells))
+          .findBestGroupsAsGrid(this.kmap.cellsToMap(exercise.cells))
           .map(group => group.toCells(exercise.nVars).sort((n1, n2) => n1 - n2));
         this.resetComponent();
       }

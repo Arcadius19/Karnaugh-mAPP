@@ -1,4 +1,5 @@
 import {KarnaughMap} from './karnaugh-map';
+import {BestGroupsSolver} from './best-groups-solver';
 
 export class GridGroup {
   offRow: number;
@@ -11,6 +12,13 @@ export class GridGroup {
     this.offCol = offCol;
     this.rangeRow = rangeRow;
     this.rangeCol = rangeCol;
+  }
+
+  // TODO
+  // remove circularity between classes (?)
+  // check if cell id's form a valid group
+  static checkIfCellsGrid(cells: number[], nVars = 4) {
+    return BestGroupsSolver.findBestGroups((new KarnaughMap(nVars)).cellsToMap(cells)).length == 1;
   }
 
   toString(): string {

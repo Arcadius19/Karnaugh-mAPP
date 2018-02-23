@@ -43,8 +43,8 @@ export class KmapComponent implements OnInit {
 
   onClick() {
     this.kmapEvaluations = (new KarnaughMap(4)).evaluate(this.parserService.getQuery());
-    this.dnfGroups = BestGroupsSolver.findBestGroups(this.kmapEvaluations, true);
-    this.cnfGroups = BestGroupsSolver.findBestGroups(this.kmapEvaluations, false);
+    this.dnfGroups = BestGroupsSolver.findBestGroupsAsGrid(this.kmapEvaluations, true);
+    this.cnfGroups = BestGroupsSolver.findBestGroupsAsGrid(this.kmapEvaluations, false);
   }
 
   highlightGroup(gridGroup: GridGroup) {

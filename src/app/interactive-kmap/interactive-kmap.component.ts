@@ -8,6 +8,7 @@ import {KarnaughMap} from '../karnaugh-map';
 })
 export class InteractiveKmapComponent implements OnInit {
   @Input() nVars = 4; // default
+  @Input() active = true; // default
   @Input() premarkedCells: number[] = null;
 
   kmap: KarnaughMap;
@@ -27,7 +28,7 @@ export class InteractiveKmapComponent implements OnInit {
   }
 
   onClickCell(i: number, j: number) {
-    if (!this.premarkedCells || this.premarked[i][j] == 1) {
+    if (this.active && (!this.premarkedCells || this.premarked[i][j] == 1)) {
       this.marked[i][j] = 1 - this.marked[i][j];
     }
   }

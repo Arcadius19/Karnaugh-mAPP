@@ -58,7 +58,8 @@
         (mouseenter)="hoverGroup(i)"
         (mouseleave)="unhoverGroup(i)">
       <a (click)="removeAnswerGroup(i)" class="close" title="Remove a group">&times;</a>
-      {{group}}</li>
+      <strong>Group {{i+1}}:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{group}}
+    </li>
   </div>
 
 </ng-container>

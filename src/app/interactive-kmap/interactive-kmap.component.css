@@ -20,14 +20,6 @@ table {
   margin-right:auto;
 }
 
-.cellTrue {
-  background: #22bb45;
-}
-
-.cellFalse {
-  background: #ff9494;
-}
-
 th .content, td .content {
   position: absolute;
   top: 0;
@@ -36,16 +28,12 @@ th .content, td .content {
   right: 0;
 }
 
-.highlight {
-  filter: brightness(85%);
-}
-
 .hover:hover {
   background: #ddd;
   cursor: pointer;
 }
 
-td.selected-neutral:hover, td.premarked:hover {
+td.selected-neutral:hover, td.premarked-active:hover {
   filter: brightness(85%);
   cursor: pointer;
 }

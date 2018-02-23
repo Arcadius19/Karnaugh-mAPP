@@ -1,4 +1,4 @@
-import {Injectable, Optional} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
 export class ExFindBestGroups {
@@ -19,7 +19,7 @@ let EXERCISES = [
   new ExFindBestGroups(1, 1, [1, 2, 3, 4]),
   new ExFindBestGroups(2, 2, [0, 1, 4, 5, 15, 14, 11, 10]),
   new ExFindBestGroups(3, 2, [7, 6, 15, 14, 12, 13, 8, 9]),
-  new ExFindBestGroups(4, 2, [0, 4, 2, 6], 3),
+  new ExFindBestGroups(4, 2, [0, 4, 2, 6], 3)
 ];
 
 @Injectable()

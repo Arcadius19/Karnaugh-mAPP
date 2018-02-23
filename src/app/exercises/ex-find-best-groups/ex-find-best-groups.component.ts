@@ -4,7 +4,6 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ExFindBestGroups, ExFindBestGroupsService} from './ex-find-best-groups.service';
 import {Observable} from 'rxjs/Observable';
 import {KarnaughMap} from '../../karnaugh-map';
-import {GridGroup} from '../../grid-group';
 import {BestGroupsSolver} from '../../best-groups-solver';
 
 @Component({
@@ -96,8 +95,6 @@ export class ExFindBestGroupsComponent implements OnInit {
   }
 
   onVerify() {
-    console.log('selected: ', this.selectedGroups);
-    console.log('solution: ', this.solution);
     let found = 0;
     loopSelectedGroups:
       for (let selectedGroup of this.selectedGroups) {

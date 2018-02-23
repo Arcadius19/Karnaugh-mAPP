@@ -14,11 +14,22 @@
       </li>
 
       <li class="dropdown" routerLinkActive="active">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Find the Best Groups<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li *ngFor="let exercise of findBestGroupsExercises">
-            <a routerLink="find-groups/{{exercise.id}}">Set {{exercise.id}}</a>
-          </li>
+        <a class="dropdown-toggle" data-toggle="collapse" href="#collapse2">Find the Best Groups<span class="caret"></span></a>
+        <ul class="panel-collapse collapse list-group" id="collapse2">
+          <!--<li *ngFor="let exercise of findBestGroupsExercises" class="list-group-item">-->
+            <a routerLink="find-groups/{{exercise.id}}" *ngFor="let exercise of findBestGroupsExercises" class="list-group-item">Set {{exercise.id}}</a>
+          <!--</li>-->
+        </ul>
+      </li>
+
+      <li class="dropdown" routerLinkActive="active">
+        <a class="dropdown-toggle" data-toggle="collapse" href="#collapse3">Name the Group<span class="caret"></span></a>
+        <ul class="panel-collapse collapse list-group" id="collapse3">
+          <a routerLink="name-group/{{exercise.id}}"
+             *ngFor="let exercise of nameGroupExercises"
+             class="list-group-item">
+            Set {{exercise.id}}
+          </a>
         </ul>
       </li>
 

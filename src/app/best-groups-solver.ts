@@ -12,12 +12,19 @@ export class BestGroupsSolver {
 
   static bestGroups: GridGroup[];
 
+  // TODO
+  // does not work for 3 variables
   public static findBestGroups(markedArray: number[][], dnfType = true): GridGroup[] {
     BestGroupsSolver.marked = markedArray.map(row => row.map(cell => cell));
     BestGroupsSolver.nRows = this.marked.length;
     BestGroupsSolver.nColumns = this.marked[0].length;
     BestGroupsSolver.dnfType = dnfType;
     BestGroupsSolver.bestGroups = [];
+
+    // does not support arrays other that 2x4 (3var kmap) or 4x4 (4var kmap)
+    if ((this.nRows != 2 && this.nRows != 4) && (this.nColumns != 4)) {
+      return BestGroupsSolver.bestGroups;
+    }
 
     if (BestGroupsSolver.dnfType) {
       BestGroupsSolver.markedCheck = markedArray.map(row => row.map(cell => cell));
@@ -26,36 +33,55 @@ export class BestGroupsSolver {
     }
 
     // Check 16x
-    if (BestGroupsSolver.nRows == 4 && BestGroupsSolver.nColumns == 4) {
+    if (BestGroupsSolver.nRows == 4) {
       BestGroupsSolver.checkPushMark(new GridGroup(0, 0, 4, 4));
     }
 
     // Check 8x
-    for (let i = 0; i < BestGroupsSolver.nRows; i++) {
-      BestGroupsSolver.checkPushMark( new GridGroup(i, 0, 2, 4));
-    }
-    for (let j = 0; j < BestGroupsSolver.nColumns; j++) {
-      BestGroupsSolver.checkPushMark(new GridGroup(0, j, 4, 2));
+    if (this.nRows == 2) {
+      BestGroupsSolver.checkPushMark( new GridGroup(0, 0, 2, 4));
+    } else {
+      for (let i = 0; i < BestGroupsSolver.nRows; i++) {
+        BestGroupsSolver.checkPushMark( new GridGroup(i, 0, 2, 4));
+      }
+      for (let j = 0; j < BestGroupsSolver.nColumns; j++) {
+        BestGroupsSolver.checkPushMark(new GridGroup(0, j, 4, 2));
+      }
     }
 
     // Check 4x
     for (let i = 0; i < BestGroupsSolver.nRows; i++) {
       BestGroupsSolver.checkPushMark(new GridGroup(i, 0, 1, 4));
     }
-    for (let j = 0; j < BestGroupsSolver.nColumns; j++) {
-      BestGroupsSolver.checkPushMark(new GridGroup(0, j, 4, 1));
-    }
-    for (let i = 0; i < BestGroupsSolver.nRows; i++) {
+    if (this.nRows == 2) {
       for (let j = 0; j < BestGroupsSolver.nColumns; j++) {
-        BestGroupsSolver.checkPushMark(new GridGroup(i, j, 2, 2));
+        BestGroupsSolver.checkPushMark(new GridGroup(0, j, 2, 2));
+      }
+    } else {
+      for (let j = 0; j < BestGroupsSolver.nColumns; j++) {
+        BestGroupsSolver.checkPushMark(new GridGroup(0, j, 4, 1));
+      }
+      for (let i = 0; i < BestGroupsSolver.nRows; i++) {
+        for (let j = 0; j < BestGroupsSolver.nColumns; j++) {
+          BestGroupsSolver.checkPushMark(new GridGroup(i, j, 2, 2));
+        }
       }
     }
 
     // Check 2x
-    for (let i = 0; i < BestGroupsSolver.nRows; i++) {
+    if (this.nRows == 2) {
       for (let j = 0; j < BestGroupsSolver.nColumns; j++) {
-        BestGroupsSolver.checkPushMark(new GridGroup(i, j, 1, 2));
-        BestGroupsSolver.checkPushMark(new GridGroup(i, j, 2, 1));
+        BestGroupsSolver.checkPushMark(new GridGroup(0, j, 2, 1));
+        for (let i = 0; i < BestGroupsSolver.nRows; i++) {
+          BestGroupsSolver.checkPushMark(new GridGroup(i, j, 1, 2));
+        }
+      }
+    } else {
+      for (let i = 0; i < BestGroupsSolver.nRows; i++) {
+        for (let j = 0; j < BestGroupsSolver.nColumns; j++) {
+          BestGroupsSolver.checkPushMark(new GridGroup(i, j, 1, 2));
+          BestGroupsSolver.checkPushMark(new GridGroup(i, j, 2, 1));
+        }
       }
     }
 

@@ -8,6 +8,7 @@ import { PlaygroundComponent } from './playground/playground.component';
 import { ExExprToKmapComponent } from './exercises/ex-expr-to-kmap/ex-expr-to-kmap.component';
 import {ExIntroductionComponent} from './exercises/ex-introduction/ex-introduction.component';
 import {ExFindBestGroupsComponent} from './exercises/ex-find-best-groups/ex-find-best-groups.component';
+import {ExNameGroupComponent} from './exercises/ex-name-group/ex-name-group.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -24,6 +25,11 @@ const routes: Routes = [
       { path: 'find-groups',
         children: [
           { path: ':id', component: ExFindBestGroupsComponent, }
+        ]
+      },
+      { path: 'name-group',
+        children: [
+          { path: ':id', component: ExNameGroupComponent, }
         ]
       },
       {path: '**', component: PageNotFoundComponent}

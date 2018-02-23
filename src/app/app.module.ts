@@ -19,6 +19,7 @@ import { ExExprToKmapComponent } from './exercises/ex-expr-to-kmap/ex-expr-to-km
 import { ExIntroductionComponent } from './exercises/ex-introduction/ex-introduction.component';
 import { InteractiveKmapComponent } from './interactive-kmap/interactive-kmap.component';
 import { ExFindBestGroupsComponent } from './exercises/ex-find-best-groups/ex-find-best-groups.component';
+import { ExNameGroupComponent } from './exercises/ex-name-group/ex-name-group.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { ExFindBestGroupsComponent } from './exercises/ex-find-best-groups/ex-fi
     ExExprToKmapComponent,
     ExIntroductionComponent,
     InteractiveKmapComponent,
-    ExFindBestGroupsComponent
+    ExFindBestGroupsComponent,
+    ExNameGroupComponent
   ],
   imports: [
     BrowserModule,

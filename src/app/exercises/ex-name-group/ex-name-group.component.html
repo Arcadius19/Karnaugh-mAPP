@@ -22,11 +22,15 @@
     <div class="panel-body text-center">
       <app-interactive-kmap [premarkedCells]="kmap.markExpression(exercise.expression)" [active]="false"></app-interactive-kmap>
     </div>
+
+    <div class="panel-footer" *ngIf="correct != null">
+      Solution: <span appMathJax [mathString]="latexSolutionExpression"></span>
+    </div>
   </div>
 
   <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
     <div class="panel-heading">
-      Your answer
+      Your answer: <span appMathJax [mathString]="latexUserExpression"></span>
     </div>
 
     <div class="panel-body text-center">

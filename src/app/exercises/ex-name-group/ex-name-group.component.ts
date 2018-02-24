@@ -4,6 +4,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {ExNameGroup, ExNameGroupService} from './ex-name-group.service';
 import {KarnaughMap} from '../../karnaugh-map';
+import {MathJax} from '../../mathjax-aux/math-jax';
 
 @Component({
   selector: 'app-ex-name-group',
@@ -25,6 +26,8 @@ export class ExNameGroupComponent implements OnInit {
     {name: 'D', formAnswer: null, answer: null, solution: null, result: null}
   ];
   correct = null;
+  latexUserExpression = null;
+  latexSolutionExpression = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -52,6 +55,22 @@ export class ExNameGroupComponent implements OnInit {
         this.variables[2].solution = exercise.expression.cVar;
         this.variables[3].solution = exercise.expression.dVar;
 
+        let latexSolutionExpression = '';
+        for (let variable of this.variables) {
+          if (variable.solution == true) {
+            latexSolutionExpression += ' and ' + variable.name;
+          }
+          if (variable.solution == false) {
+            latexSolutionExpression += ' and not ' + variable.name;
+          }
+        }
+        if (latexSolutionExpression == '') {
+          latexSolutionExpression = '1';
+        } else {
+          latexSolutionExpression = latexSolutionExpression.slice(5);
+        }
+        this.latexSolutionExpression = MathJax.toMathJax(latexSolutionExpression);
+
         this.resetComponent();
       }
     });
@@ -60,16 +79,20 @@ export class ExNameGroupComponent implements OnInit {
   resetComponent() {
     this.variables.map(variable => { variable.formAnswer = null; variable.answer = null; variable.result = null; });
     this.correct = null;
+    this.latexUserExpression = null;
   }
 
   onVerify() {
     let result = true;
+    let latexExpression = '';
 
     for (let variable of this.variables) {
       if (variable.formAnswer == 'true') {
         variable.answer = true;
+        latexExpression += ' and ' + variable.name;
       } else if (variable.formAnswer == 'false') {
         variable.answer = false;
+        latexExpression += ' and not ' + variable.name;
       } else {
         variable.answer = null;
       }
@@ -83,6 +106,14 @@ export class ExNameGroupComponent implements OnInit {
     }
 
     this.correct = result;
+
+    if (latexExpression == '') {
+      latexExpression = '1';
+    } else {
+      latexExpression = latexExpression.slice(5);
+    }
+
+    this.latexUserExpression = MathJax.toMathJax(latexExpression);
   }
 
 }

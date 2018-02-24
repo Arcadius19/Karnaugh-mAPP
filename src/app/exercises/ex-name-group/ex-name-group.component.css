@@ -12,3 +12,21 @@
   display: flex;
   justify-content: space-between;
 }
+
+.input-group-success .input-group-addon, .panel-success .panel-footer {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.input-group-success .form-control {
+  border-color: #d6e9c6;
+}
+
+.input-group-danger .input-group-addon, .panel-danger .panel-footer {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.input-group-danger .form-control {
+  border-color: #ebccd1;
+}

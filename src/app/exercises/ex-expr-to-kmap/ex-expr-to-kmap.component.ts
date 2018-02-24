@@ -22,8 +22,8 @@ export class ExExprToKmapComponent implements OnInit {
   markTrue: boolean;          // whether user should select true or false states
   nVars = 4;                  // may be changed to dynamic in future
   latexExpression: string;    // expression in LaTeX form
-  solution: number[][];       // KMap grid with correct answer
-  correct: boolean;           // whether user's answer was correct or not
+  solution: number[][];       // KMap grid with correct formAnswer
+  correct: boolean;           // whether user's formAnswer was correct or not
   resultStyle: string;        // style for panels (panel-success or panel-danger) depending on 'correct' boolean
   nGuessed: number;           // number of states user marked correctly
   nTrue: number;              // number of states user should mark (all true/false states)

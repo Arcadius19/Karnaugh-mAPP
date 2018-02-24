@@ -20,7 +20,7 @@
     </div>
 
     <div class="panel-body text-center">
-      <app-interactive-kmap [premarkedCells]="exercise.cells" [active]="false"></app-interactive-kmap>
+      <app-interactive-kmap [premarkedCells]="kmap.markExpression(exercise.expression)" [active]="false"></app-interactive-kmap>
     </div>
   </div>
 
@@ -32,12 +32,15 @@
     <div class="panel-body text-center">
       <form (ngSubmit)="onVerify()" #answerForm="ngForm" id="answerForm">
         <ng-container *ngFor="let variable of variables; index as i">
-          <div class="input-group">
+          <div class="input-group" [ngClass]='{"input-group-success": variable.result, "input-group-danger": variable.result == false}'>
             <span class="input-group-addon">{{variable.name}}</span>
             <div class="form-control equi-distance">
-              <label class="radio-inline"><input type="radio" name="{{variable.name}}" [(ngModel)]="variable.answer" value="true" required>True</label>
-              <label class="radio-inline"><input type="radio" name="{{variable.name}}" [(ngModel)]="variable.answer" value="false">False</label>
-              <label class="radio-inline"><input type="radio" name="{{variable.name}}" [(ngModel)]="variable.answer" value="null">Not important</label>
+              <label class="radio-inline">
+                <input type="radio" name="{{variable.name}}" [(ngModel)]="variable.formAnswer" value="true" required>True</label>
+              <label class="radio-inline">
+                <input type="radio" name="{{variable.name}}" [(ngModel)]="variable.formAnswer" value="false">False</label>
+              <label class="radio-inline"
+              ><input type="radio" name="{{variable.name}}" [(ngModel)]="variable.formAnswer" value="null">Not important</label>
             </div>
           </div>
           <br *ngIf="i != 3">
@@ -48,7 +51,10 @@
     <div class="panel-footer text-center">
       <button type="submit" form="answerForm" class="btn btn-primary" [disabled]="!answerForm.valid">Verify</button>
     </div>
+  </div>
 
+  <div *ngIf="correct" class="alert alert-success">
+    <strong>Success!</strong> You gained {{exercise.points}} points.
   </div>
 
 </ng-container>

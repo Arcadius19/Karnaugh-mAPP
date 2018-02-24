@@ -1,5 +1,6 @@
 import {CustomParser} from './custom-parser';
 import {BestGroupsSolver} from './best-groups-solver';
+import {ExpressionGroup} from './expression-group';
 
 export class KarnaughMap {
   nVars: number;
@@ -101,6 +102,35 @@ export class KarnaughMap {
       }
     }
     return result;
+  }
+
+  // return cells for which the expression evaluates to true
+  markExpression(expression: ExpressionGroup): number[] {
+    let aVar: boolean;
+    let bVar: boolean;
+    let cVar: boolean;
+    let dVar: boolean;
+    let contained: boolean;
+
+    let result = [];
+
+    for (let row of this.cellIds) {
+      for (let cell of row) {
+        aVar = !!(cell & this.flagA);
+        bVar = !!(cell & this.flagB);
+        cVar = !!(cell & this.flagC);
+        if (this.flagD != undefined) {
+          dVar = !!(cell & this.flagD);
+        }
+
+        contained = (new ExpressionGroup(aVar, bVar, cVar, dVar)).containedIn(expression);
+
+        if (contained) { result.push(cell); }
+      }
+    }
+
+    return result;
+
   }
 
 }

@@ -17,9 +17,9 @@ export class GridGroup {
   // TODO
   // remove circularity between classes (?)
   // check if cell id's form a valid group
-  static checkIfCellsGrid(cells: number[], nVars = 4) {
-    return BestGroupsSolver.findBestGroups((new KarnaughMap(nVars)).cellsToMap(cells)).length == 1;
-  }
+  // static checkIfCellsGrid(cells: number[], nVars = 4) {
+  //   return BestGroupsSolver.findBestGroups((new KarnaughMap(nVars)).cellsToMap(cells)).length == 1;
+  // }
 
   toString(): string {
     return `${this.offRow}, ${this.offCol}, ${this.rangeRow}, ${this.rangeCol}`;

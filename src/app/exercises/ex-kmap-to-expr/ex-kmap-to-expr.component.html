@@ -1,0 +1,26 @@
+<ng-container *ngIf="!(exercise$ | async) as exercise">
+  <div class="page-header header-no-top-margin">
+    <h2>Karnaugh Map to Expression <br>
+      <small >Loading...</small>
+    </h2>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="exercise$ | async as exercise">
+  <div class="custom-header">
+    <h2>Karnaugh Map to Expression <br>
+      <small >Question {{exercise.id}}</small>
+    </h2>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" *ngIf="!markTrue">
+      Group marked states, give an expression for each of them and then provide a final minimal solution in DNF form.
+    </div>
+
+    <div class="panel-body text-center latex-height">
+      {{exercise.expression}}
+    </div>
+  </div>
+
+</ng-container>

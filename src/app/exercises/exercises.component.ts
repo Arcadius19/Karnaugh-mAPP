@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {MathJax} from '../mathjax-aux/math-jax';
 import {ExFindBestGroups, ExFindBestGroupsService} from './ex-find-best-groups/ex-find-best-groups.service';
 import {ExNameGroup, ExNameGroupService} from './ex-name-group/ex-name-group.service';
+import {ExKmapToExpr, ExKmapToExprService} from './ex-kmap-to-expr/ex-kmap-to-expr.service';
 
 @Component({
   selector: 'app-exercises',
@@ -12,24 +13,28 @@ import {ExNameGroup, ExNameGroupService} from './ex-name-group/ex-name-group.ser
   providers: [
     ExExprToKmapService,
     ExFindBestGroupsService,
-    ExNameGroupService
+    ExNameGroupService,
+    ExKmapToExprService
   ]
 })
 export class ExercisesComponent implements OnInit {
   exprToKmapExercises: ExExprToKmap[];
   findBestGroupsExercises: ExFindBestGroups[];
   nameGroupExercises: ExNameGroup[];
+  kmapToExprExercises: ExKmapToExpr[];
 
   constructor(
     private exprToKmapService: ExExprToKmapService,
     private findBestGroupsService: ExFindBestGroupsService,
-    private nameGroupService: ExNameGroupService
+    private nameGroupService: ExNameGroupService,
+    private kmapToExprService: ExKmapToExprService
     ) { }
 
   ngOnInit() {
     this.exprToKmapExercises = this.exprToKmapService.getExercises();
     this.findBestGroupsExercises = this.findBestGroupsService.getExercises();
     this.nameGroupExercises = this.nameGroupService.getExercises();
+    this.kmapToExprExercises = this.kmapToExprService.getExercises();
   }
 
   toBrowserText(expression: string): string {

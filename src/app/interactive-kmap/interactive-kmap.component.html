@@ -26,7 +26,7 @@
           <th>{{binary}}</th>
           <td *ngFor="let j of [0,1,2,3]" (click)="onClickCell(i, j)"
               [ngClass]='{
-              "hover": !premarkedCells && active,
+              "hover": !premarkedCells && active && !marked[i][j],
               "selected-neutral": marked[i][j] && active,
               "premarked-active": premarked[i][j] && active,
               "premarked": premarked[i][j],

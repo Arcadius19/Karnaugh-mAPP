@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-sm-3">
     <ul class="nav nav-pills nav-stacked">
+      <li routerLinkActive="active"><a routerLink="label-squares">Label Squares</a></li>
 
       <li class="dropdown" routerLinkActive="active">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Expression to Karnaugh Map<span class="caret"></span></a>
@@ -33,9 +34,18 @@
         </ul>
       </li>
 
+      <li class="dropdown" routerLinkActive="active">
+        <a class="dropdown-toggle" data-toggle="collapse" href="#collapse4">Karnaugh Map to Expression<span class="caret"></span></a>
+        <ul class="panel-collapse collapse list-group" id="collapse4">
+          <a routerLink="kmap-to-expr/{{exercise.id}}"
+             *ngFor="let exercise of kmapToExprExercises"
+             class="list-group-item">
+            Set {{exercise.id}}
+          </a>
+        </ul>
+      </li>
 
-      <li routerLinkActive="active"><a routerLink="kmap-to-expr">Karnaugh Map to Expression</a></li>
-      <li routerLinkActive="active"><a routerLink="numbering" >Number states</a></li>
+
       <li routerLinkActive="active"><a routerLink="resolution">Resolution</a></li>
     </ul>
   </div>

@@ -9,6 +9,8 @@ import { ExExprToKmapComponent } from './exercises/ex-expr-to-kmap/ex-expr-to-km
 import {ExIntroductionComponent} from './exercises/ex-introduction/ex-introduction.component';
 import {ExFindBestGroupsComponent} from './exercises/ex-find-best-groups/ex-find-best-groups.component';
 import {ExNameGroupComponent} from './exercises/ex-name-group/ex-name-group.component';
+import {ExLabelSquaresComponent} from './exercises/ex-label-squares/ex-label-squares.component';
+import {ExKmapToExprComponent} from './exercises/ex-kmap-to-expr/ex-kmap-to-expr.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -17,6 +19,7 @@ const routes: Routes = [
     component: ExercisesComponent,
     children: [
       { path: '', component: ExIntroductionComponent},
+      { path: 'label-squares', component: ExLabelSquaresComponent},
       { path: 'expr-to-kmap',
         children: [
           { path: ':id', component: ExExprToKmapComponent, }
@@ -30,6 +33,11 @@ const routes: Routes = [
       { path: 'name-group',
         children: [
           { path: ':id', component: ExNameGroupComponent, }
+        ]
+      },
+      { path: 'kmap-to-expr',
+        children: [
+          { path: ':id', component: ExKmapToExprComponent, }
         ]
       },
       {path: '**', component: PageNotFoundComponent}

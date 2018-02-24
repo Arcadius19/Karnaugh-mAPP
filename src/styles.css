@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+.custom-header {
+  padding-bottom: 2px;
+  margin: 0 0 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.custom-header h2 {
+  margin-top: 0;
+}

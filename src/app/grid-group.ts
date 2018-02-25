@@ -25,7 +25,7 @@ export class GridGroup {
     return `${this.offRow}, ${this.offCol}, ${this.rangeRow}, ${this.rangeCol}`;
   }
 
-  toCells(nVars: number): number[] {
+  toCells(nVars = 4): number[] {
     if (nVars != 3 && nVars != 4) { return []; }
 
     let result = [];

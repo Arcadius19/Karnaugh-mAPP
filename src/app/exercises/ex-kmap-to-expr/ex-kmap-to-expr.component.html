@@ -18,9 +18,38 @@
       Group marked states, give an expression for each of them and then provide a final minimal solution in DNF form.
     </div>
 
-    <div class="panel-body text-center latex-height">
-      {{exercise.expression}}
+    <div class="panel-body text-center">
+      <app-interactive-kmap [premarkedCells]="exercise.cells" #interMap></app-interactive-kmap>
     </div>
+
+    <div class="panel-footer text-center">
+      <button class="btn btn-primary" (click)="interMap.onGroup()">Group states</button>
+    </div>
+  </div>
+
+  <div class="list-group">
+    <li class="list-group-item" [ngClass]='{
+    "answer-heading": correct == null,
+    "list-group-item-success": correct,
+    "list-group-item-danger": correct == false}'>Your answer</li>
+    <li class="list-group-item" *ngIf="interMap.selectedGroups.length == 0"></li>
+    <li class="list-group-item answer-list"
+        *ngFor="let group of interMap.selectedGroups; index as i"
+        (mouseenter)="interMap.hoverCells(group)"
+        (mouseleave)="interMap.unhoverAll()">
+      <p><a (click)="interMap.removeAnswerGroup(i)" class="close" title="Remove a group">&times;</a>
+      <strong>Group {{i+1}}:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{group}}</p>
+      <div class="form-inline">
+      <div class="input-group form-group" *ngFor="let variable of ['A', 'B', 'C', 'D']">
+        <span class="input-group-addon">{{variable}}</span>
+        <select class="form-control">
+          <option>True</option>
+          <option>False</option>
+          <option>N/A</option>
+        </select>
+      </div>
+      </div>
+    </li>
   </div>
 
 </ng-container>

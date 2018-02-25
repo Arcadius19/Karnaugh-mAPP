@@ -1,23 +1,27 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
+import {KarnaughMap} from '../../karnaugh-map';
 
 export class ExKmapToExpr {
   id: number;
   points: number;
-  expression: string;
+  cells: number[];
 
-  constructor(id: number, points: number, expression: string) {
+  constructor(id: number, points: number, cells: number[]) {
     this.id = id;
     this.points = points;
-    this.expression = expression;
+    this.cells = cells;
   }
 }
 
+let kmap = new KarnaughMap();
+
 let EXERCISES = [
-  new ExKmapToExpr(1, 1, 'D'),
-  new ExKmapToExpr(2, 2, 'A and C'),
-  new ExKmapToExpr(3, 3, '(A and C) or (B and not C)'),
-  new ExKmapToExpr(4, 3, '(A and B and D) or (not A and not C)')
+  new ExKmapToExpr(1, 1, kmap.mapToCells(kmap.evaluate('D'))),
+  new ExKmapToExpr(2, 2, kmap.mapToCells(kmap.evaluate('A and C'))),
+  new ExKmapToExpr(3, 3, kmap.mapToCells(kmap.evaluate('(A and C) or (B and not C)'))),
+  new ExKmapToExpr(4, 3, kmap.mapToCells(kmap.evaluate('(A and B and D) or (not A and not C)'))),
+  new ExKmapToExpr(5, 4, [0, 4, 2, 6, 5, 7, 13, 15])
 ];
 
 @Injectable()

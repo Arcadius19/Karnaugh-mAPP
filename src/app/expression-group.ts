@@ -1,7 +1,6 @@
 import {GridGroup} from './grid-group';
 import {MathJax} from './mathjax-aux/math-jax';
 import {KarnaughMap} from './karnaugh-map';
-import {BestGroupsSolver} from './best-groups-solver';
 
 export class ExpressionGroup {
   aVar: boolean;
@@ -41,9 +40,9 @@ export class ExpressionGroup {
   static toMathJaxAux(variable: boolean, char: string, connector: string, notNegate = true): string {
     let resultString = '';
     if (variable == notNegate) {
-      resultString = char + connector;
+      resultString = connector + char;
     } else if (variable == !notNegate) {
-      resultString = ' not ' + char + connector;
+      resultString = connector + 'not ' + char;
     }
 
     return resultString;
@@ -66,17 +65,22 @@ export class ExpressionGroup {
 
   toMathJax(product = true): string {
     let connector = product ? ' and ' : ' or ';
-    let resultString = ExpressionGroup.toMathJaxAux(this.aVar, 'A', connector, product) +
-      ExpressionGroup.toMathJaxAux(this.bVar, 'B', connector, product) +
-      ExpressionGroup.toMathJaxAux(this.cVar, 'C', connector, product) +
-      ExpressionGroup.toMathJaxAux(this.dVar, 'D', connector, product);
+    let resultString =
+      ExpressionGroup.toMathJaxAux(this.aVar, 'A', connector) +
+      ExpressionGroup.toMathJaxAux(this.bVar, 'B', connector) +
+      ExpressionGroup.toMathJaxAux(this.cVar, 'C', connector) +
+      ExpressionGroup.toMathJaxAux(this.dVar, 'D', connector);
 
-    // remove and at the end if exists
-    if (resultString.substr(-connector.length, connector.length) == connector) {
-      resultString = resultString.slice(0, -connector.length);
+    console.log('this: ', this);
+    console.log(resultString);
+
+    if (resultString == '') {
+      resultString = '1';
+    } else {
+      resultString = resultString.slice(connector.length);
     }
 
-    return resultString;
+    return MathJax.toMathJax(resultString);
   }
 
   // COMPARING METHODS ======================

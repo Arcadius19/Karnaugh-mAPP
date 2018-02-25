@@ -1,5 +1,4 @@
 import {CustomParser} from './custom-parser';
-import {BestGroupsSolver} from './best-groups-solver';
 import {ExpressionGroup} from './expression-group';
 
 export class KarnaughMap {

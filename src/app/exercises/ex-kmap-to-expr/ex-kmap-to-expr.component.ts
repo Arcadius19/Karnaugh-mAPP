@@ -5,6 +5,7 @@ import {ExKmapToExpr, ExKmapToExprService} from './ex-kmap-to-expr.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {KarnaughMap} from '../../karnaugh-map';
 import {BestGroupsSolver} from '../../best-groups-solver';
+import {ExpressionGroup} from '../../expression-group';
 
 @Component({
   selector: 'app-ex-kmap-to-expr',
@@ -18,6 +19,8 @@ export class ExKmapToExprComponent implements OnInit {
   exercise$: Observable<ExKmapToExpr>;
   kmap = new KarnaughMap();
   bestGroups: number[][];
+
+  answersForSelectedGroups: ExpressionGroup[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -42,15 +45,24 @@ export class ExKmapToExprComponent implements OnInit {
         this.interKmapComponent.ngOnInit();
       }
       this.bestGroups = BestGroupsSolver
-        .findBestGroupsAsGrid(this.kmap.cellsToMap(exercise.cells))
-        .map(group => group.toCells(4).sort((n1, n2) => n1 - n2));
-
+        .findBestGroups(this.kmap.cellsToMap(exercise.cells))
+        .map(group => this.kmap.expressionGroupToCells(group).sort((n1, n2) => n1 - n2));
       this.resetComponent();
     });
   }
 
   resetComponent() {
+    this.answersForSelectedGroups = [];
+  }
 
+  onGroup() {
+    this.interKmapComponent.onGroup();
+    this.answersForSelectedGroups.push(new ExpressionGroup(null, null, null, null));
+  }
+
+  removeAnswerGroup(index: number) {
+    this.interKmapComponent.removeAnswerGroup(index);
+    this.answersForSelectedGroups.splice(index, 1);
   }
 
 }

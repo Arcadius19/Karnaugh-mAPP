@@ -23,7 +23,7 @@
     </div>
 
     <div class="panel-footer text-center">
-      <button class="btn btn-primary" (click)="interMap.onGroup()">Group states</button>
+      <button class="btn btn-primary" (click)="onGroup()">Group states</button>
     </div>
   </div>
 
@@ -33,23 +33,61 @@
     "list-group-item-success": correct,
     "list-group-item-danger": correct == false}'>Your answer</li>
     <li class="list-group-item" *ngIf="interMap.selectedGroups.length == 0"></li>
+
     <li class="list-group-item answer-list"
         *ngFor="let group of interMap.selectedGroups; index as i"
         (mouseenter)="interMap.hoverCells(group)"
         (mouseleave)="interMap.unhoverAll()">
-      <p><a (click)="interMap.removeAnswerGroup(i)" class="close" title="Remove a group">&times;</a>
-      <strong>Group {{i+1}}:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{group}}</p>
+      <p>
+        <a (click)="removeAnswerGroup(i)" class="close" title="Remove a group">&times;</a>
+        <strong>Group {{i+1}}:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{group}}
+      </p>
+      <p>
+        <strong>Expression: </strong><span appMathJax [mathString]="answersForSelectedGroups[i].toMathJax()"></span>
+      </p>
+
       <div class="form-inline">
-      <div class="input-group form-group" *ngFor="let variable of ['A', 'B', 'C', 'D']">
-        <span class="input-group-addon">{{variable}}</span>
-        <select class="form-control">
-          <option>True</option>
-          <option>False</option>
-          <option>N/A</option>
-        </select>
+
+        <div class="input-group form-group">
+          <span class="input-group-addon">A</span>
+          <select class="form-control" [(ngModel)]="answersForSelectedGroups[i].aVar" (ngModelChange)="onChange(i, $event)">
+            <option [ngValue]="true">True</option>
+            <option [ngValue]="false">False</option>
+            <option [ngValue]="null">N/A</option>
+          </select>
+        </div>
+
+        <div class="input-group form-group">
+          <span class="input-group-addon">B</span>
+          <select class="form-control" [(ngModel)]="answersForSelectedGroups[i].bVar" (ngModelChange)="onChange(i, $event)">
+            <option [ngValue]="true">True</option>
+            <option [ngValue]="false">False</option>
+            <option [ngValue]="null">N/A</option>
+          </select>
+        </div>
+
+        <div class="input-group form-group">
+          <span class="input-group-addon">C</span>
+          <select class="form-control" [(ngModel)]="answersForSelectedGroups[i].cVar" (ngModelChange)="onChange(i, $event)">
+            <option [ngValue]="true">True</option>
+            <option [ngValue]="false">False</option>
+            <option [ngValue]="null">N/A</option>
+          </select>
+        </div>
+
+        <div class="input-group form-group">
+          <span class="input-group-addon">D</span>
+          <select class="form-control" [(ngModel)]="answersForSelectedGroups[i].dVar" (ngModelChange)="onChange(i, $event)">
+            <option [ngValue]="true">True</option>
+            <option [ngValue]="false">False</option>
+            <option [ngValue]="null">N/A</option>
+          </select>
+        </div>
+
       </div>
-      </div>
+
     </li>
+
   </div>
 
 </ng-container>

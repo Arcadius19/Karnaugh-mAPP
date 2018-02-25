@@ -1,5 +1,5 @@
-import {GridGroup} from './grid-group';
-import {MathJax} from './mathjax-aux/math-jax';
+import {GridGroup} from '../grid-group';
+import {MathJax} from '../mathjax-aux/math-jax';
 
 export class ExpressionGroup {
   static FLAG_A = 8; // 1000

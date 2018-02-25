@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ParserService } from '../parser.service';
-import { ExpressionGroup } from '../expression-group';
+import { ExpressionGroup } from './expression-group-old';
 import { GridGroup } from '../grid-group';
 import {GlobalVariablesService} from '../global-variables.service';
 import {KarnaughMap} from '../karnaugh-map';
@@ -43,8 +43,8 @@ export class KmapComponent implements OnInit {
 
   onClick() {
     this.kmapEvaluations = (new KarnaughMap(4)).evaluate(this.parserService.getQuery());
-    this.dnfGroups = BestGroupsSolver.findBestGroupsAsGrid(this.kmapEvaluations, true);
-    this.cnfGroups = BestGroupsSolver.findBestGroupsAsGrid(this.kmapEvaluations, false);
+    this.dnfGroups = BestGroupsSolver.findBestGroups(this.kmapEvaluations, true).map(group => group.toGridGroup(4));
+    this.cnfGroups = BestGroupsSolver.findBestGroups(this.kmapEvaluations, false).map(group => group.toGridGroup(4));;
   }
 
   highlightGroup(gridGroup: GridGroup) {

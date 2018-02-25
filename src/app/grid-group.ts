@@ -1,5 +1,4 @@
 import {KarnaughMap} from './karnaugh-map';
-import {BestGroupsSolver} from './best-groups-solver';
 import {ExpressionGroup} from './expression-group';
 
 export class GridGroup {

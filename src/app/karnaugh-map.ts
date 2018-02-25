@@ -133,4 +133,58 @@ export class KarnaughMap {
 
   }
 
+  getFlags(): number[] {
+    let flags = [this.flagA, this.flagB, this.flagC];
+    if (this.flagD) { flags.push(this.flagD); }
+    return flags;
+  }
+
+  getExpressionAtSquare(offRow: number, offCol: number): ExpressionGroup {
+    if (offRow < 0 || offCol < 0) { throw new Error('Negative coordinates'); }
+
+    let nRow = this.cellIds.length;
+    let nCol = this.cellIds[0].length;
+
+    let decimalNumber = this.cellIds[offRow % nRow][offCol % nCol];
+
+    let varA = !!(decimalNumber & this.flagA);
+    let varB = !!(decimalNumber & this.flagB);
+    let varC = !!(decimalNumber & this.flagC);
+    let varD = (this.flagD != undefined) ? !!(decimalNumber & this.flagD) : null;
+
+    return new ExpressionGroup(varA, varB, varC, varD);
+  }
+
+  // find for which cells (their IDs) the expression evaluates to true
+  expressionGroupToCells(expression: ExpressionGroup): number[] {
+    let result = [];
+    for (let row of this.cellIds) {
+      for (let cell of row) {
+        if (expression.aVar != null) {
+          if (!!(cell & this.flagA) != expression.aVar) {
+            continue;
+          }
+        }
+        if (expression.bVar != null) {
+          if (!!(cell & this.flagB) != expression.bVar) {
+            continue;
+          }
+        }
+        if (expression.cVar != null) {
+          if (!!(cell & this.flagC) != expression.cVar) {
+            continue;
+          }
+        }
+        if (this.flagD != null && expression.dVar != null) {
+          if (!!(cell & this.flagD) != expression.dVar) {
+            continue;
+          }
+
+        }
+        result.push(cell);
+      }
+    }
+    return result;
+  }
+
 }

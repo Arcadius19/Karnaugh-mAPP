@@ -45,8 +45,9 @@ export class ExFindBestGroupsComponent implements OnInit {
         }
         this.kmap = new KarnaughMap(exercise.nVars);
         this.solution = BestGroupsSolver
-          .findBestGroupsAsGrid(this.kmap.cellsToMap(exercise.cells))
-          .map(group => group.toCells(exercise.nVars).sort((n1, n2) => n1 - n2));
+          .findBestGroups(this.kmap.cellsToMap(exercise.cells))
+          .map(group => this.kmap.expressionGroupToCells(group).sort((n1, n2) => n1 - n2));
+        console.log('Solution: ', this.solution);
         this.resetComponent();
       }
     });

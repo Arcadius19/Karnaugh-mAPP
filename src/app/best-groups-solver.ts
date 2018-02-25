@@ -1,5 +1,6 @@
 import {GridGroup} from './grid-group';
 import {ExpressionGroup} from './expression-group';
+import {KarnaughMap} from './karnaugh-map';
 
 export class BestGroupsSolver {
   static marked: number[][];
@@ -11,10 +12,6 @@ export class BestGroupsSolver {
   static dnfType: boolean;
 
   static bestGroups;
-
-  public static findBestGroupsAsGrid(markedArray: number[][], dnfType = true): GridGroup[] {
-    return BestGroupsSolver.findBestGroups(markedArray, dnfType).map(ExpressionGroup.toGridGroup);
-  }
 
   public static findBestGroups(markedArray: number[][], dnfType = true): ExpressionGroup[] {
     BestGroupsSolver.marked = markedArray.map(row => row.map(cell => cell));
@@ -94,7 +91,7 @@ export class BestGroupsSolver {
       }
     }
 
-    let bestGroupExpressions = BestGroupsSolver.bestGroups.map(ExpressionGroup.parseGridGroup);
+    let bestGroupExpressions = BestGroupsSolver.bestGroups.map(group => group.toExpressionGroup((this.nRows == 4) ? 4 : 3));
     bestGroupExpressions = ExpressionGroup.findMinimal(bestGroupExpressions);
 
     return bestGroupExpressions;

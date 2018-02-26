@@ -52,7 +52,7 @@ export class GridGroup {
     for (let i = this.offRow; i < this.offRow + this.rangeRow; i++) {
       for (let j = this.offCol; j < this.offCol + this.rangeCol; j++) {
         nextExpression = kmap.getExpressionAtSquare(i, j);
-        resultGroup = firstExpression.compare(nextExpression);
+        resultGroup = firstExpression.compareForScanning(nextExpression);
         firstExpression = resultGroup;
       }
     }

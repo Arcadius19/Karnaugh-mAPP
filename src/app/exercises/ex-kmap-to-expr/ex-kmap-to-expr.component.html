@@ -13,7 +13,8 @@
     </h2>
   </div>
 
-  <div class="panel panel-default">
+  <div class="panel panel-default"
+       [ngClass]='{"panel-success": finalCorrect, "panel-danger": finalCorrect == false}'>
     <div class="panel-heading" *ngIf="!markTrue">
       Group marked states, give an expression for each of them and then provide a final minimal solution in DNF form.
     </div>
@@ -27,57 +28,76 @@
     </div>
   </div>
 
+  <div *ngIf="userAnswers.length > 0"
+       class="panel panel-default"
+       [ngClass]='{"panel-success": finalCorrect, "panel-danger": finalCorrect == false}'>
+    <div class="panel-heading">
+      Your final minimal expression
+    </div>
+    <div class="panel-body text-center latex-height">
+      <span appMathJax [mathString]="userMinimalExpressionInMathjax()"></span>
+    </div>
+  </div>
+
   <div class="list-group">
     <li class="list-group-item" [ngClass]='{
-    "answer-heading": correct == null,
-    "list-group-item-success": correct,
-    "list-group-item-danger": correct == false}'>Your answer</li>
-    <li class="list-group-item" *ngIf="interMap.selectedGroups.length == 0"></li>
+    "answer-heading": finalCorrect == null,
+    "list-group-item-success": finalCorrect,
+    "list-group-item-danger": finalCorrect == false}'>Your answer</li>
+    <li class="list-group-item" *ngIf="userAnswers.length == 0"></li>
 
     <li class="list-group-item answer-list"
-        *ngFor="let group of interMap.selectedGroups; index as i"
-        (mouseenter)="interMap.hoverCells(group)"
-        (mouseleave)="interMap.unhoverAll()">
+        *ngFor="let answer of userAnswers; index as i"
+        (mouseenter)="interMap.hoverCells(answer.selectedAsCells)"
+        (mouseleave)="interMap.unhoverAll()"
+        [ngClass]='{
+          "list-group-item-custom-success": answer.correct && answer.match,
+          "list-group-item-custom-danger": answer.correct == false && answer.match == false,
+          "list-group-item-custom-warning": (answer.correct == false && answer.match) || (answer.correct && answer.match == false)}'>
       <p>
         <a (click)="removeAnswerGroup(i)" class="close" title="Remove a group">&times;</a>
-        <strong>Group {{i+1}}:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{group}}
+        <strong>Group {{i+1}}:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{answer.selectedAsCells}}
       </p>
       <p>
-        <strong>Expression: </strong><span appMathJax [mathString]="answersForSelectedGroups[i].toMathJax()"></span>
+        <strong>Expression: </strong><span appMathJax [mathString]="answer.answeredAsExpression.toMathJax()"></span>
       </p>
 
       <div class="form-inline">
 
-        <div class="input-group form-group">
+        <div class="input-group form-group"
+             [ngClass]='{"input-group-success": answer.varsComparison.aVar == true, "input-group-danger": answer.varsComparison.aVar == false}'>
           <span class="input-group-addon">A</span>
-          <select class="form-control" [(ngModel)]="answersForSelectedGroups[i].aVar" (ngModelChange)="onChange(i, $event)">
+          <select class="form-control" [(ngModel)]="answer.answeredAsExpression.aVar">
             <option [ngValue]="true">True</option>
             <option [ngValue]="false">False</option>
             <option [ngValue]="null">N/A</option>
           </select>
         </div>
 
-        <div class="input-group form-group">
+        <div class="input-group form-group"
+             [ngClass]='{"input-group-success": answer.varsComparison.bVar == true, "input-group-danger": answer.varsComparison.bVar == false}'>
           <span class="input-group-addon">B</span>
-          <select class="form-control" [(ngModel)]="answersForSelectedGroups[i].bVar" (ngModelChange)="onChange(i, $event)">
+          <select class="form-control" [(ngModel)]="answer.answeredAsExpression.bVar">
             <option [ngValue]="true">True</option>
             <option [ngValue]="false">False</option>
             <option [ngValue]="null">N/A</option>
           </select>
         </div>
 
-        <div class="input-group form-group">
+        <div class="input-group form-group"
+             [ngClass]='{"input-group-success": answer.varsComparison.cVar == true, "input-group-danger": answer.varsComparison.cVar == false}'>
           <span class="input-group-addon">C</span>
-          <select class="form-control" [(ngModel)]="answersForSelectedGroups[i].cVar" (ngModelChange)="onChange(i, $event)">
+          <select class="form-control" [(ngModel)]="answer.answeredAsExpression.cVar">
             <option [ngValue]="true">True</option>
             <option [ngValue]="false">False</option>
             <option [ngValue]="null">N/A</option>
           </select>
         </div>
 
-        <div class="input-group form-group">
+        <div class="input-group form-group"
+             [ngClass]='{"input-group-success": answer.varsComparison.dVar == true, "input-group-danger": answer.varsComparison.dVar == false}'>
           <span class="input-group-addon">D</span>
-          <select class="form-control" [(ngModel)]="answersForSelectedGroups[i].dVar" (ngModelChange)="onChange(i, $event)">
+          <select class="form-control" [(ngModel)]="answer.answeredAsExpression.dVar">
             <option [ngValue]="true">True</option>
             <option [ngValue]="false">False</option>
             <option [ngValue]="null">N/A</option>
@@ -86,6 +106,13 @@
 
       </div>
 
+    </li>
+
+    <li class="list-group-item text-center" [ngClass]='{
+    "answer-heading": finalCorrect == null,
+    "list-group-item-success": finalCorrect,
+    "list-group-item-danger": finalCorrect == false}'>
+      <button class="btn btn-primary" (click)="onVerify()">Verify</button>
     </li>
 
   </div>

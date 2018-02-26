@@ -22,7 +22,7 @@ export class ExpressionGroup {
         for (let i = 0; i < expressions.length; i++) {
           for (let j = i + 1; j < expressions.length; j++) {
             if (index != i && index != j) {
-              if (expressions[index].containedIn(expressions[i].resolute(expressions[j]))) {
+              if (expressions[index].equals(expressions[i].resolute(expressions[j]))) {
                 expressions.splice(index, 1);
                 continue indexLoop;
               }
@@ -33,6 +33,38 @@ export class ExpressionGroup {
       }
 
     return expressions;
+  }
+
+  static resoluteAux(var1: boolean, var2: boolean): boolean {
+    if (var1 == null) {
+      return var2;
+    }
+    if (var2 == null) {
+      return var1;
+    }
+    // none of the variables is null
+    if (var1 == var2) {
+      return var1;
+    } else {
+      return null;
+    }
+  }
+
+  // Compare arrays of ExpressionGroups
+  static compareArrays(groups1: ExpressionGroup[], groups2: ExpressionGroup[]): boolean {
+    if (groups1.length != groups2.length) { return false; }
+
+    let found = 0;
+    for (let group1 of groups1) {
+      for (let group2 of groups2) {
+        if (group1.equals(group2)) {
+          found++;
+          break;
+        }
+      }
+    }
+
+    return (found == groups1.length);
   }
 
   // TO-TEXT METHODS ======================
@@ -48,12 +80,25 @@ export class ExpressionGroup {
     return resultString;
   }
 
-  static toWholeSolution(groups: ExpressionGroup[], dnfType = true): string {
+  static toComplexExpressionMathJax(groups: ExpressionGroup[], dnfType = true): string {
+    if (groups == null || groups.length == 0) {
+      return '';
+    }
+
+    if (groups.length == 1) {
+      return (groups[0]).toMathJax(dnfType);
+    }
+
     let connector = dnfType ? ' or ' : ' and ';
-    let result = groups[0].toMathJax(dnfType);
+
+    let openBracket = (groups[0].isSingleValue()) ? '' : '(';
+    let closeBracket = (groups[0].isSingleValue()) ? '' : ')';
+    let result = openBracket + groups[0].prepareForMathJax(dnfType) + closeBracket;
 
     for (let i = 1; i < groups.length; i++) {
-      result = '(' + result + ')' + connector + '(' + groups[i].toMathJax(dnfType) + ')';
+      openBracket = (groups[i].isSingleValue()) ? '' : '(';
+      closeBracket = (groups[i].isSingleValue()) ? '' : ')';
+      result = result + connector + openBracket + groups[i].prepareForMathJax(dnfType) + closeBracket;
     }
 
     return MathJax.toMathJax(result);
@@ -63,7 +108,7 @@ export class ExpressionGroup {
     return ('A: ' + this.aVar + ', B: ' + this.bVar + ', C: ' + this.cVar + ', D: ' + this.dVar);
   }
 
-  toMathJax(product = true): string {
+  prepareForMathJax(product = true): string {
     let connector = product ? ' and ' : ' or ';
     let resultString =
       ExpressionGroup.toMathJaxAux(this.aVar, 'A', connector) +
@@ -71,16 +116,17 @@ export class ExpressionGroup {
       ExpressionGroup.toMathJaxAux(this.cVar, 'C', connector) +
       ExpressionGroup.toMathJaxAux(this.dVar, 'D', connector);
 
-    console.log('this: ', this);
-    console.log(resultString);
-
     if (resultString == '') {
       resultString = '1';
     } else {
       resultString = resultString.slice(connector.length);
     }
 
-    return MathJax.toMathJax(resultString);
+    return resultString;
+  }
+
+  toMathJax(product = true): string {
+        return MathJax.toMathJax(this.prepareForMathJax());
   }
 
   // COMPARING METHODS ======================
@@ -103,8 +149,17 @@ export class ExpressionGroup {
     return true;
   }
 
-  // compare values of variables, if changes set ot null - does not matter when scanning squares
-  compare(expression: ExpressionGroup): ExpressionGroup {
+  compareVariables(expression: ExpressionGroup): ExpressionGroup {
+    let aVar = this.aVar == expression.aVar;
+    let bVar = this.bVar == expression.bVar;
+    let cVar = this.cVar == expression.cVar;
+    let dVar = this.dVar == expression.dVar;
+
+    return new ExpressionGroup(aVar, bVar, cVar, dVar);
+  }
+
+  // compareForScanning values of variables, if changes set ot null - does not matter when scanning squares
+  compareForScanning(expression: ExpressionGroup): ExpressionGroup {
     let aVar = (this.aVar == expression.aVar) ? this.aVar : null;
     let bVar = (this.bVar == expression.bVar) ? this.bVar : null;
     let cVar = (this.cVar == expression.cVar) ? this.cVar : null;
@@ -116,12 +171,22 @@ export class ExpressionGroup {
   resolute(expression: ExpressionGroup): ExpressionGroup {
     let result = new ExpressionGroup(null, null, null, null);
 
-    result.aVar = (this.aVar == expression.aVar) ? this.aVar : null;
-    result.bVar = (this.bVar == expression.bVar) ? this.bVar : null;
-    result.cVar = (this.cVar == expression.cVar) ? this.cVar : null;
-    result.dVar = (this.dVar == expression.dVar) ? this.dVar : null;
+    result.aVar = ExpressionGroup.resoluteAux(this.aVar, expression.aVar);
+    result.bVar = ExpressionGroup.resoluteAux(this.bVar, expression.bVar);
+    result.cVar = ExpressionGroup.resoluteAux(this.cVar, expression.cVar);
+    result.dVar = ExpressionGroup.resoluteAux(this.dVar, expression.dVar);
 
     return result;
+  }
+
+  isSingleValue(): boolean {
+    let notNulls = 0;
+    if (this.aVar != null) { notNulls++; }
+    if (this.bVar != null) { notNulls++; }
+    if (this.cVar != null) { notNulls++; }
+    if (this.dVar != null) { notNulls++; }
+
+    return notNulls == 1;
   }
 
   // CONVERTING METHODS ======================

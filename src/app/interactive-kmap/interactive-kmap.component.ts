@@ -7,8 +7,8 @@ import {KarnaughMap} from '../karnaugh-map';
   styleUrls: ['./interactive-kmap.component.css']
 })
 export class InteractiveKmapComponent implements OnInit {
-  @Input() nVars = 4; // default
-  @Input() active = true; // default
+  @Input() nVars = 4;       // default
+  @Input() active = true;   // default
   @Input() premarkedCells: number[] = null;
 
   kmap: KarnaughMap;
@@ -49,17 +49,21 @@ export class InteractiveKmapComponent implements OnInit {
 
   onGroup() {
     let selectedCells = this.kmap.mapToCells(this.marked).sort((n1, n2) => n1 - n2);
+    let successGroup = null;
 
     if (selectedCells.length == 0) {
       this.emptySelected = true;
       setTimeout(() => { this.emptySelected = false; }, 2000);
     } else if (!this.checkIfAlreadySelected(selectedCells)) {
       this.selectedGroups.push(selectedCells);
+      successGroup = true;
     } else {
       this.doubleSelected = true;
       setTimeout(() => { this.doubleSelected = false; }, 2000);
     }
     this.marked = this.marked.map(row => row.map(cell => 0));
+
+    return (successGroup) ? selectedCells : null;
   }
 
   checkIfAlreadySelected(selected: number[]): boolean {
@@ -81,6 +85,25 @@ export class InteractiveKmapComponent implements OnInit {
   removeAnswerGroup(index: number) {
     this.selectedGroups.splice(index, 1);
     this.unhoverAll();
+  }
+
+  compareSelectedToBest(bestGroups: number[][]): boolean {
+    let found = 0;
+    loopSelectedGroups:
+      for (let selectedGroup of this.selectedGroups) {
+        loopSolutionGroups:
+          for (let solutionGroup of bestGroups) {
+            for (let i in selectedGroup) {
+              if (selectedGroup[i] != solutionGroup[i]) {
+                continue loopSolutionGroups;
+              }
+            }
+            found++;
+            continue loopSelectedGroups;
+          }
+      }
+
+    return (found == bestGroups.length && found == this.selectedGroups.length);
   }
 
 }

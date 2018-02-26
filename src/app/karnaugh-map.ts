@@ -103,6 +103,24 @@ export class KarnaughMap {
     return result;
   }
 
+  getExpressionAtSquare(offRow: number, offCol: number): ExpressionGroup {
+    if (offRow < 0 || offCol < 0) { throw new Error('Negative coordinates'); }
+
+    let nRow = this.cellIds.length;
+    let nCol = this.cellIds[0].length;
+
+    let decimalNumber = this.cellIds[offRow % nRow][offCol % nCol];
+
+    let varA = !!(decimalNumber & this.flagA);
+    let varB = !!(decimalNumber & this.flagB);
+    let varC = !!(decimalNumber & this.flagC);
+    let varD = (this.flagD != undefined) ? !!(decimalNumber & this.flagD) : null;
+
+    return new ExpressionGroup(varA, varB, varC, varD);
+  }
+
+
+  // TODO might be a duplicate of the method below: expressionGroupToCells()
   // return cells for which the expression evaluates to true
   markExpression(expression: ExpressionGroup): number[] {
     let aVar: boolean;
@@ -130,28 +148,6 @@ export class KarnaughMap {
 
     return result;
 
-  }
-
-  getFlags(): number[] {
-    let flags = [this.flagA, this.flagB, this.flagC];
-    if (this.flagD) { flags.push(this.flagD); }
-    return flags;
-  }
-
-  getExpressionAtSquare(offRow: number, offCol: number): ExpressionGroup {
-    if (offRow < 0 || offCol < 0) { throw new Error('Negative coordinates'); }
-
-    let nRow = this.cellIds.length;
-    let nCol = this.cellIds[0].length;
-
-    let decimalNumber = this.cellIds[offRow % nRow][offCol % nCol];
-
-    let varA = !!(decimalNumber & this.flagA);
-    let varB = !!(decimalNumber & this.flagB);
-    let varC = !!(decimalNumber & this.flagC);
-    let varD = (this.flagD != undefined) ? !!(decimalNumber & this.flagD) : null;
-
-    return new ExpressionGroup(varA, varB, varC, varD);
   }
 
   // find for which cells (their IDs) the expression evaluates to true

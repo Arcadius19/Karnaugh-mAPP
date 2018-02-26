@@ -58,22 +58,7 @@ export class ExFindBestGroupsComponent implements OnInit {
   }
 
   onVerify() {
-    let found = 0;
-    loopSelectedGroups:
-      for (let selectedGroup of this.interKmapComponent.selectedGroups) {
-      loopSolutionGroups:
-        for (let solutionGroup of this.solution) {
-          for (let i in selectedGroup) {
-            if (selectedGroup[i] != solutionGroup[i]) {
-              continue loopSolutionGroups;
-            }
-          }
-          found++;
-          continue loopSelectedGroups;
-        }
-      }
-
-    this.correct = (found == this.solution.length && found == this.interKmapComponent.selectedGroups.length);
+    this.correct = this.interKmapComponent.compareSelectedToBest(this.solution);
   }
 
 }

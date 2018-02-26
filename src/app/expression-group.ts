@@ -90,22 +90,35 @@ export class ExpressionGroup {
     }
 
     let connector = dnfType ? ' or ' : ' and ';
+    let notNulls;
+    let openBracket;
+    let closeBracket;
 
-    let openBracket = (groups[0].isSingleValue()) ? '' : '(';
-    let closeBracket = (groups[0].isSingleValue()) ? '' : ')';
-    let result = openBracket + groups[0].prepareForMathJax(dnfType) + closeBracket;
+    let result = '';
 
-    for (let i = 1; i < groups.length; i++) {
-      openBracket = (groups[i].isSingleValue()) ? '' : '(';
-      closeBracket = (groups[i].isSingleValue()) ? '' : ')';
-      result = result + connector + openBracket + groups[i].prepareForMathJax(dnfType) + closeBracket;
+    let allTrues = true;
+    for (let group of groups) {           // check if all expressions are {null, null, null, null}, i.e. = 1
+      if (group.countNotNulls() != 0) {   // if so, return 1 in MathJax form
+        allTrues = false;
+        break;
+      }
+    }
+    if (allTrues) {
+      return MathJax.toMathJax('1');
     }
 
-    return MathJax.toMathJax(result);
-  }
+    for (let group of groups) {
+      notNulls = group.countNotNulls();
+      if (notNulls == 0) { continue; }
 
-  toString(): string {
-    return ('A: ' + this.aVar + ', B: ' + this.bVar + ', C: ' + this.cVar + ', D: ' + this.dVar);
+      openBracket = (notNulls <= 1) ? '' : '(';
+      closeBracket = (notNulls <= 1) ? '' : ')';
+      result = result + openBracket + group.prepareForMathJax(dnfType) + closeBracket + connector;
+    }
+
+    result = result.slice(0, -connector.length);
+
+    return MathJax.toMathJax(result);
   }
 
   prepareForMathJax(product = true): string {
@@ -179,14 +192,14 @@ export class ExpressionGroup {
     return result;
   }
 
-  isSingleValue(): boolean {
+  countNotNulls(): number {
     let notNulls = 0;
     if (this.aVar != null) { notNulls++; }
     if (this.bVar != null) { notNulls++; }
     if (this.cVar != null) { notNulls++; }
     if (this.dVar != null) { notNulls++; }
 
-    return notNulls == 1;
+    return notNulls;
   }
 
   // CONVERTING METHODS ======================

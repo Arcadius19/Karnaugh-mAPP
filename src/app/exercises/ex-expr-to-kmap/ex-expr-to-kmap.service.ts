@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
+import {ExerciseService, ExericseID} from '../exercise.service';
+import {Exercise} from '../exercise';
 
-export class ExExprToKmap {
-  id: number;
-  points: number;
+export class ExExprToKmap extends Exercise {
   expression: string;
 
   constructor(id: number, expression: string, points: number) {
-    this.id = id;
+    super(id, points);
     this.expression = expression;
-    this.points = points;
   }
 }
 
@@ -25,24 +23,10 @@ let EXERCISES = [
 ];
 
 @Injectable()
-export class ExExprToKmapService {
+export class ExExprToKmapService extends ExerciseService {
 
-  constructor() { }
-
-  getExercises() {
-    return EXERCISES;
-  }
-
-  getExercise(id: number | string) {
-    return this.getExercises().find(exercise => exercise.id == +id);
-  }
-
-  getExercisesAsync() {
-    return Observable.of(EXERCISES);
-  }
-
-  getExerciseAsync(id: number | string) {
-    return this.getExercisesAsync().map(exercises => exercises.find(exercise => exercise.id == +id));
+  constructor() {
+    super(ExericseID.EXPR_TO_KMAP, EXERCISES);
   }
 
 }

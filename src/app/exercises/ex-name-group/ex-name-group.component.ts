@@ -16,6 +16,8 @@ export class ExNameGroupComponent implements OnInit {
   private interKmapComponent: InteractiveKmapComponent;
 
   exercise$: Observable<ExNameGroup>;
+  id: number;
+  points: number;
 
   kmap = new KarnaughMap(4); // auxiliary kmap
 
@@ -47,13 +49,17 @@ export class ExNameGroupComponent implements OnInit {
         this.router.navigate(['/exercises']);
       } else {
         if (this.interKmapComponent) {
-          this.interKmapComponent.premarkedCells = this.kmap.markExpression(exercise.expression);
+          this.interKmapComponent.premarkedCells = this.kmap.markExpression(exercise.expressionGroup);
           this.interKmapComponent.ngOnInit();
         }
-        this.variables[0].solution = exercise.expression.aVar;
-        this.variables[1].solution = exercise.expression.bVar;
-        this.variables[2].solution = exercise.expression.cVar;
-        this.variables[3].solution = exercise.expression.dVar;
+
+        this.id = exercise.id;
+        this.points = exercise.points;
+
+        this.variables[0].solution = exercise.expressionGroup.aVar;
+        this.variables[1].solution = exercise.expressionGroup.bVar;
+        this.variables[2].solution = exercise.expressionGroup.cVar;
+        this.variables[3].solution = exercise.expressionGroup.dVar;
 
         let latexSolutionExpression = '';
         for (let variable of this.variables) {
@@ -106,6 +112,10 @@ export class ExNameGroupComponent implements OnInit {
     }
 
     this.correct = result;
+
+    if (this.correct == true) {
+      this.service.addPointsToTotal(this.id, this.points);
+    }
 
     if (latexExpression == '') {
       latexExpression = '1';

@@ -20,7 +20,7 @@
     </div>
 
     <div class="panel-body text-center">
-      <app-interactive-kmap [premarkedCells]="kmap.markExpression(exercise.expression)" [active]="false"></app-interactive-kmap>
+      <app-interactive-kmap [premarkedCells]="kmap.markExpression(exercise.expressionGroup)" [active]="false"></app-interactive-kmap>
     </div>
 
     <div class="panel-footer" *ngIf="correct != null">

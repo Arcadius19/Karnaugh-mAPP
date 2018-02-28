@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import {GridGroup} from '../../grid-group';
 import {ExpressionGroup} from '../../expression-group';
+import {Exercise} from '../exercise';
+import {ExerciseService, ExericseID} from '../exercise.service';
 
-export class ExNameGroup {
-  id: number;
-  points: number;
-  expression: ExpressionGroup;
+export class ExNameGroup extends Exercise {
+  expressionGroup: ExpressionGroup;
 
   constructor(id: number, points: number, expression: ExpressionGroup) {
-    this.id = id;
-    this.points = points;
-    this.expression = expression;
+    super(id, points);
+    this.expressionGroup = expression;
   }
 }
 
@@ -24,24 +21,10 @@ let EXERCISES = [
 ];
 
 @Injectable()
-export class ExNameGroupService {
+export class ExNameGroupService extends ExerciseService {
 
-  constructor() { }
-
-  getExercises() {
-    return EXERCISES;
-  }
-
-  getExercise(id: number | string) {
-    return this.getExercises().find(exercise => exercise.id == +id);
-  }
-
-  getExercisesAsync() {
-    return Observable.of(EXERCISES);
-  }
-
-  getExerciseAsync(id: number | string) {
-    return this.getExercisesAsync().map(exercises => exercises.find(exercise => exercise.id == +id));
+  constructor() {
+    super(ExericseID.NAME_GROUP, EXERCISES);
   }
 
 }

@@ -9,8 +9,8 @@ import { FormComponent } from './form/form.component';
 import { ParserService } from './parser.service';
 import { MathjaxDirective } from './mathjax-aux/mathjax.directive';
 import { TypeFormComponent } from './kmap/type-form/type-form.component';
-import {GlobalVariablesService} from './global-variables.service';
-import {AppRoutingModule} from './app-routing.module';
+import { GlobalVariablesService } from './global-variables.service';
+import { AppRoutingModule } from './app-routing.module';
 import { ExercisesComponent } from './exercises/exercises.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
@@ -22,9 +22,16 @@ import { ExFindBestGroupsComponent } from './exercises/ex-find-best-groups/ex-fi
 import { ExNameGroupComponent } from './exercises/ex-name-group/ex-name-group.component';
 import { ExLabelSquaresComponent } from './exercises/ex-label-squares/ex-label-squares.component';
 import { ExKmapToExprComponent } from './exercises/ex-kmap-to-expr/ex-kmap-to-expr.component';
+import { TutorialComponent } from './tutorial/tutorial.component';
+import { UserProgressComponent } from './exercises/user-progress/user-progress.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
+  entryComponents: [
+    UserProgressComponent
+  ],
   declarations: [
     AppComponent,
     KmapComponent,
@@ -41,17 +48,21 @@ import { ExKmapToExprComponent } from './exercises/ex-kmap-to-expr/ex-kmap-to-ex
     ExFindBestGroupsComponent,
     ExNameGroupComponent,
     ExLabelSquaresComponent,
-    ExKmapToExprComponent
+    ExKmapToExprComponent,
+    TutorialComponent,
+    UserProgressComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ModalModule.forRoot()
   ],
   providers: [
     ParserService,
-    GlobalVariablesService
+    GlobalVariablesService,
+    BsModalService
   ],
   bootstrap: [AppComponent]
 })

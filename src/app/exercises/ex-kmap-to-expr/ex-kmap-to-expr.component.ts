@@ -13,10 +13,14 @@ import {ExpressionGroup} from '../../expression-group';
   styleUrls: ['./ex-kmap-to-expr.component.css']
 })
 export class ExKmapToExprComponent implements OnInit {
+
   @ViewChild(InteractiveKmapComponent)
   private interKmapComponent: InteractiveKmapComponent;
 
   exercise$: Observable<ExKmapToExpr>;
+  id: number;
+  points: number;
+
   kmap = new KarnaughMap();                          // By default, always with 4 variables
 
   bestGroupsExpressions: ExpressionGroup[];          // solution as Expressions, e.g. G1: {aVar: True; bVar: null; cVar: False; dVar: null}
@@ -47,6 +51,9 @@ export class ExKmapToExprComponent implements OnInit {
         this.interKmapComponent.premarkedCells = exercise.cells;
         this.interKmapComponent.ngOnInit();
       }
+      this.id = exercise.id;
+      this.points = exercise.points;
+
       this.bestGroupsExpressions = BestGroupsSolver.findBestGroups(this.kmap.cellsToMap(exercise.cells));
       this.bestGroupsCells = this.bestGroupsExpressions
         .map(group => this.kmap.expressionGroupToCells(group).sort((n1, n2) => n1 - n2));
@@ -92,6 +99,10 @@ export class ExKmapToExprComponent implements OnInit {
     }
 
     this.finalCorrect = nCorrectAndMatch == this.userAnswers.length && this.userAnswers.length == this.bestGroupsCells.length;
+
+    if (this.finalCorrect == true) {
+      this.service.addPointsToTotal(this.id, this.points);
+    }
   }
 
   userMinimalExpressionInMathjax(): string {

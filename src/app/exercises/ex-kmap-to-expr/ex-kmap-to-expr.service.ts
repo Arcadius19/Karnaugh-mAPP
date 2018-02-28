@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {KarnaughMap} from '../../karnaugh-map';
+import {Exercise} from '../exercise';
+import {ExerciseService, ExericseID} from '../exercise.service';
+import {GlobalVariables} from '../../global-variables';
 
-export class ExKmapToExpr {
-  id: number;
-  points: number;
+export class ExKmapToExpr extends Exercise {
   cells: number[];
 
   constructor(id: number, points: number, cells: number[]) {
-    this.id = id;
-    this.points = points;
+    super(id, points);
     this.cells = cells;
   }
 }
@@ -25,24 +25,10 @@ let EXERCISES = [
 ];
 
 @Injectable()
-export class ExKmapToExprService {
+export class ExKmapToExprService extends ExerciseService {
 
-  constructor() { }
-
-  getExercises() {
-    return EXERCISES;
-  }
-
-  getExercise(id: number | string) {
-    return this.getExercises().find(exercise => exercise.id == +id);
-  }
-
-  getExercisesAsync() {
-    return Observable.of(EXERCISES);
-  }
-
-  getExerciseAsync(id: number | string) {
-    return this.getExercisesAsync().map(exercises => exercises.find(exercise => exercise.id == +id));
+  constructor() {
+    super(ExericseID.KMAP_TO_EXPR, EXERCISES);
   }
 
 }

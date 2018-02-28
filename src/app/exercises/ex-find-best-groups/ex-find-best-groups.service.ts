@@ -1,16 +1,14 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Exercise} from '../exercise';
+import {ExerciseService, ExericseID} from '../exercise.service';
 
-export class ExFindBestGroups {
-  id: number;
-  points: number;
+export class ExFindBestGroups extends Exercise {
   cells: number[];
-  nVars = 4;
+  nVars: number;
 
   constructor(id: number, points: number, cells: number[], nVars?: number) {
-    this.id = id;
-    this.points = points;
-    if (nVars == 3) { this.nVars = nVars; }
+    super(id, points);
+    this.nVars = (nVars == 3) ? 3 : 4;
     this.cells = cells.filter(cell => cell < Math.pow(2, this.nVars));
   }
 }
@@ -23,24 +21,10 @@ let EXERCISES = [
 ];
 
 @Injectable()
-export class ExFindBestGroupsService {
+export class ExFindBestGroupsService extends ExerciseService {
 
-  constructor() { }
-
-  getExercises() {
-    return EXERCISES;
-  }
-
-  getExercise(id: number | string) {
-    return this.getExercises().find(exercise => exercise.id == +id);
-  }
-
-  getExercisesAsync() {
-    return Observable.of(EXERCISES);
-  }
-
-  getExerciseAsync(id: number | string) {
-    return this.getExercisesAsync().map(exercises => exercises.find(exercise => exercise.id == +id));
+  constructor() {
+    super(ExericseID.FIND_BEST, EXERCISES);
   }
 
 }

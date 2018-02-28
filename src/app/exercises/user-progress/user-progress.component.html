@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Progress Status</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="progressModal.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <table class="table table-hover" *ngFor="let exercise of exercises; index as i">
+    <thead>
+      <tr>
+        <th>Exercise {{i}}: {{exercise.name}}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let question of exercise.list">
+        <td>Question: {{question.id}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="progressModal.hide()">Close</button>
+</div>

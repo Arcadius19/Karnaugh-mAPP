@@ -17,6 +17,9 @@ export class ExFindBestGroupsComponent implements OnInit {
   private interKmapComponent: InteractiveKmapComponent;
 
   exercise$: Observable<ExFindBestGroups>;
+  id: number;
+  points: number;
+
   kmap: KarnaughMap;            // auxiliary Karnaugh map used in some methods
   solution: number[][];
   correct: boolean;
@@ -43,11 +46,12 @@ export class ExFindBestGroupsComponent implements OnInit {
           this.interKmapComponent.premarkedCells = exercise.cells;
           this.interKmapComponent.ngOnInit();
         }
+        this.id = exercise.id;
+        this.points = exercise.points;
         this.kmap = new KarnaughMap(exercise.nVars);
         this.solution = BestGroupsSolver
           .findBestGroups(this.kmap.cellsToMap(exercise.cells))
           .map(group => this.kmap.expressionGroupToCells(group).sort((n1, n2) => n1 - n2));
-        console.log('Solution: ', this.solution);
         this.resetComponent();
       }
     });
@@ -59,6 +63,9 @@ export class ExFindBestGroupsComponent implements OnInit {
 
   onVerify() {
     this.correct = this.interKmapComponent.compareSelectedToBest(this.solution);
+    if (this.correct) {
+      this.service.addPointsToTotal(this.id, this.points);
+    }
   }
 
 }

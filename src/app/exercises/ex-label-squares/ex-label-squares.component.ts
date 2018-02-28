@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {KarnaughMap} from '../../karnaugh-map';
+import {ExLabelSquaresService} from './ex-label-squares.service';
 
 @Component({
   selector: 'app-ex-label-squares',
@@ -7,14 +8,21 @@ import {KarnaughMap} from '../../karnaugh-map';
   styleUrls: ['./ex-label-squares.component.css']
 })
 export class ExLabelSquaresComponent implements OnInit {
+  id: number;
+  points: number;
+
   kmap: KarnaughMap;
   userAnswer: number[][];
   submitted: boolean;
   correct: boolean;
 
-  constructor() { }
+  constructor(
+    private service: ExLabelSquaresService
+  ) { }
 
   ngOnInit() {
+    this.id = 1;
+    this.points = this.service.getExercise(1).points;
     this.kmap = new KarnaughMap(4);
     this.userAnswer = this.kmap.cellIds.map(row => row.map(cell => null));
     this.submitted = false;
@@ -24,6 +32,9 @@ export class ExLabelSquaresComponent implements OnInit {
   onVerify() {
     this.submitted = true;
     this.correct = this.userAnswer.every((row, i) => row.every((cell, j) => cell == this.kmap.cellIds[i][j]));
+    if (this.correct == true) {
+      this.service.addPointsToTotal(this.id, this.points);
+    }
   }
 
   isInputValid(input: number | string): boolean {

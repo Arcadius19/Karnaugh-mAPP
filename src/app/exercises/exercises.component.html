@@ -1,4 +1,28 @@
 <div class="row">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-lg-11 col-sm-10 col-xs-9">
+          <div class="progress" >
+            <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="pointsRatio()"
+                 aria-valuemin="0" aria-valuemax="100" [style.width]="pointsRatio()">
+              {{pointsRatio()}}
+            </div>
+            {{checkPoints()}} / {{maxPoints}}
+          </div>
+        </div>
+
+        <div class="col-lg-1 col-sm-2 col-xs-3">
+          <button class="btn btn-primary btn-xs col-xs-12" title="Show details of the progress" (click)="openUserProgress()">
+            Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-sm-3">
     <ul class="nav nav-pills nav-stacked">
       <li routerLinkActive="active"><a routerLink="label-squares">Label Squares</a></li>

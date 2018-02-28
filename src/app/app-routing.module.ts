@@ -11,6 +11,7 @@ import {ExFindBestGroupsComponent} from './exercises/ex-find-best-groups/ex-find
 import {ExNameGroupComponent} from './exercises/ex-name-group/ex-name-group.component';
 import {ExLabelSquaresComponent} from './exercises/ex-label-squares/ex-label-squares.component';
 import {ExKmapToExprComponent} from './exercises/ex-kmap-to-expr/ex-kmap-to-expr.component';
+import {TutorialComponent} from './tutorial/tutorial.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -43,6 +44,7 @@ const routes: Routes = [
       {path: '**', component: PageNotFoundComponent}
     ]
   },
+  { path: 'tutorial', component: TutorialComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

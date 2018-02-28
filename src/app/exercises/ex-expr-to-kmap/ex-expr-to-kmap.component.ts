@@ -6,6 +6,8 @@ import {Observable} from 'rxjs/Observable';
 import {MathJax} from '../../mathjax-aux/math-jax';
 import {InteractiveKmapComponent} from '../../interactive-kmap/interactive-kmap.component';
 import {KarnaughMap} from '../../karnaugh-map';
+import {local} from 'd3-selection';
+import {Exercise} from '../exercise';
 
 @Component({
   selector: 'app-ex-expr-to-kmap',
@@ -19,6 +21,8 @@ export class ExExprToKmapComponent implements OnInit {
 
   exercise$: Observable<ExExprToKmap>;
   id: number;
+  points: number;
+
   markTrue: boolean;          // whether user should select true or false states
   nVars = 4;                  // may be changed to dynamic in future
   latexExpression: string;    // expression in LaTeX form
@@ -49,6 +53,8 @@ export class ExExprToKmapComponent implements OnInit {
         return;
       }
 
+      this.id = exercise.id;
+      this.points = exercise.points;
       this.markTrue = Math.random() > 0.5;
       this.latexExpression = MathJax.toMathJax(exercise.expression);
       this.solution = (new KarnaughMap(this.nVars)).evaluate(exercise.expression);
@@ -100,6 +106,7 @@ export class ExExprToKmapComponent implements OnInit {
     if (result) {
       this.correct = true;
       this.resultStyle = 'panel-success';
+      this.service.addPointsToTotal(this.id, this.points);
     } else {
       this.correct = false;
       this.resultStyle = 'panel-danger';

@@ -39,6 +39,7 @@ import {ExLabelSquaresService} from './quiz/ex-label-squares/ex-label-squares.se
 import { KmapToExprComponent } from './exercises/exercise-types/kmap-to-expr/kmap-to-expr.component';
 import { FindBestGroupsComponent } from './exercises/exercise-types/find-best-groups/find-best-groups.component';
 import { NameGroupComponent } from './exercises/exercise-types/name-group/name-group.component';
+import { PracticeFindBestGroupsComponent } from './practice/practice-find-best-groups/practice-find-best-groups.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { NameGroupComponent } from './exercises/exercise-types/name-group/name-g
     PracticeExprToKmapComponent,
     KmapToExprComponent,
     FindBestGroupsComponent,
-    NameGroupComponent
+    NameGroupComponent,
+    PracticeFindBestGroupsComponent
   ],
   imports: [
     BrowserModule,

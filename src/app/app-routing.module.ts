@@ -15,6 +15,7 @@ import {TutorialComponent} from './tutorial/tutorial.component';
 import {PracticeComponent} from './practice/practice.component';
 import {PracticeIntroductionComponent} from './practice/practice-introduction/practice-introduction.component';
 import {PracticeExprToKmapComponent} from './practice/practice-expr-to-kmap/practice-expr-to-kmap.component';
+import {PracticeFindBestGroupsComponent} from './practice/practice-find-best-groups/practice-find-best-groups.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -26,6 +27,11 @@ const routes: Routes = [
       { path: 'expr-to-kmap',
         children: [
           { path: ':id', component: PracticeExprToKmapComponent }
+        ]
+      },
+      { path: 'find-groups',
+        children: [
+          { path: ':id', component: PracticeFindBestGroupsComponent }
         ]
       },
       { path: '**', component: PageNotFoundComponent }

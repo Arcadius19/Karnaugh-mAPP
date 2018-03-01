@@ -1,11 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {InteractiveKmapComponent} from '../../interactive-kmap/interactive-kmap.component';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {ExFindBestGroups, ExFindBestGroupsService} from '../../exercises/exercise-types/find-best-groups/ex-find-best-groups.service';
-import {Observable} from 'rxjs/Observable';
-import {KarnaughMap} from '../../auxiliary/karnaugh-map';
-import {BestGroupsSolver} from '../../auxiliary/best-groups-solver';
+import {Component, OnInit} from '@angular/core';
 import {FindBestGroupsComponent} from '../../exercises/exercise-types/find-best-groups/find-best-groups.component';
+import {ExFindBestGroups} from '../../exercises/exercise-types/find-best-groups/ex-find-best-groups.service';
 
 @Component({
   selector: 'app-ex-find-best-groups',
@@ -13,5 +8,25 @@ import {FindBestGroupsComponent} from '../../exercises/exercise-types/find-best-
   styleUrls: ['./ex-find-best-groups.component.css']
 })
 export class ExFindBestGroupsComponent extends FindBestGroupsComponent implements OnInit {
+  routePath = 'exercise';
+  points: number;
+
+  getQuestion(params) {
+    return this.service.getExerciseTestAsync(params.get('id'));
+  }
+
+  populateProperties(exercise: ExFindBestGroups) {
+    super.populateProperties(exercise);
+    this.points = exercise.points;
+  }
+
+  onVerify() {
+    super.onVerify();
+    if (this.correct) {
+      this.service.addPointsToTotal(this.id, this.points);
+    } else {
+      this.service.addAttempt(this.id);
+    }
+  }
 
 }

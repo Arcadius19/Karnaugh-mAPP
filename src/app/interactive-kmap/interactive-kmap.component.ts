@@ -88,18 +88,22 @@ export class InteractiveKmapComponent implements OnInit {
   }
 
   compareSelectedToBest(bestGroups: number[][]): boolean {
+    if (this.selectedGroups.length != bestGroups.length) { return false; }
+
     let found = 0;
     loopSelectedGroups:
       for (let selectedGroup of this.selectedGroups) {
         loopSolutionGroups:
           for (let solutionGroup of bestGroups) {
-            for (let i in selectedGroup) {
-              if (selectedGroup[i] != solutionGroup[i]) {
-                continue loopSolutionGroups;
+            if (selectedGroup.length == solutionGroup.length) {
+              for (let i in selectedGroup) {
+                if (selectedGroup[i] != solutionGroup[i]) {
+                  continue loopSolutionGroups;
+                }
               }
+              found++;
+              continue loopSelectedGroups;
             }
-            found++;
-            continue loopSelectedGroups;
           }
       }
 

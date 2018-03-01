@@ -67,17 +67,7 @@ export class ExprToKmapComponent implements OnInit {
     this.correct = null;
   }
 
-  onVerify() {
-    let solutionMarked: number[][];
-
-    if (this.markTrue) {
-      solutionMarked = this.solution;
-    } else {
-      // reverse values
-      solutionMarked = this.solution.map(row => row.map(cell => 1 - cell));
-    }
-    this.correct = this.interKmapComponent.marked.every((row, i) => row.every((cell, j) => cell == solutionMarked[i][j]));
-  }
+  onVerify() { }
 
   onTryAgain() {
     this.resetComponent();

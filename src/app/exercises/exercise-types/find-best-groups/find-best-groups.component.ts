@@ -11,13 +11,13 @@ import {BestGroupsSolver} from '../../../auxiliary/best-groups-solver';
   template: ''
 })
 export class FindBestGroupsComponent implements OnInit {
-
   @ViewChild(InteractiveKmapComponent)
-  private interKmapComponent: InteractiveKmapComponent;
+  interKmapComponent: InteractiveKmapComponent;
+
+  routePath = '/';
 
   exercise$: Observable<ExFindBestGroups>;
   id: number;
-  points: number;
 
   kmap: KarnaughMap;            // auxiliary Karnaugh map used in some methods
   solution: number[][];
@@ -26,34 +26,41 @@ export class FindBestGroupsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: ExFindBestGroupsService
+    public service: ExFindBestGroupsService
   ) { }
 
   ngOnInit() {
     this.exercise$ = this.route.paramMap
       .switchMap((params: ParamMap) =>
-        this.service.getExerciseTestAsync(params.get('id')));
+        this.getQuestion(params));
 
     // When a new exercise is loaded
     this.exercise$.subscribe(exercise => {
       if (!exercise) {
         // such an exercise does not exist
-        this.router.navigate(['/exercises']);
+        this.router.navigate([this.routePath]);
       } else {
         if (this.interKmapComponent) {
           this.interKmapComponent.nVars = exercise.nVars;
           this.interKmapComponent.premarkedCells = exercise.cells;
           this.interKmapComponent.ngOnInit();
         }
-        this.id = exercise.id;
-        this.points = exercise.points;
-        this.kmap = new KarnaughMap(exercise.nVars);
-        this.solution = BestGroupsSolver
-          .findBestGroups(this.kmap.cellsToMap(exercise.cells))
-          .map(group => this.kmap.expressionGroupToCells(group).sort((n1, n2) => n1 - n2));
+        this.populateProperties(exercise);
         this.resetComponent();
       }
     });
+  }
+
+  getQuestion(params) {
+    return this.service.getExercisePracticeAsync(params.get('id'));
+  }
+
+  populateProperties(exercise: ExFindBestGroups) {
+    this.id = exercise.id;
+    this.kmap = new KarnaughMap(exercise.nVars);
+    this.solution = BestGroupsSolver
+      .findBestGroups(this.kmap.cellsToMap(exercise.cells))
+      .map(group => this.kmap.expressionGroupToCells(group).sort((n1, n2) => n1 - n2));
   }
 
   resetComponent() {
@@ -62,11 +69,7 @@ export class FindBestGroupsComponent implements OnInit {
 
   onVerify() {
     this.correct = this.interKmapComponent.compareSelectedToBest(this.solution);
-    if (this.correct) {
-      this.service.addPointsToTotal(this.id, this.points);
-    } else {
-      this.service.addAttempt(this.id);
-    }
+    console.log('solution: ', this.solution);
   }
 
 }

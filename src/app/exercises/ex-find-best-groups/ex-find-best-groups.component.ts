@@ -65,6 +65,8 @@ export class ExFindBestGroupsComponent implements OnInit {
     this.correct = this.interKmapComponent.compareSelectedToBest(this.solution);
     if (this.correct) {
       this.service.addPointsToTotal(this.id, this.points);
+    } else {
+      this.service.addAttempt(this.id);
     }
   }
 

@@ -26,6 +26,7 @@ import { TutorialComponent } from './tutorial/tutorial.component';
 import { UserProgressComponent } from './exercises/user-progress/user-progress.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { PracticeComponent } from './practice/practice.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { BsModalService } from 'ngx-bootstrap/modal';
     ExLabelSquaresComponent,
     ExKmapToExprComponent,
     TutorialComponent,
-    UserProgressComponent
+    UserProgressComponent,
+    PracticeComponent
   ],
   imports: [
     BrowserModule,

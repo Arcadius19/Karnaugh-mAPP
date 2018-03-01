@@ -102,6 +102,8 @@ export class ExKmapToExprComponent implements OnInit {
 
     if (this.finalCorrect == true) {
       this.service.addPointsToTotal(this.id, this.points);
+    } else {
+      this.service.addAttempt(this.id);
     }
   }
 

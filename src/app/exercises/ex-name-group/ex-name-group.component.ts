@@ -115,6 +115,8 @@ export class ExNameGroupComponent implements OnInit {
 
     if (this.correct == true) {
       this.service.addPointsToTotal(this.id, this.points);
+    } else {
+      this.service.addAttempt(this.id);
     }
 
     if (latexExpression == '') {

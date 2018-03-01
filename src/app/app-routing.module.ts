@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, RouteReuseStrategy } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { ExercisesComponent } from './exercises/exercises.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -12,10 +12,12 @@ import {ExNameGroupComponent} from './exercises/ex-name-group/ex-name-group.comp
 import {ExLabelSquaresComponent} from './exercises/ex-label-squares/ex-label-squares.component';
 import {ExKmapToExprComponent} from './exercises/ex-kmap-to-expr/ex-kmap-to-expr.component';
 import {TutorialComponent} from './tutorial/tutorial.component';
+import {PracticeComponent} from './practice/practice.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'playground', component: PlaygroundComponent },
+  { path: 'practice', component: PracticeComponent },
   { path: 'exercises',
     component: ExercisesComponent,
     children: [

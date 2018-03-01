@@ -13,11 +13,17 @@ export class ExericseID {
 @Injectable()
 export class ExerciseService {
   id: number;
+  name: string;
+  route: string;
   EXERCISES: Exercise[];
+  isSingleton: boolean;
 
-  constructor(id: number, exercises: Exercise[]) {
+  constructor(id: number, name: string, route: string, exercises: Exercise[], isSingleton?: boolean) {
     this.id = id;
     this.EXERCISES = exercises;
+    this.name = name;
+    this.route = route;
+    this.isSingleton = !!(isSingleton) ;
   }
 
   getExercises() {
@@ -36,13 +42,62 @@ export class ExerciseService {
     return this.getExercisesAsync().map(exercises => exercises.find(exercise => exercise.id == +id));
   }
 
-  addPointsToTotal(questionID: number, points: number) {
-    let questionKey = 'ex' + this.id + 'q' + questionID;
+  getStoragePrefix(): string {
+    return 'ex' + this.id + 'q';
+  }
 
-    if (!localStorage.getItem(questionKey)) {
+  addPointsToTotal(qID: number, points: number) {
+    let questionKey = this.getStoragePrefix() + qID;
+    let currentState = localStorage.getItem(questionKey);
+
+    if (!currentState) {
       localStorage.setItem('totalPoints', String(+localStorage.getItem('totalPoints') + points));
-      localStorage.setItem(questionKey, 'success');
+      let questionItem = {
+        points: points,
+        attemptsUntilCorrect: 1,
+        attempts: 1
+      };
+      localStorage.setItem(questionKey, JSON.stringify(questionItem));
+    } else {
+      let currentStateObject = JSON.parse(currentState);
+      localStorage.setItem('totalPoints', String(+localStorage.getItem('totalPoints') + points));
+      currentStateObject.attempts++;
+      if (currentStateObject.points != points) {
+        currentStateObject.points = points;
+        currentStateObject.attemptsUntilCorrect = currentStateObject.attempts;
+      }
+      localStorage.setItem(questionKey, JSON.stringify(currentStateObject));
     }
+  }
+
+  addAttempt(qID: number) {
+    let questionKey = this.getStoragePrefix() + qID;
+    let currentState = localStorage.getItem(questionKey);
+    if (!currentState) {
+      let questionItem = {
+        points: 0,
+        attempts: 1
+      };
+      localStorage.setItem(questionKey, JSON.stringify(questionItem));
+    } else {
+      let currentStateObject = JSON.parse(currentState);
+      if (currentStateObject.attempts) {
+        currentStateObject.attempts++;
+        localStorage.setItem(questionKey, JSON.stringify(currentStateObject));
+      }
+    }
+  }
+
+  getBasic() {
+    let result = {
+      id: this.id,
+      name: this.name,
+      route: this.route,
+      isSingleton: this.isSingleton,
+      questions: this.EXERCISES.map(exercise => exercise.getBasic())
+    };
+
+    return result;
   }
 
 }

@@ -24,14 +24,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   ]
 })
 export class ExercisesComponent implements OnInit {
-  labelSquaresExercises: Exercise[];
-  exprToKmapExercises: Exercise[];
-  findBestGroupsExercises: Exercise[];
-  nameGroupExercises: Exercise[];
-  kmapToExprExercises: Exercise[];
-
+  exercises = [];
   maxPoints = 0;
-
   progressModal: BsModalRef;
 
   constructor(
@@ -44,22 +38,14 @@ export class ExercisesComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.labelSquaresExercises = this.labelSquaresService.getExercises();
-    this.exprToKmapExercises = this.exprToKmapService.getExercises();
-    this.findBestGroupsExercises = this.findBestGroupsService.getExercises();
-    this.nameGroupExercises = this.nameGroupService.getExercises();
-    this.kmapToExprExercises = this.kmapToExprService.getExercises();
+    this.exercises.push(this.labelSquaresService.getBasic());
+    this.exercises.push(this.exprToKmapService.getBasic());
+    this.exercises.push(this.findBestGroupsService.getBasic());
+    this.exercises.push(this.nameGroupService.getBasic());
+    this.exercises.push(this.kmapToExprService.getBasic());
 
-    let exercisesArray = [
-      this.labelSquaresExercises,
-      this.exprToKmapExercises,
-      this.findBestGroupsExercises,
-      this.nameGroupExercises,
-      this.kmapToExprExercises
-    ];
-
-    for (let exercises of exercisesArray) {
-      exercises.forEach(exercise => this.maxPoints += exercise.points);
+    for (let exercises of this.exercises) {
+      exercises.questions.forEach(exercise => this.maxPoints += exercise.points);
     }
 
     if (!localStorage.getItem('totalPoints')) {
@@ -84,16 +70,8 @@ export class ExercisesComponent implements OnInit {
   }
 
   openUserProgress() {
-    let exercises = [
-      {name: 'Label Squares', list: this.labelSquaresExercises},
-      {name: 'Expression to Karnaugh Map', list: this.exprToKmapExercises},
-      {name: 'Find the Best Group', list: this.findBestGroupsExercises},
-      {name: 'Name the Group', list: this.nameGroupExercises},
-      {name: 'Karnaugh Map to Expression', list: this.kmapToExprExercises}
-    ];
-
     this.progressModal = this.modalService.show(UserProgressComponent);
-    this.progressModal.content.exercises = exercises;
+    this.progressModal.content.exercises = this.exercises;
   }
 
 }

@@ -3,13 +3,12 @@ import {Exercise} from '../exercise';
 import {ExerciseService, ExericseID} from '../exercise.service';
 
 export class ExFindBestGroups extends Exercise {
-  cells: number[];
-  nVars: number;
 
   constructor(id: number, points: number, cells: number[], nVars?: number) {
     super(id, points);
     this.nVars = (nVars == 3) ? 3 : 4;
     this.cells = cells.filter(cell => cell < Math.pow(2, this.nVars));
+    this.name = `Set ${id}`;
   }
 }
 
@@ -24,7 +23,7 @@ let EXERCISES = [
 export class ExFindBestGroupsService extends ExerciseService {
 
   constructor() {
-    super(ExericseID.FIND_BEST, EXERCISES);
+    super(ExericseID.FIND_BEST, 'Find the Best Groups', 'find-groups', EXERCISES);
   }
 
 }

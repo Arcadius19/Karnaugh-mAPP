@@ -25,52 +25,22 @@
 <div class="row">
   <div class="col-sm-3">
     <ul class="nav nav-pills nav-stacked">
-      <li routerLinkActive="active"><a routerLink="label-squares">Label Squares</a></li>
 
-      <li class="dropdown" routerLinkActive="active">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Expression to Karnaugh Map<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li *ngFor="let exercise of exprToKmapExercises">
-            <a routerLink="expr-to-kmap/{{exercise.id}}">
-            {{exercise.id}}. <span [innerHTML]="toBrowserText(exercise.expression)"></span>
+      <ng-container *ngFor="let exercise of exercises">
+      <li *ngIf="exercise.isSingleton" routerLinkActive="active"><a [routerLink]="exercise.route">{{exercise.name}}</a></li>
+
+      <li *ngIf="!exercise.isSingleton" class="dropdown" routerLinkActive="active">
+        <a class="dropdown-toggle" data-toggle="collapse" href="#collape{{exercise.id}}">{{exercise.name}}<span class="caret"></span></a>
+        <ul class="panel-collapse collapse list-group" id="collape{{exercise.id}}">
+            <a  *ngFor="let question of exercise.questions"
+                [routerLink]="exercise.route + '/' + question.id"
+                class="list-group-item">
+              <span [innerHTML]="question.name"></span>
             </a>
-          </li>
         </ul>
       </li>
+      </ng-container>
 
-      <li class="dropdown" routerLinkActive="active">
-        <a class="dropdown-toggle" data-toggle="collapse" href="#collapse2">Find the Best Groups<span class="caret"></span></a>
-        <ul class="panel-collapse collapse list-group" id="collapse2">
-          <!--<li *ngFor="let exercise of findBestGroupsExercises" class="list-group-item">-->
-            <a routerLink="find-groups/{{exercise.id}}" *ngFor="let exercise of findBestGroupsExercises" class="list-group-item">Set {{exercise.id}}</a>
-          <!--</li>-->
-        </ul>
-      </li>
-
-      <li class="dropdown" routerLinkActive="active">
-        <a class="dropdown-toggle" data-toggle="collapse" href="#collapse3">Name the Group<span class="caret"></span></a>
-        <ul class="panel-collapse collapse list-group" id="collapse3">
-          <a routerLink="name-group/{{exercise.id}}"
-             *ngFor="let exercise of nameGroupExercises"
-             class="list-group-item">
-            Set {{exercise.id}}
-          </a>
-        </ul>
-      </li>
-
-      <li class="dropdown" routerLinkActive="active">
-        <a class="dropdown-toggle" data-toggle="collapse" href="#collapse4">Karnaugh Map to Expression<span class="caret"></span></a>
-        <ul class="panel-collapse collapse list-group" id="collapse4">
-          <a routerLink="kmap-to-expr/{{exercise.id}}"
-             *ngFor="let exercise of kmapToExprExercises"
-             class="list-group-item">
-            Set {{exercise.id}}
-          </a>
-        </ul>
-      </li>
-
-
-      <li routerLinkActive="active"><a routerLink="resolution">Resolution</a></li>
     </ul>
   </div>
 

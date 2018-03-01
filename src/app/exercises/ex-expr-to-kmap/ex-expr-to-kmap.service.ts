@@ -3,13 +3,16 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import {ExerciseService, ExericseID} from '../exercise.service';
 import {Exercise} from '../exercise';
+import {MathJax} from '../../mathjax-aux/math-jax';
 
 export class ExExprToKmap extends Exercise {
   expression: string;
+  name: string;
 
   constructor(id: number, expression: string, points: number) {
     super(id, points);
     this.expression = expression;
+    this.name = id + '. ' + MathJax.toBrowserText(expression);
   }
 }
 
@@ -26,7 +29,7 @@ let EXERCISES = [
 export class ExExprToKmapService extends ExerciseService {
 
   constructor() {
-    super(ExericseID.EXPR_TO_KMAP, EXERCISES);
+    super(ExericseID.EXPR_TO_KMAP, 'Expression to Karnaugh Map', 'expr-to-kmap', EXERCISES);
   }
 
 }

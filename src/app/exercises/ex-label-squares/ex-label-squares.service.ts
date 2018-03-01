@@ -6,6 +6,7 @@ export class ExLabelSquares extends Exercise {
 
   constructor() {
     super(1, 2);
+    this.name = 'Label squares';
   }
 
 }
@@ -17,7 +18,7 @@ let EXERCISES = [new ExLabelSquares()];
 export class ExLabelSquaresService extends ExerciseService {
 
   constructor() {
-    super(ExericseID.LABEL, EXERCISES);
+    super(ExericseID.LABEL, 'Label Squares', 'label-squares', EXERCISES, true);
   }
 
 }

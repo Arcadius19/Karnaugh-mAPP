@@ -4,11 +4,11 @@ import {Exercise} from '../exercise';
 import {ExerciseService, ExericseID} from '../exercise.service';
 
 export class ExNameGroup extends Exercise {
-  expressionGroup: ExpressionGroup;
 
   constructor(id: number, points: number, expression: ExpressionGroup) {
     super(id, points);
     this.expressionGroup = expression;
+    this.name = `Set ${id}`;
   }
 }
 
@@ -24,7 +24,7 @@ let EXERCISES = [
 export class ExNameGroupService extends ExerciseService {
 
   constructor() {
-    super(ExericseID.NAME_GROUP, EXERCISES);
+    super(ExericseID.NAME_GROUP, 'Name the Group', 'name-group', EXERCISES);
   }
 
 }

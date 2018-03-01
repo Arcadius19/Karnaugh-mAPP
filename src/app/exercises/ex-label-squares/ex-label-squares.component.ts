@@ -34,6 +34,8 @@ export class ExLabelSquaresComponent implements OnInit {
     this.correct = this.userAnswer.every((row, i) => row.every((cell, j) => cell == this.kmap.cellIds[i][j]));
     if (this.correct == true) {
       this.service.addPointsToTotal(this.id, this.points);
+    } else {
+      this.service.addAttempt(this.id);
     }
   }
 

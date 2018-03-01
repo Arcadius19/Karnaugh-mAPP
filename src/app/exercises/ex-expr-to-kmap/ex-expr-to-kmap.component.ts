@@ -110,6 +110,7 @@ export class ExExprToKmapComponent implements OnInit {
     } else {
       this.correct = false;
       this.resultStyle = 'panel-danger';
+      this.service.addAttempt(this.id);
     }
   }
 

@@ -6,11 +6,11 @@ import {ExerciseService, ExericseID} from '../exercise.service';
 import {GlobalVariables} from '../../global-variables';
 
 export class ExKmapToExpr extends Exercise {
-  cells: number[];
 
   constructor(id: number, points: number, cells: number[]) {
     super(id, points);
     this.cells = cells;
+    this.name = `Set ${id}`;
   }
 }
 
@@ -28,7 +28,7 @@ let EXERCISES = [
 export class ExKmapToExprService extends ExerciseService {
 
   constructor() {
-    super(ExericseID.KMAP_TO_EXPR, EXERCISES);
+    super(ExericseID.KMAP_TO_EXPR, 'Karnaugh Map to Expression', 'kmap-to-expr', EXERCISES);
   }
 
 }

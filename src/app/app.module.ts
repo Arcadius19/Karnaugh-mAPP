@@ -40,6 +40,7 @@ import { KmapToExprComponent } from './exercises/exercise-types/kmap-to-expr/kma
 import { FindBestGroupsComponent } from './exercises/exercise-types/find-best-groups/find-best-groups.component';
 import { NameGroupComponent } from './exercises/exercise-types/name-group/name-group.component';
 import { PracticeFindBestGroupsComponent } from './practice/practice-find-best-groups/practice-find-best-groups.component';
+import { PracticeNameGroupComponent } from './practice/practice-name-group/practice-name-group.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { PracticeFindBestGroupsComponent } from './practice/practice-find-best-g
     KmapToExprComponent,
     FindBestGroupsComponent,
     NameGroupComponent,
-    PracticeFindBestGroupsComponent
+    PracticeFindBestGroupsComponent,
+    PracticeNameGroupComponent
   ],
   imports: [
     BrowserModule,

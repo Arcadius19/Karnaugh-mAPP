@@ -22,6 +22,10 @@
     <div class="panel-body text-center">
       <app-interactive-kmap [premarkedCells]="kmap.markExpression(exercise.expressionGroup)" [active]="false"></app-interactive-kmap>
     </div>
+
+    <!--<div class="panel-footer" *ngIf="correct != null">-->
+      <!--Solution: <span appMathJax [mathString]="latexSolutionExpression"></span>-->
+    <!--</div>-->
   </div>
 
   <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
@@ -32,7 +36,7 @@
     <div class="panel-body text-center">
       <form (ngSubmit)="onVerify()" #answerForm="ngForm" id="answerForm">
         <ng-container *ngFor="let variable of variables; index as i">
-          <div class="input-group">
+          <div class="input-group" [ngClass]='{"input-group-success": variable.result, "input-group-danger": variable.result == false}'>
             <span class="input-group-addon">{{variable.name}}</span>
             <div class="form-control equi-distance">
               <label class="radio-inline">
@@ -54,7 +58,7 @@
   </div>
 
   <div *ngIf="correct" class="alert alert-success">
-    <strong>Success!</strong> You gained {{exercise.points}} points.
+    <strong>Success!</strong> Well done.
   </div>
 
   <div *ngIf="correct == false" class="alert alert-success">

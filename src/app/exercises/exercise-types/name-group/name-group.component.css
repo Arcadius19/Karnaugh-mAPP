@@ -1,0 +1,4 @@
+.equi-distance {
+  display: flex;
+  justify-content: space-between;
+}

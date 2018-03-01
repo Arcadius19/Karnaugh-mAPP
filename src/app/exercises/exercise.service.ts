@@ -15,31 +15,49 @@ export class ExerciseService {
   id: number;
   name: string;
   route: string;
-  EXERCISES: Exercise[];
+  EXERCISES_TEST: Exercise[];
+  EXERCISES_PRACTICE: Exercise[];
   isSingleton: boolean;
 
-  constructor(id: number, name: string, route: string, exercises: Exercise[], isSingleton?: boolean) {
+  constructor(id: number, name: string, route: string, exercisesTest: Exercise[], exercisesPractice: Exercise[], isSingleton?: boolean) {
     this.id = id;
-    this.EXERCISES = exercises;
+    this.EXERCISES_TEST = exercisesTest;
+    this.EXERCISES_PRACTICE = exercisesPractice;
     this.name = name;
     this.route = route;
     this.isSingleton = !!(isSingleton) ;
   }
 
-  getExercises() {
-    return this.EXERCISES;
+  getExercisesTest() {
+    return this.EXERCISES_TEST;
   }
 
-  getExercise(id: number | string) {
-    return this.getExercises().find(exercise => exercise.id == +id);
+  getExerciseTest(id: number | string) {
+    return this.getExercisesTest().find(exercise => exercise.id == +id);
   }
 
-  getExercisesAsync() {
-    return Observable.of(this.EXERCISES);
+  getExercisesTestAsync() {
+    return Observable.of(this.EXERCISES_TEST);
   }
 
-  getExerciseAsync(id: number | string) {
-    return this.getExercisesAsync().map(exercises => exercises.find(exercise => exercise.id == +id));
+  getExerciseTestAsync(id: number | string) {
+    return this.getExercisesTestAsync().map(exercises => exercises.find(exercise => exercise.id == +id));
+  }
+
+  getExercisesPractice() {
+    return this.EXERCISES_PRACTICE;
+  }
+
+  getExercisePractice(id: number | string) {
+    return this.getExercisesPractice().find(exercise => exercise.id == +id);
+  }
+
+  getExercisesPracticeAsync() {
+    return Observable.of(this.EXERCISES_PRACTICE);
+  }
+
+  getExercisePracticeAsync(id: number | string) {
+    return this.getExercisesPracticeAsync().map(exercises => exercises.find(exercise => exercise.id == +id));
   }
 
   getStoragePrefix(): string {
@@ -60,9 +78,9 @@ export class ExerciseService {
       localStorage.setItem(questionKey, JSON.stringify(questionItem));
     } else {
       let currentStateObject = JSON.parse(currentState);
-      localStorage.setItem('totalPoints', String(+localStorage.getItem('totalPoints') + points));
       currentStateObject.attempts++;
       if (currentStateObject.points != points) {
+        localStorage.setItem('totalPoints', String(+localStorage.getItem('totalPoints') + points));
         currentStateObject.points = points;
         currentStateObject.attemptsUntilCorrect = currentStateObject.attempts;
       }
@@ -88,13 +106,25 @@ export class ExerciseService {
     }
   }
 
-  getBasic() {
+  getBasicTest() {
     let result = {
       id: this.id,
       name: this.name,
       route: this.route,
       isSingleton: this.isSingleton,
-      questions: this.EXERCISES.map(exercise => exercise.getBasic())
+      questions: this.EXERCISES_TEST.map(exercise => exercise.getBasic())
+    };
+
+    return result;
+  }
+
+  getBasicPractice() {
+    let result = {
+      id: this.id,
+      name: this.name,
+      route: this.route,
+      isSingleton: this.isSingleton,
+      questions: this.EXERCISES_PRACTICE.map(exercise => exercise.getBasic())
     };
 
     return result;

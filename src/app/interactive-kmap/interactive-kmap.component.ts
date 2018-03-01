@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {KarnaughMap} from '../karnaugh-map';
+import {KarnaughMap} from '../auxiliary/karnaugh-map';
 
 @Component({
   selector: 'app-interactive-kmap',

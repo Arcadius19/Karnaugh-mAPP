@@ -1,4 +1,4 @@
-import {ExpressionGroup} from '../expression-group';
+import {ExpressionGroup} from '../auxiliary/expression-group';
 
 export class Exercise {
   id: number;

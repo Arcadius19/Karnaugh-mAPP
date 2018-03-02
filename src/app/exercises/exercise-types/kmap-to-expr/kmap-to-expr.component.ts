@@ -14,7 +14,9 @@ import {ExpressionGroup} from '../../../auxiliary/expression-group';
 export class KmapToExprComponent implements OnInit {
 
   @ViewChild(InteractiveKmapComponent)
-  private interKmapComponent: InteractiveKmapComponent;
+  interKmapComponent: InteractiveKmapComponent;
+
+  routePath = '/';
 
   exercise$: Observable<ExKmapToExpr>;
   id: number;
@@ -26,43 +28,51 @@ export class KmapToExprComponent implements OnInit {
   bestGroupsCells: number[][];                       // solution as arrays of cells in each group, e.g. G1: [8, 9, 12, 13]
 
   userAnswers: UserAnswer[];
+  foundBestGroups: boolean;
   finalCorrect: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: ExKmapToExprService
+    public service: ExKmapToExprService
   ) { }
 
   ngOnInit() {
     this.exercise$ = this.route.paramMap
       .switchMap((params: ParamMap) =>
-        this.service.getExerciseTestAsync(params.get('id')));
+        this.getQuestion(params));
 
     // When a new exercise is loaded
     this.exercise$.subscribe(exercise => {
       if (!exercise) {
         // such an exercise does not exist
-        this.router.navigate(['/exercises']);
+        this.router.navigate([this.routePath]);
         return;
       }
       if (this.interKmapComponent) {
         this.interKmapComponent.premarkedCells = exercise.cells;
         this.interKmapComponent.ngOnInit();
       }
-      this.id = exercise.id;
-      this.points = exercise.points;
-
-      this.bestGroupsExpressions = BestGroupsSolver.findBestGroups(this.kmap.cellsToMap(exercise.cells));
-      this.bestGroupsCells = this.bestGroupsExpressions
-        .map(group => this.kmap.expressionGroupToCells(group).sort((n1, n2) => n1 - n2));
-
+      this.populateParameters(exercise);
       this.resetComponent();
     });
   }
 
+  getQuestion(params) {
+    return this.service.getExercisePracticeAsync(params.get('id'));
+  }
+
+  populateParameters(exercise: ExKmapToExpr) {
+    this.id = exercise.id;
+
+    this.bestGroupsExpressions = BestGroupsSolver.findBestGroups(this.kmap.cellsToMap(exercise.cells));
+    this.bestGroupsCells = this.bestGroupsExpressions
+      .map(group => this.kmap.expressionGroupToCells(group).sort((n1, n2) => n1 - n2));
+  }
+
   resetComponent() {
     this.userAnswers = [];
+    this.foundBestGroups = null;
     this.finalCorrect = null;
   }
 
@@ -97,13 +107,9 @@ export class KmapToExprComponent implements OnInit {
       }
     }
 
+    this.foundBestGroups = nMatches == this.userAnswers.length && this.userAnswers.length == this.bestGroupsCells.length;
     this.finalCorrect = nCorrectAndMatch == this.userAnswers.length && this.userAnswers.length == this.bestGroupsCells.length;
 
-    if (this.finalCorrect == true) {
-      this.service.addPointsToTotal(this.id, this.points);
-    } else {
-      this.service.addAttempt(this.id);
-    }
   }
 
   userMinimalExpressionInMathjax(): string {

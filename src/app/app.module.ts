@@ -41,6 +41,7 @@ import { FindBestGroupsComponent } from './exercises/exercise-types/find-best-gr
 import { NameGroupComponent } from './exercises/exercise-types/name-group/name-group.component';
 import { PracticeFindBestGroupsComponent } from './practice/practice-find-best-groups/practice-find-best-groups.component';
 import { PracticeNameGroupComponent } from './practice/practice-name-group/practice-name-group.component';
+import { PracticeKmapToExprComponent } from './practice/practice-kmap-to-expr/practice-kmap-to-expr.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { PracticeNameGroupComponent } from './practice/practice-name-group/pract
     FindBestGroupsComponent,
     NameGroupComponent,
     PracticeFindBestGroupsComponent,
-    PracticeNameGroupComponent
+    PracticeNameGroupComponent,
+    PracticeKmapToExprComponent
   ],
   imports: [
     BrowserModule,

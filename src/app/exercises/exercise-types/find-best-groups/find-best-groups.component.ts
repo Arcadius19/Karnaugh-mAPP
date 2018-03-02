@@ -69,7 +69,6 @@ export class FindBestGroupsComponent implements OnInit {
 
   onVerify() {
     this.correct = this.interKmapComponent.compareSelectedToBest(this.solution);
-    console.log('solution: ', this.solution);
   }
 
 }

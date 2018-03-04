@@ -4,10 +4,10 @@ import {ExNameGroup} from '../../exercises/exercise-types/name-group/ex-name-gro
 
 @Component({
   selector: 'app-ex-name-group',
-  templateUrl: './ex-name-group.component.html',
-  styleUrls: ['./ex-name-group.component.css']
+  templateUrl: './quiz-name-group.component.html',
+  styleUrls: ['./quiz-name-group.component.css']
 })
-export class ExNameGroupComponent extends NameGroupComponent implements OnInit {
+export class QuizNameGroupComponent extends NameGroupComponent implements OnInit {
   routePath = 'exercises';
   points: number;
 

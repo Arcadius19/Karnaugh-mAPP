@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MathJax} from '../auxiliary/mathjax-aux/math-jax';
-import {ExLabelSquaresService} from './ex-label-squares/ex-label-squares.service';
+import {ExLabelSquaresService} from './label-squares/ex-label-squares.service';
 import {ExExprToKmapService} from '../exercises/exercise-types/expr-to-kmap/ex-expr-to-kmap.service';
 import {ExFindBestGroupsService} from '../exercises/exercise-types/find-best-groups/ex-find-best-groups.service';
 import {ExNameGroupService} from '../exercises/exercise-types/name-group/ex-name-group.service';

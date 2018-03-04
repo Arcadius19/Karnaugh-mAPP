@@ -1,5 +1,5 @@
-import { BestGroupsSolver } from './best-groups-solver-new';
-import {ExpressionGroup} from './expression-group';
+import { BestGroupsSolver } from '../app/auxiliary/best-groups-solver-new';
+import {ExpressionGroup} from '../app/auxiliary/expression-group';
 
 describe('New Best Group Solver', () => {
 

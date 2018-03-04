@@ -4,10 +4,10 @@ import {ExExprToKmap} from '../../exercises/exercise-types/expr-to-kmap/ex-expr-
 
 @Component({
   selector: 'app-ex-expr-to-kmap',
-  templateUrl: './ex-expr-to-kmap.component.html',
-  styleUrls: ['./ex-expr-to-kmap.component.css']
+  templateUrl: './quiz-expr-to-kmap.component.html',
+  styleUrls: ['./quiz-expr-to-kmap.component.css']
 })
-export class ExExprToKmapComponent extends ExprToKmapComponent implements OnInit {
+export class QuizExprToKmapComponent extends ExprToKmapComponent implements OnInit {
   points: number;
   routePath = '/exercises';
 

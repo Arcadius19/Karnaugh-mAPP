@@ -4,10 +4,10 @@ import {ExLabelSquaresService} from './ex-label-squares.service';
 
 @Component({
   selector: 'app-ex-label-squares',
-  templateUrl: './ex-label-squares.component.html',
-  styleUrls: ['./ex-label-squares.component.css']
+  templateUrl: './quiz-label-squares.component.html',
+  styleUrls: ['./quiz-label-squares.component.css']
 })
-export class ExLabelSquaresComponent implements OnInit {
+export class QuizLabelSquaresComponent implements OnInit {
   id: number;
   points: number;
 

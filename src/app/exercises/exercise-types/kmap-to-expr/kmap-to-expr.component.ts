@@ -24,8 +24,9 @@ export class KmapToExprComponent implements OnInit {
 
   kmap = new KarnaughMap();                          // By default, always with 4 variables
 
-  bestGroupsExpressions: ExpressionGroup[];          // solution as Expressions, e.g. G1: {aVar: True; bVar: null; cVar: False; dVar: null}
-  bestGroupsCells: number[][];                       // solution as arrays of cells in each group, e.g. G1: [8, 9, 12, 13]
+  bestGroupsExpressions: ExpressionGroup[][];        // all possible solutions as Expressions,
+                                                     // e.g. G1: {aVar: True, bVar: null, cVar: False, dVar: null}
+  bestGroupsCells: number[][][];                     // all possible solutions as arrays of cells in each group, e.g. G1: [8, 9, 12, 13]
 
   userAnswers: UserAnswer[];
   foundBestGroups: boolean;
@@ -67,7 +68,8 @@ export class KmapToExprComponent implements OnInit {
 
     this.bestGroupsExpressions = BestGroupsSolver.findBestGroups(this.kmap.cellsToMap(exercise.cells));
     this.bestGroupsCells = this.bestGroupsExpressions
-      .map(group => this.kmap.expressionGroupToCells(group).sort((n1, n2) => n1 - n2));
+      .map(groupOfGroups => groupOfGroups
+        .map(group => this.kmap.expressionGroupToCells(group).sort((n1, n2) => n1 - n2)));
   }
 
   resetComponent() {
@@ -90,25 +92,37 @@ export class KmapToExprComponent implements OnInit {
   }
 
   onVerify() {
+    console.log('Solutions as expressions: ', this.bestGroupsExpressions);
+    console.log('Solutions as cells: ', this.bestGroupsCells);
     let nMatches = 0;
     let nCorrectAndMatch = 0;
 
-    for (let answer of this.userAnswers) {
-      if (answer.validGroup) {
-        answer.varsComparison = answer.selectedAsExpression[0].compareVariables(answer.answeredAsExpression);
-      }
-      answer.correct = answer.varsComparison.equals(new ExpressionGroup(true, true, true, true));
-      answer.match = this.bestGroupsCells.some(group => group.every((cell, index) => cell == answer.selectedAsCells[index]));
-      if (answer.match) {
-        nMatches++;
-        if (answer.correct) {
-          nCorrectAndMatch++;
+    let groupsMatchedCorrectly = false;
+    let groupsMatchedAndLabelledCorrectly = false;
+
+    for (let index = 0; index < this.bestGroupsCells.length; index++) {
+      for (let answer of this.userAnswers) {
+        if (answer.validGroup) {
+          answer.varsComparison = answer.selectedAsExpression[0].compareVariables(answer.answeredAsExpression);
+        }
+        answer.correct = answer.varsComparison.equals(new ExpressionGroup(true, true, true, true));
+        answer.match = this.bestGroupsCells[index].some(group => group.every((cell, i) => cell == answer.selectedAsCells[i]));
+        if (answer.match) {
+          nMatches++;
+          if (answer.correct) {
+            nCorrectAndMatch++;
+          }
         }
       }
+      groupsMatchedCorrectly = nMatches == this.userAnswers.length && this.userAnswers.length == this.bestGroupsCells.length;
+      groupsMatchedAndLabelledCorrectly =
+        nCorrectAndMatch == this.userAnswers.length && this.userAnswers.length == this.bestGroupsCells.length;
+
+      if (groupsMatchedCorrectly) { break; }
     }
 
-    this.foundBestGroups = nMatches == this.userAnswers.length && this.userAnswers.length == this.bestGroupsCells.length;
-    this.finalCorrect = nCorrectAndMatch == this.userAnswers.length && this.userAnswers.length == this.bestGroupsCells.length;
+    this.foundBestGroups = groupsMatchedCorrectly;
+    this.finalCorrect = groupsMatchedAndLabelledCorrectly;
 
   }
 
@@ -130,7 +144,7 @@ export class UserAnswer {
   constructor(selectedAsCells: number[]) {
     this.selectedAsCells = selectedAsCells;
     let selectedGroupsAsMaps = (new KarnaughMap()).cellsToMap(this.selectedAsCells);
-    this.selectedAsExpression = BestGroupsSolver.findBestGroups(selectedGroupsAsMaps);
+    this.selectedAsExpression = BestGroupsSolver.findBestGroups(selectedGroupsAsMaps)[0];
     this.answeredAsExpression = new ExpressionGroup(null, null, null, null);
     this.validGroup = this.selectedAsExpression.length == 1;
     this.varsComparison = new ExpressionGroup(null, null, null, null);

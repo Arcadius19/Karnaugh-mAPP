@@ -20,7 +20,7 @@ export class FindBestGroupsComponent implements OnInit {
   id: number;
 
   kmap: KarnaughMap;            // auxiliary Karnaugh map used in some methods
-  solution: number[][];
+  solutions: number[][][];
   correct: boolean;
 
   constructor(
@@ -58,9 +58,10 @@ export class FindBestGroupsComponent implements OnInit {
   populateProperties(exercise: ExFindBestGroups) {
     this.id = exercise.id;
     this.kmap = new KarnaughMap(exercise.nVars);
-    this.solution = BestGroupsSolver
+    this.solutions = BestGroupsSolver
       .findBestGroups(this.kmap.cellsToMap(exercise.cells))
-      .map(group => this.kmap.expressionGroupToCells(group).sort((n1, n2) => n1 - n2));
+      .map(groupOfGroups => groupOfGroups
+        .map(group => this.kmap.expressionGroupToCells(group).sort((n1, n2) => n1 - n2)));
   }
 
   resetComponent() {
@@ -68,7 +69,7 @@ export class FindBestGroupsComponent implements OnInit {
   }
 
   onVerify() {
-    this.correct = this.interKmapComponent.compareSelectedToBest(this.solution);
+    this.correct = this.interKmapComponent.compareSelectedToBest(this.solutions);
   }
 
 }

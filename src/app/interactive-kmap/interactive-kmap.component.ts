@@ -87,27 +87,35 @@ export class InteractiveKmapComponent implements OnInit {
     this.unhoverAll();
   }
 
-  compareSelectedToBest(bestGroups: number[][]): boolean {
-    if (this.selectedGroups.length != bestGroups.length) { return false; }
+  // bestGroupsOfGroups is an array of all possible combinations of best groups (they all have the same length)
+  // return true if selected is the same as one of these best solutions
+  compareSelectedToBest(bestGroupsOfGroups: number[][][]): boolean {
+    if (this.selectedGroups.length != bestGroupsOfGroups[0].length) { return false; }
 
-    let found = 0;
-    loopSelectedGroups:
-      for (let selectedGroup of this.selectedGroups) {
-        loopSolutionGroups:
-          for (let solutionGroup of bestGroups) {
-            if (selectedGroup.length == solutionGroup.length) {
-              for (let i in selectedGroup) {
-                if (selectedGroup[i] != solutionGroup[i]) {
-                  continue loopSolutionGroups;
+    for (let index = 0; index < bestGroupsOfGroups.length; index++) {
+      let found = 0;
+      loopSelectedGroups:
+        for (let selectedGroup of this.selectedGroups) {
+          loopSolutionGroups:
+            for (let solutionGroup of bestGroupsOfGroups[index]) {
+              if (selectedGroup.length == solutionGroup.length) {
+                for (let i in selectedGroup) {
+                  if (selectedGroup[i] != solutionGroup[i]) {
+                    continue loopSolutionGroups;
+                  }
                 }
+                found++;
+                continue loopSelectedGroups;
               }
-              found++;
-              continue loopSelectedGroups;
             }
-          }
-      }
+        }
 
-    return (found == bestGroups.length && found == this.selectedGroups.length);
+      if (found == bestGroupsOfGroups[index].length) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
 }

@@ -5,19 +5,19 @@ import { ExercisesComponent } from './quiz/exercises.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { PlaygroundComponent } from './playground/playground.component';
-import { ExExprToKmapComponent } from './quiz/ex-expr-to-kmap/ex-expr-to-kmap.component';
-import {ExIntroductionComponent} from './quiz/ex-introduction/ex-introduction.component';
-import {ExFindBestGroupsComponent} from './quiz/ex-find-best-groups/ex-find-best-groups.component';
-import {ExNameGroupComponent} from './quiz/ex-name-group/ex-name-group.component';
-import {ExLabelSquaresComponent} from './quiz/ex-label-squares/ex-label-squares.component';
-import {ExKmapToExprComponent} from './quiz/ex-kmap-to-expr/ex-kmap-to-expr.component';
+import { QuizExprToKmapComponent } from './quiz/expr-to-kmap/quiz-expr-to-kmap.component';
+import {QuizIntroductionComponent} from './quiz/introduction/quiz-introduction.component';
+import {QuizFindBestGroupsComponent} from './quiz/find-best-groups/quiz-find-best-groups.component';
+import {QuizNameGroupComponent} from './quiz/name-group/quiz-name-group.component';
+import {QuizLabelSquaresComponent} from './quiz/label-squares/quiz-label-squares.component';
+import {QuizKmapToExprComponent} from './quiz/kmap-to-expr/quiz-kmap-to-expr.component';
 import {TutorialComponent} from './tutorial/tutorial.component';
 import {PracticeComponent} from './practice/practice.component';
-import {PracticeIntroductionComponent} from './practice/practice-introduction/practice-introduction.component';
-import {PracticeExprToKmapComponent} from './practice/practice-expr-to-kmap/practice-expr-to-kmap.component';
-import {PracticeFindBestGroupsComponent} from './practice/practice-find-best-groups/practice-find-best-groups.component';
-import {PracticeNameGroupComponent} from './practice/practice-name-group/practice-name-group.component';
-import {PracticeKmapToExprComponent} from './practice/practice-kmap-to-expr/practice-kmap-to-expr.component';
+import {PracticeIntroductionComponent} from './practice/introduction/practice-introduction.component';
+import {PracticeExprToKmapComponent} from './practice/expr-to-kmap/practice-expr-to-kmap.component';
+import {PracticeFindBestGroupsComponent} from './practice/find-best-groups/practice-find-best-groups.component';
+import {PracticeNameGroupComponent} from './practice/name-group/practice-name-group.component';
+import {PracticeKmapToExprComponent} from './practice/kmap-to-expr/practice-kmap-to-expr.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -51,26 +51,26 @@ const routes: Routes = [
   { path: 'exercises',
     component: ExercisesComponent,
     children: [
-      { path: '', component: ExIntroductionComponent},
-      { path: 'label-squares', component: ExLabelSquaresComponent },
+      { path: '', component: QuizIntroductionComponent},
+      { path: 'label-squares', component: QuizLabelSquaresComponent },
       { path: 'expr-to-kmap',
         children: [
-          { path: ':id', component: ExExprToKmapComponent }
+          { path: ':id', component: QuizExprToKmapComponent }
         ]
       },
       { path: 'find-groups',
         children: [
-          { path: ':id', component: ExFindBestGroupsComponent }
+          { path: ':id', component: QuizFindBestGroupsComponent }
         ]
       },
       { path: 'name-group',
         children: [
-          { path: ':id', component: ExNameGroupComponent }
+          { path: ':id', component: QuizNameGroupComponent }
         ]
       },
       { path: 'kmap-to-expr',
         children: [
-          { path: ':id', component: ExKmapToExprComponent }
+          { path: ':id', component: QuizKmapToExprComponent }
         ]
       },
       {path: '**', component: PageNotFoundComponent }

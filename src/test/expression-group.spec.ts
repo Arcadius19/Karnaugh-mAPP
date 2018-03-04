@@ -1,5 +1,5 @@
-import {ExpressionGroup} from './expression-group';
-import {AppComponent} from '../app.component';
+import {ExpressionGroup} from '../app/auxiliary/expression-group';
+import {AppComponent} from '../app/app.component';
 import {async, TestBed} from '@angular/core/testing';
 
 describe('Expression Group', () => {

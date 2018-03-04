@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { GlobalVariablesService } from './global-variables.service';
+import { GlobalVariablesService } from '../app/auxiliary/global-variables.service';
 
 describe('GlobalVariablesService', () => {
   beforeEach(() => {

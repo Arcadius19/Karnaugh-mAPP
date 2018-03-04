@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExExprToKmapComponent } from './ex-expr-to-kmap.component';
+import { QuizKmapToExprComponent } from './quiz-kmap-to-expr.component';
 
-describe('ExExprToKmapComponent', () => {
-  let component: ExExprToKmapComponent;
-  let fixture: ComponentFixture<ExExprToKmapComponent>;
+describe('QuizKmapToExprComponent', () => {
+  let component: QuizKmapToExprComponent;
+  let fixture: ComponentFixture<QuizKmapToExprComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExExprToKmapComponent ]
+      declarations: [ QuizKmapToExprComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExExprToKmapComponent);
+    fixture = TestBed.createComponent(QuizKmapToExprComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

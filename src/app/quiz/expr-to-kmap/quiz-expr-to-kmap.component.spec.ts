@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExLabelSquaresComponent } from './ex-label-squares.component';
+import { QuizExprToKmapComponent } from './quiz-expr-to-kmap.component';
 
-describe('ExLabelSquaresComponent', () => {
-  let component: ExLabelSquaresComponent;
-  let fixture: ComponentFixture<ExLabelSquaresComponent>;
+describe('QuizExprToKmapComponent', () => {
+  let component: QuizExprToKmapComponent;
+  let fixture: ComponentFixture<QuizExprToKmapComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExLabelSquaresComponent ]
+      declarations: [ QuizExprToKmapComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExLabelSquaresComponent);
+    fixture = TestBed.createComponent(QuizExprToKmapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

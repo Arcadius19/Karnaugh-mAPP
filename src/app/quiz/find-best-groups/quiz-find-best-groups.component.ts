@@ -4,10 +4,10 @@ import {ExFindBestGroups} from '../../exercises/exercise-types/find-best-groups/
 
 @Component({
   selector: 'app-ex-find-best-groups',
-  templateUrl: './ex-find-best-groups.component.html',
-  styleUrls: ['./ex-find-best-groups.component.css']
+  templateUrl: './quiz-find-best-groups.component.html',
+  styleUrls: ['./quiz-find-best-groups.component.css']
 })
-export class ExFindBestGroupsComponent extends FindBestGroupsComponent implements OnInit {
+export class QuizFindBestGroupsComponent extends FindBestGroupsComponent implements OnInit {
   routePath = 'exercise';
   points: number;
 

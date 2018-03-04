@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ExKmapToExprService} from '../exercises/exercise-types/kmap-to-expr/ex-kmap-to-expr.service';
 import {ExFindBestGroupsService} from '../exercises/exercise-types/find-best-groups/ex-find-best-groups.service';
 import {ExExprToKmapService} from '../exercises/exercise-types/expr-to-kmap/ex-expr-to-kmap.service';
-import {ExLabelSquaresService} from '../quiz/ex-label-squares/ex-label-squares.service';
+import {ExLabelSquaresService} from '../quiz/label-squares/ex-label-squares.service';
 import {ExNameGroupService} from '../exercises/exercise-types/name-group/ex-name-group.service';
 
 @Component({

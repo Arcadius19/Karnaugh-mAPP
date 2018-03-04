@@ -1,5 +1,5 @@
-import { KarnaughMap } from './karnaugh-map';
-import {ExpressionGroup} from './expression-group';
+import { KarnaughMap } from '../app/auxiliary/karnaugh-map';
+import {ExpressionGroup} from '../app/auxiliary/expression-group';
 
 describe('Karnaugh Map', () => {
 

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExFindBestGroupsComponent } from './ex-find-best-groups.component';
+import { QuizNameGroupComponent } from './quiz-name-group.component';
 
-describe('ExFindBestGroupsComponent', () => {
-  let component: ExFindBestGroupsComponent;
-  let fixture: ComponentFixture<ExFindBestGroupsComponent>;
+describe('QuizNameGroupComponent', () => {
+  let component: QuizNameGroupComponent;
+  let fixture: ComponentFixture<QuizNameGroupComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExFindBestGroupsComponent ]
+      declarations: [ QuizNameGroupComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExFindBestGroupsComponent);
+    fixture = TestBed.createComponent(QuizNameGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

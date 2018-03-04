@@ -15,33 +15,33 @@ import { ExercisesComponent } from './quiz/exercises.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { PlaygroundComponent } from './playground/playground.component';
-import { ExExprToKmapComponent } from './quiz/ex-expr-to-kmap/ex-expr-to-kmap.component';
-import { ExIntroductionComponent } from './quiz/ex-introduction/ex-introduction.component';
+import { QuizExprToKmapComponent } from './quiz/expr-to-kmap/quiz-expr-to-kmap.component';
+import { QuizIntroductionComponent } from './quiz/introduction/quiz-introduction.component';
 import { InteractiveKmapComponent } from './interactive-kmap/interactive-kmap.component';
-import { ExFindBestGroupsComponent } from './quiz/ex-find-best-groups/ex-find-best-groups.component';
-import { ExNameGroupComponent } from './quiz/ex-name-group/ex-name-group.component';
-import { ExLabelSquaresComponent } from './quiz/ex-label-squares/ex-label-squares.component';
-import { ExKmapToExprComponent } from './quiz/ex-kmap-to-expr/ex-kmap-to-expr.component';
+import { QuizFindBestGroupsComponent } from './quiz/find-best-groups/quiz-find-best-groups.component';
+import { QuizNameGroupComponent } from './quiz/name-group/quiz-name-group.component';
+import { QuizLabelSquaresComponent } from './quiz/label-squares/quiz-label-squares.component';
+import { QuizKmapToExprComponent } from './quiz/kmap-to-expr/quiz-kmap-to-expr.component';
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { UserProgressComponent } from './quiz/user-progress/user-progress.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { PracticeComponent } from './practice/practice.component';
-import { PracticeIntroductionComponent } from './practice/practice-introduction/practice-introduction.component';
+import { PracticeIntroductionComponent } from './practice/introduction/practice-introduction.component';
 import { ExprToKmapComponent } from './exercises/exercise-types/expr-to-kmap/expr-to-kmap.component';
-import { PracticeExprToKmapComponent } from './practice/practice-expr-to-kmap/practice-expr-to-kmap.component';
+import { PracticeExprToKmapComponent } from './practice/expr-to-kmap/practice-expr-to-kmap.component';
 import {ExNameGroupService} from './exercises/exercise-types/name-group/ex-name-group.service';
 import {ExerciseService} from './exercises/exercise.service';
 import {ExExprToKmapService} from './exercises/exercise-types/expr-to-kmap/ex-expr-to-kmap.service';
 import {ExKmapToExprService} from './exercises/exercise-types/kmap-to-expr/ex-kmap-to-expr.service';
 import {ExFindBestGroupsService} from './exercises/exercise-types/find-best-groups/ex-find-best-groups.service';
-import {ExLabelSquaresService} from './quiz/ex-label-squares/ex-label-squares.service';
+import {ExLabelSquaresService} from './quiz/label-squares/ex-label-squares.service';
 import { KmapToExprComponent } from './exercises/exercise-types/kmap-to-expr/kmap-to-expr.component';
 import { FindBestGroupsComponent } from './exercises/exercise-types/find-best-groups/find-best-groups.component';
 import { NameGroupComponent } from './exercises/exercise-types/name-group/name-group.component';
-import { PracticeFindBestGroupsComponent } from './practice/practice-find-best-groups/practice-find-best-groups.component';
-import { PracticeNameGroupComponent } from './practice/practice-name-group/practice-name-group.component';
-import { PracticeKmapToExprComponent } from './practice/practice-kmap-to-expr/practice-kmap-to-expr.component';
+import { PracticeFindBestGroupsComponent } from './practice/find-best-groups/practice-find-best-groups.component';
+import { PracticeNameGroupComponent } from './practice/name-group/practice-name-group.component';
+import { PracticeKmapToExprComponent } from './practice/kmap-to-expr/practice-kmap-to-expr.component';
 
 
 @NgModule({
@@ -58,13 +58,13 @@ import { PracticeKmapToExprComponent } from './practice/practice-kmap-to-expr/pr
     PageNotFoundComponent,
     HomeComponent,
     PlaygroundComponent,
-    ExExprToKmapComponent,
-    ExIntroductionComponent,
+    QuizExprToKmapComponent,
+    QuizIntroductionComponent,
     InteractiveKmapComponent,
-    ExFindBestGroupsComponent,
-    ExNameGroupComponent,
-    ExLabelSquaresComponent,
-    ExKmapToExprComponent,
+    QuizFindBestGroupsComponent,
+    QuizNameGroupComponent,
+    QuizLabelSquaresComponent,
+    QuizKmapToExprComponent,
     TutorialComponent,
     UserProgressComponent,
     PracticeComponent,

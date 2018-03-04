@@ -1,6 +1,5 @@
 import {GridGroup} from './grid-group';
 import {ExpressionGroup} from './expression-group';
-import {KarnaughMap} from './karnaugh-map';
 
 export class BestGroupsSolver {
   static marked: number[][];

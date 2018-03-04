@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ExLabelSquaresService } from './label-squares.service';
+import { ExLabelSquaresService } from './ex-label-squares.service';
 
 describe('ExLabelSquaresService', () => {
   beforeEach(() => {

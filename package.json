@@ -26,6 +26,7 @@
     "d3": "^4.13.0",
     "expr-eval": "^1.2.1",
     "jquery": "^3.3.1",
+    "karma-phantomjs-launcher": "^1.0.4",
     "ngx-bootstrap": "^2.0.2",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"

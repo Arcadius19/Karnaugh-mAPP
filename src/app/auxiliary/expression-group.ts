@@ -15,24 +15,50 @@ export class ExpressionGroup {
     this.dVar = dVar;
   }
 
-  static findMinimal(expressions: ExpressionGroup[]): ExpressionGroup[] {
-    let index = 0;
-    indexLoop:
-      while (index < expressions.length) {
-        for (let i = 0; i < expressions.length; i++) {
-          for (let j = i + 1; j < expressions.length; j++) {
-            if (index != i && index != j) {
-              if (expressions[index].equals(expressions[i].resolute(expressions[j]))) {
-                expressions.splice(index, 1);
-                continue indexLoop;
+  static findMinimal(expressions: ExpressionGroup[]): ExpressionGroup[][] {
+    let index: number;
+    let lastIndexToCheck: number;
+    let candidates = [];
+    let candidate: ExpressionGroup[];
+
+    for (let order in expressions) {
+      candidate = expressions.slice(0);
+      index = +order;
+      lastIndexToCheck = (index > 0) ? index - 1 : candidate.length - 1;
+      indexLoop:
+        while (true) {
+          for (let i = 0; i < candidate.length; i++) {
+            for (let j = i + 1; j < candidate.length; j++) {
+              if (index != i && index != j) {
+                if (candidate[index].equals(candidate[i].resolute(candidate[j]))) {
+                  candidate.splice(index, 1);
+                  if (lastIndexToCheck == candidate.length) { lastIndexToCheck = candidate.length - 1; }
+                  index = index % candidate.length;
+                  continue indexLoop;
+                }
               }
             }
           }
+          if (index == lastIndexToCheck) { break; }
+          index = (index + 1) % candidate.length;
         }
-        index++;
-      }
+      candidates.push(candidate);
+    }
 
-    return expressions;
+    return this.getSmallestUnique(candidates);
+  }
+
+  static getSmallestUnique(groupsOfGroups: ExpressionGroup[][]): ExpressionGroup[][] {
+    let minArgs = Math.min(...groupsOfGroups.map(groups => groups.length));
+    let result = [];
+    for (let groups of groupsOfGroups) {
+      if (groups.length == minArgs) {
+        if (!(result.some(resultGroups => resultGroups.every(resultGroup => groups.some(group => group.equals(resultGroup)))))) {
+          result.push(groups);
+        }
+      }
+    }
+    return result;
   }
 
   static resoluteAux(var1: boolean, var2: boolean): boolean {

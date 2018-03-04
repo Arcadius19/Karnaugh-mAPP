@@ -119,6 +119,44 @@ export class KarnaughMap {
     return new ExpressionGroup(varA, varB, varC, varD);
   }
 
+  mapToExpression(map: number[][]): ExpressionGroup {
+    if (map.length != this.cellIds.length || map[0].length != this.cellIds[0].length) {
+      throw new Error ('Non-matching dimensions');
+    }
+
+    if (map.every(row => row.every(cell => cell == 1))) {
+      return new ExpressionGroup(null, null, null, null);
+    }
+
+    let firstExpression: ExpressionGroup;
+    let nextExpression: ExpressionGroup;
+
+    let resultGroup: ExpressionGroup;
+
+    let nRow = this.cellIds.length;
+    let nCol = this.cellIds[0].length;
+
+    for (let i = 0; i < nRow; i++) {
+      for (let j = 0; j < nCol; j++) {
+        if (map[i][j] == 1) {
+          if (firstExpression == undefined) {
+            firstExpression = this.getExpressionAtSquare(i, j);
+          } else {
+            nextExpression = this.getExpressionAtSquare(i, j);
+            resultGroup = firstExpression.compareForScanning(nextExpression);
+            firstExpression = resultGroup;
+          }
+        }
+      }
+    }
+
+    if (resultGroup.equals(new ExpressionGroup(null, null, null, null))) {
+      throw new Error('Marked cells do not make up one group');
+    }
+
+    return resultGroup;
+  }
+
 
   // TODO might be a duplicate of the method below: expressionGroupToCells()
   // return cells for which the expression evaluates to true

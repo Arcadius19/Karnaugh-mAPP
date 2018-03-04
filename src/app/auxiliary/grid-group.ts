@@ -38,6 +38,24 @@ export class GridGroup {
     return result;
   }
 
+  toMap(nVars = 4): number[][] {
+    let result: number[][];
+    if (nVars == 3) {
+      result = [[0, 0, 0, 0], [0, 0, 0, 0]];
+    } else {
+      result = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    }
+    let nRow = result.length;
+    let nCol = result[0].length;
+
+    for (let i = this.offRow; i < this.offRow + this.rangeRow; i++ ) {
+      for (let j = this.offCol; j < this.offCol + this.rangeCol; j++) {
+        result[i % nRow][j % nCol] = 1;
+      }
+    }
+    return result;
+  }
+
   toExpressionGroup(nVars = 4): ExpressionGroup {
     if (nVars != 3 && nVars != 4) { return null; }
 

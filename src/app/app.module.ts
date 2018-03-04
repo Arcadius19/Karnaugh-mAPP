@@ -14,7 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ExercisesComponent } from './quiz/exercises.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
-import { PlaygroundComponent } from './playground/playground.component';
+import { OldInstantSolverComponent } from './playground/instant-solver.component';
 import { QuizExprToKmapComponent } from './quiz/expr-to-kmap/quiz-expr-to-kmap.component';
 import { QuizIntroductionComponent } from './quiz/introduction/quiz-introduction.component';
 import { InteractiveKmapComponent } from './interactive-kmap/interactive-kmap.component';
@@ -42,6 +42,7 @@ import { NameGroupComponent } from './exercises/exercise-types/name-group/name-g
 import { PracticeFindBestGroupsComponent } from './practice/find-best-groups/practice-find-best-groups.component';
 import { PracticeNameGroupComponent } from './practice/name-group/practice-name-group.component';
 import { PracticeKmapToExprComponent } from './practice/kmap-to-expr/practice-kmap-to-expr.component';
+import { InstantSolverComponent } from './instant-solver/instant-solver.component';
 
 
 @NgModule({
@@ -57,7 +58,7 @@ import { PracticeKmapToExprComponent } from './practice/kmap-to-expr/practice-km
     ExercisesComponent,
     PageNotFoundComponent,
     HomeComponent,
-    PlaygroundComponent,
+    OldInstantSolverComponent,
     QuizExprToKmapComponent,
     QuizIntroductionComponent,
     InteractiveKmapComponent,
@@ -76,7 +77,8 @@ import { PracticeKmapToExprComponent } from './practice/kmap-to-expr/practice-km
     NameGroupComponent,
     PracticeFindBestGroupsComponent,
     PracticeNameGroupComponent,
-    PracticeKmapToExprComponent
+    PracticeKmapToExprComponent,
+    InstantSolverComponent
   ],
   imports: [
     BrowserModule,

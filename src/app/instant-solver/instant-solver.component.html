@@ -1,0 +1,82 @@
+<div class="custom-header">
+  <h2>Instant Solver<br>
+    <small >Find instant solution to your problems</small>
+  </h2>
+</div>
+
+<p>
+  Provide the initial expression which you want to minimize or simply select the states
+  which the final solution should evaluate to true.
+</p>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+
+      <div class="input-group">
+        <input type="text"
+               class="form-control"
+               id="query"
+               placeholder="Expression"
+               [formControl]="form.controls['query']">
+
+        <div class="input-group-btn">
+          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Initial expression: <span appMathJax [mathString]="queryToMathJax()"></span>
+  </div>
+
+  <div class="panel-body text-center panel-body-bottom-border">
+    <div class="form-inline">
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">Number of variables</span>
+          <div class="form-control">
+            <label class="radio-inline">
+              <input type="radio" name="nVars" [(ngModel)]="nVars" [value]="3" (change)="onVarsChange()">3</label>
+            <label class="radio-inline">
+              <input type="radio" name="nVars" [(ngModel)]="nVars" [value]="4" (change)="onVarsChange()">4</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">Type</span>
+          <div class="form-control">
+            <label class="radio-inline" title="Disjunctive Normal Form &#xA; (Sum Of Products)">
+              <input type="radio" name="kmapTypeOption" [(ngModel)]="kmapTypeOption" [value]="DNF">DNF</label>
+            <label class="radio-inline" title="Conjunctive Normal Form &#xA; (Product Of Sums)">
+              <input type="radio" name="kmapTypeOption" [(ngModel)]="kmapTypeOption" [value]="CNF">CNF</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-body text-center">
+    <app-interactive-kmap #interMap [nVars]="nVars"></app-interactive-kmap>
+  </div>
+
+  <div class="panel-footer text-center">
+    <button class="btn btn-primary" (click)="onSolve()">Find minimal solution</button>
+  </div>
+</div>
+
+<ng-container *ngIf="dnfGroupsExpressions != null">
+  <h3 class="custom-header">Solution </h3>
+
+  <div class="panel panel-default" *ngFor="let groupOfGroups of dnfGroupsExpressions">
+    <div class="panel-heading">Final Solution:  <span appMathJax [mathString]="toFinalMathJaxSolution(groupOfGroups)"></span></div>
+    <div class="panel-body panel-body-bottom-border" *ngFor="let group of groupOfGroups">
+      <span appMathJax [mathString]="group.toMathJax()"></span>
+    </div>
+  </div>
+</ng-container>

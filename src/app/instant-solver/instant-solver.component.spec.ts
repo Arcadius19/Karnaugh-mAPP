@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlaygroundComponent } from './playground.component';
+import { InstantSolverComponent } from './instant-solver.component';
 
-describe('PlaygroundComponent', () => {
-  let component: PlaygroundComponent;
-  let fixture: ComponentFixture<PlaygroundComponent>;
+describe('InstantSolverComponent', () => {
+  let component: InstantSolverComponent;
+  let fixture: ComponentFixture<InstantSolverComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlaygroundComponent ]
+      declarations: [ InstantSolverComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PlaygroundComponent);
+    fixture = TestBed.createComponent(InstantSolverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

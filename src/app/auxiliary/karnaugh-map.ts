@@ -128,6 +128,10 @@ export class KarnaughMap {
       return new ExpressionGroup(null, null, null, null);
     }
 
+    if (map.every(row => row.every(cell => cell == 0))) {
+      return new ExpressionGroup(true, true, true, true);
+    }
+
     let firstExpression: ExpressionGroup;
     let nextExpression: ExpressionGroup;
 
@@ -141,6 +145,7 @@ export class KarnaughMap {
         if (map[i][j] == 1) {
           if (firstExpression == undefined) {
             firstExpression = this.getExpressionAtSquare(i, j);
+            resultGroup = firstExpression;
           } else {
             nextExpression = this.getExpressionAtSquare(i, j);
             resultGroup = firstExpression.compareForScanning(nextExpression);

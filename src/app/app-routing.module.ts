@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ExercisesComponent } from './quiz/exercises.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
-import { PlaygroundComponent } from './playground/playground.component';
+import { OldInstantSolverComponent } from './playground/instant-solver.component';
 import { QuizExprToKmapComponent } from './quiz/expr-to-kmap/quiz-expr-to-kmap.component';
 import {QuizIntroductionComponent} from './quiz/introduction/quiz-introduction.component';
 import {QuizFindBestGroupsComponent} from './quiz/find-best-groups/quiz-find-best-groups.component';
@@ -18,10 +18,11 @@ import {PracticeExprToKmapComponent} from './practice/expr-to-kmap/practice-expr
 import {PracticeFindBestGroupsComponent} from './practice/find-best-groups/practice-find-best-groups.component';
 import {PracticeNameGroupComponent} from './practice/name-group/practice-name-group.component';
 import {PracticeKmapToExprComponent} from './practice/kmap-to-expr/practice-kmap-to-expr.component';
+import {InstantSolverComponent} from './instant-solver/instant-solver.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'playground', component: PlaygroundComponent },
+  { path: 'instant-solver', component: InstantSolverComponent },
   { path: 'practice',
     component: PracticeComponent,
     children: [

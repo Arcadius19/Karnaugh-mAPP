@@ -47,5 +47,5 @@ td.selected-neutral {
 }
 
 .highlighted {
-  background: #947eff;
+  background: #947eff !important;
 }

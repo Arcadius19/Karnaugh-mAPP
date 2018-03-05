@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomParser} from '../auxiliary/custom-parser';
 import {MathJax} from '../auxiliary/mathjax-aux/math-jax';
-import {GlobalVariables} from '../auxiliary/global-variables';
 import {InteractiveKmapComponent} from '../interactive-kmap/interactive-kmap.component';
 import {BestGroupsSolver} from '../auxiliary/best-groups-solver';
 import {ExpressionGroup} from '../auxiliary/expression-group';
@@ -20,9 +19,7 @@ export class InstantSolverComponent implements OnInit {
   query = '';
 
   nVars = 4;
-  kmapTypeOption: number;
-  CNF: number;
-  DNF: number;
+  dnfTypeOption = true;
 
   dnfGroupsExpressions: ExpressionGroup[][];
   cnfGroupsExpressions: ExpressionGroup[][];
@@ -35,9 +32,6 @@ export class InstantSolverComponent implements OnInit {
 
   ngOnInit() {
     this.query = '';
-    this.CNF = GlobalVariables.CNF;
-    this.DNF = GlobalVariables.DNF;
-    this.kmapTypeOption = this.DNF;
   }
 
   queryValidator(control: FormControl): { [s: string]: boolean} {
@@ -45,7 +39,7 @@ export class InstantSolverComponent implements OnInit {
     const parser = CustomParser.PARSER;
     try {
       query_string = CustomParser.preParse(query_string);
-      const expr = parser.parse(query_string);
+      parser.parse(query_string);
       return null;
     } catch (err) {
       return {'invalidQuery': true};
@@ -61,6 +55,7 @@ export class InstantSolverComponent implements OnInit {
     this.dnfGroupsExpressions = BestGroupsSolver.findBestGroups(evaluations, true);
     this.cnfGroupsExpressions = BestGroupsSolver.findBestGroups(evaluations, false);
     console.log('DNF groups: ', this.dnfGroupsExpressions);
+    console.log('CNF groups: ', this.cnfGroupsExpressions);
   }
 
   queryToMathJax() {
@@ -70,11 +65,11 @@ export class InstantSolverComponent implements OnInit {
   onVarsChange() {
     this.interKmapComponent.nVars = this.nVars;
     this.interKmapComponent.ngOnInit();
-    let evaluations = this.interKmapComponent.kmap.evaluate(this.query);
-    this.interKmapComponent.marked = evaluations;
+    this.interKmapComponent.marked = this.interKmapComponent.kmap.evaluate(this.query);
   }
 
   onSolve() {
+    this.form.reset();
     this.query = '-';
     let evaluations = this.interKmapComponent.marked;
 
@@ -83,7 +78,7 @@ export class InstantSolverComponent implements OnInit {
   }
 
   toFinalMathJaxSolution(groups: ExpressionGroup[]): string {
-    return ExpressionGroup.toComplexExpressionMathJax(groups);
+    return ExpressionGroup.toComplexExpressionMathJax(groups, this.dnfTypeOption);
   }
 
 }

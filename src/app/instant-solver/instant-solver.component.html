@@ -52,9 +52,9 @@
           <span class="input-group-addon">Type</span>
           <div class="form-control">
             <label class="radio-inline" title="Disjunctive Normal Form &#xA; (Sum Of Products)">
-              <input type="radio" name="kmapTypeOption" [(ngModel)]="kmapTypeOption" [value]="DNF">DNF</label>
+              <input type="radio" name="kmapTypeOption" [(ngModel)]="dnfTypeOption" [value]="true">DNF</label>
             <label class="radio-inline" title="Conjunctive Normal Form &#xA; (Product Of Sums)">
-              <input type="radio" name="kmapTypeOption" [(ngModel)]="kmapTypeOption" [value]="CNF">CNF</label>
+              <input type="radio" name="kmapTypeOption" [(ngModel)]="dnfTypeOption" [value]="false">CNF</label>
           </div>
         </div>
       </div>
@@ -70,13 +70,32 @@
   </div>
 </div>
 
+
 <ng-container *ngIf="dnfGroupsExpressions != null">
   <h3 class="custom-header">Solution </h3>
 
-  <div class="panel panel-default" *ngFor="let groupOfGroups of dnfGroupsExpressions">
-    <div class="panel-heading">Final Solution:  <span appMathJax [mathString]="toFinalMathJaxSolution(groupOfGroups)"></span></div>
-    <div class="panel-body panel-body-bottom-border" *ngFor="let group of groupOfGroups">
-      <span appMathJax [mathString]="group.toMathJax()"></span>
+  <ng-container *ngIf="dnfTypeOption == true; then DNFsolution else CNFsolution"></ng-container>
+
+  <ng-template #DNFsolution>
+    <div class="panel panel-default" *ngFor="let groupOfGroups of dnfGroupsExpressions">
+      <div class="panel-heading">Final Solution:  <span appMathJax [mathString]="toFinalMathJaxSolution(groupOfGroups)"></span></div>
+      <div class="panel-body panel-body-bottom-border answer-list" *ngFor="let group of groupOfGroups"
+           (mouseenter)="interMap.hoverCells(interMap.kmap.expressionGroupToCells(group))"
+           (mouseleave)="interMap.unhoverAll()">
+        <span appMathJax [mathString]="group.toMathJax()"></span>
+      </div>
     </div>
-  </div>
+  </ng-template>
+
+  <ng-template #CNFsolution>
+    <div class="panel panel-default" *ngFor="let groupOfGroups of cnfGroupsExpressions">
+      <div class="panel-heading">Final Solution:  <span appMathJax [mathString]="toFinalMathJaxSolution(groupOfGroups, false)"></span></div>
+      <div class="panel-body panel-body-bottom-border answer-list" *ngFor="let group of groupOfGroups"
+        (mouseenter)="interMap.hoverCells(interMap.kmap.expressionGroupToCells(group))"
+        (mouseleave)="interMap.unhoverAll()">
+        <span appMathJax [mathString]="group.toMathJax()"></span>
+      </div>
+    </div>
+  </ng-template>
+
 </ng-container>

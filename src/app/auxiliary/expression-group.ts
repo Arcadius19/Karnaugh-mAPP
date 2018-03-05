@@ -95,21 +95,23 @@ export class ExpressionGroup {
 
   // TO-TEXT METHODS ======================
 
-  static toMathJaxAux(variable: boolean, char: string, connector: string, notNegate = true): string {
-    let resultString = '';
-    if (variable == notNegate) {
-      resultString = connector + char;
-    } else if (variable == !notNegate) {
-      resultString = connector + 'not ' + char;
+  static variableToMathJax(variable: boolean, char: string, connector: string): string {
+    let resultChar = '';
+    if (variable == true) {
+      resultChar = connector + char;
+    } else if (variable == false) {
+      resultChar = connector + 'not ' + char;
     }
 
-    return resultString;
+    return resultChar;
   }
 
   static toComplexExpressionMathJax(groups: ExpressionGroup[], dnfType = true): string {
     if (groups == null || groups.length == 0) {
       return '';
     }
+
+    if (!dnfType) { groups = groups.map(group => group.negate()); }   // negate groups if CNF (DeMorgan's rule)
 
     if (groups.length == 1) {
       return (groups[0]).toMathJax(dnfType);
@@ -150,13 +152,13 @@ export class ExpressionGroup {
   prepareForMathJax(product = true): string {
     let connector = product ? ' and ' : ' or ';
     let resultString =
-      ExpressionGroup.toMathJaxAux(this.aVar, 'A', connector) +
-      ExpressionGroup.toMathJaxAux(this.bVar, 'B', connector) +
-      ExpressionGroup.toMathJaxAux(this.cVar, 'C', connector) +
-      ExpressionGroup.toMathJaxAux(this.dVar, 'D', connector);
+      ExpressionGroup.variableToMathJax(this.aVar, 'A', connector) +
+      ExpressionGroup.variableToMathJax(this.bVar, 'B', connector) +
+      ExpressionGroup.variableToMathJax(this.cVar, 'C', connector) +
+      ExpressionGroup.variableToMathJax(this.dVar, 'D', connector);
 
     if (resultString == '') {
-      resultString = '1';
+      resultString = product ? '1' : '0';
     } else {
       resultString = resultString.slice(connector.length);
     }
@@ -165,7 +167,7 @@ export class ExpressionGroup {
   }
 
   toMathJax(product = true): string {
-        return MathJax.toMathJax(this.prepareForMathJax());
+        return MathJax.toMathJax(this.prepareForMathJax(product));
   }
 
   // COMPARING METHODS ======================
@@ -226,6 +228,16 @@ export class ExpressionGroup {
     if (this.dVar != null) { notNulls++; }
 
     return notNulls;
+  }
+
+  // MANIPULATION METHODS ====================
+  negate(): ExpressionGroup {
+    return new ExpressionGroup(
+      this.aVar != null ? !this.aVar : null,
+      this.bVar != null ? !this.bVar : null,
+      this.cVar != null ? !this.cVar : null,
+      this.dVar != null ? !this.dVar : null
+    );
   }
 
   // CONVERTING METHODS ======================

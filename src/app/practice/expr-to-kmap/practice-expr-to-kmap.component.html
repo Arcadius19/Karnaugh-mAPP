@@ -28,7 +28,11 @@
 
   <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
     <div class="panel-body">
-      <app-interactive-kmap [nVars]="nVars"></app-interactive-kmap>
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <app-interactive-kmap [nVars]="nVars"></app-interactive-kmap>
+        </div>
+      </div>
     </div>
   </div>
 

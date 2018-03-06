@@ -31,10 +31,31 @@
   border-color: #ebccd1;
 }
 
+.panel-warning .panel-footer {
+  background-color: #fcf8e3;
+  border-color: #faebcc
+}
+
 .answer-heading {
   background: #f5f5f5;
 }
 
 .answer-list:hover {
   background: #fafafa;
+}
+
+.panel-body-bottom-border {
+  border-bottom: 1px solid #dddddd;
+}
+
+.list-group-item-custom-success, .panel-body-success {
+  background-color: #eeffe7;
+}
+
+.list-group-item-custom-danger, .panel-body-danger {
+  background-color: #ffebeb;
+}
+
+.list-group-item-custom-warning, .panel-body-warning {
+  background-color: #fcf8e3;
 }

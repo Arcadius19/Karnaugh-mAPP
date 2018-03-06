@@ -3,11 +3,12 @@ import {Observable} from 'rxjs/Observable';
 import {Exercise} from './exercise';
 
 export class ExericseID {
-  static LABEL        = 0;
-  static EXPR_TO_KMAP = 1;
-  static FIND_BEST    = 2;
-  static NAME_GROUP   = 3;
-  static KMAP_TO_EXPR = 4;
+  static LABEL          = 0;
+  static EXPR_TO_KMAP   = 1;
+  static FIND_BEST      = 2;
+  static NAME_GROUP     = 3;
+  static KMAP_TO_EXPR   = 4;
+  static MINIMIZE_EXPR  = 5;
 }
 
 @Injectable()

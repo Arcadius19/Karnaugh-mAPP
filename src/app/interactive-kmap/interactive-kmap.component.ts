@@ -9,6 +9,7 @@ import {KarnaughMap} from '../auxiliary/karnaugh-map';
 export class InteractiveKmapComponent implements OnInit {
   @Input() nVars = 4;       // default
   @Input() active = true;   // default
+  @Input() partiallyActive;
   @Input() premarkedCells: number[] = null;
 
   kmap: KarnaughMap;
@@ -26,6 +27,7 @@ export class InteractiveKmapComponent implements OnInit {
   ngOnInit() {
     this.kmap = new KarnaughMap(this.nVars);
     this.premarked = this.kmap.cellsToMap(this.premarkedCells);
+    this.partiallyActive = (this.premarkedCells) ? true : null;
     this.marked = this.kmap.cellIds.map(row => row.map(cell => 0));
     this.selectedGroups = [];
     this.highlight = this.kmap.cellIds.map(row => row.map(cell => 0));
@@ -34,7 +36,7 @@ export class InteractiveKmapComponent implements OnInit {
   }
 
   onClickCell(i: number, j: number) {
-    if (this.active && (!this.premarkedCells || this.premarked[i][j] == 1)) {
+    if (this.active && (!this.partiallyActive || this.premarked[i][j] == 1)) {
       this.marked[i][j] = 1 - this.marked[i][j];
     }
   }

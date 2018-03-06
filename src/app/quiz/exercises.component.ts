@@ -7,6 +7,7 @@ import {ExNameGroupService} from '../exercises/exercise-types/name-group/ex-name
 import {ExKmapToExprService} from '../exercises/exercise-types/kmap-to-expr/ex-kmap-to-expr.service';
 import {UserProgressComponent} from './user-progress/user-progress.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import {MinimizeExprService} from '../exercises/exercise-types/minimize-expr/minimize-expr.service';
 
 @Component({
   selector: 'app-exercises',
@@ -24,6 +25,7 @@ export class ExercisesComponent implements OnInit {
     private findBestGroupsService: ExFindBestGroupsService,
     private nameGroupService: ExNameGroupService,
     private kmapToExprService: ExKmapToExprService,
+    private minimizeExprService: MinimizeExprService,
     private modalService: BsModalService
     ) { }
 
@@ -33,6 +35,7 @@ export class ExercisesComponent implements OnInit {
     this.exercises.push(this.findBestGroupsService.getBasicTest());
     this.exercises.push(this.nameGroupService.getBasicTest());
     this.exercises.push(this.kmapToExprService.getBasicTest());
+  this.exercises.push(this.minimizeExprService.getBasicTest());
 
     for (let exercises of this.exercises) {
       exercises.questions.forEach(exercise => this.maxPoints += exercise.points);

@@ -1,0 +1,189 @@
+<ng-container *ngIf="!(exercise$ | async) as exercise">
+<div class="page-header header-no-top-margin">
+  <h2>Minimize Expression <br>
+    <small >Loading...</small>
+  </h2>
+</div>
+</ng-container>
+
+<ng-container *ngIf="exercise$ | async as exercise">
+  <div class="custom-header">
+    <h2>Minimize Expression <br>
+      <small >Question {{exercise.id}}</small>
+    </h2>
+  </div>
+
+  <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
+    <div class="panel-heading">
+      Find the minimal DNF or CNF of the given expression.
+    </div>
+    <div class="panel-body text-center latex-height panel-body-bottom-border">
+      <span appMathJax [mathString]="latexExpression"></span>
+    </div>
+    <div class="panel-body text-center">
+      <div class="btn-group">
+        <button type="button"
+                class="btn"
+                (click)="dnfForm = true"
+                [ngClass]="dnfForm ? 'btn-primary' : 'btn-default'"
+                [disabled]="correctSelected">
+          DNF
+        </button>
+        <button type="button"
+                class="btn"
+                (click)="dnfForm = false"
+                [ngClass]="!dnfForm ? 'btn-primary' : 'btn-default'"
+                [disabled]="correctSelected">
+          CNF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-6">
+
+      <div class="panel panel-default" [ngClass]='{"panel-success": correctSelected, "panel-danger": correctSelected == false}'>
+        <div class="panel-heading">
+          <ng-container *ngIf="dnfForm">
+            To find the solution in DNF, start with marking all the states for which the initial expression evaluates to true.
+          </ng-container>
+          <ng-container *ngIf="!dnfForm">
+            To find the solution in CNF, start with marking all the states that are excluded by the initial expression.
+          </ng-container>
+        </div>
+
+        <div class="panel-body text-center">
+          <div class="row text-center">
+            <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+              <app-interactive-kmap [nVars]="nVars" #interMap></app-interactive-kmap>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-footer text-center">
+          <ng-container *ngIf="correctSelected != true">
+            <button class="btn btn-primary"
+                    title="Check if you selected correct states and move on to grouping"
+                    (click)="onVerifySelected()">Verify selected</button>
+            <button class="btn btn-default" (click)="resetComponent()">Reset</button>
+          </ng-container>
+          <ng-container *ngIf="correctSelected">
+            <button class="btn btn-primary" (click)="onGroup()">Group states</button>
+            <button class="btn btn-default" (click)="resetComponent()">Reset</button>
+          </ng-container>
+        </div>
+
+      </div>
+
+      <div *ngIf="correctSelected == false && nTrueCorrect < nTrue && nTrueIncorrect == 0" class="alert alert-danger">
+        <strong>Wrong!</strong> Are you sure there are no more states that meet the requirement?
+      </div>
+
+      <div *ngIf="correctSelected == false && nTrueCorrect >= nTrue && nTrueIncorrect > 0" class="alert alert-danger">
+        <strong>Wrong!</strong> Some of the states seem to have been marked unnecessarily.
+      </div>
+
+      <div *ngIf="correctSelected == false && nTrueCorrect < nTrue && nTrueIncorrect > 0" class="alert alert-danger">
+        <strong>Wrong!</strong> Give it a second thought.
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+      <div class="panel panel-default"
+           [ngClass]='{"panel-success": finalCorrect,
+                        "panel-danger": finalCorrect == false && foundBestGroups == false,
+                        "panel-warning": finalCorrect == false && foundBestGroups}'>
+        <div class="panel-heading">
+          <p [ngClass]="{'text-muted': !correctSelected}">Your final minimal expression in
+          <span *ngIf="dnfForm">DNF</span>
+            <span *ngIf="!dnfForm">CNF</span>
+          </p>
+        </div>
+        <div class="panel-body text-center latex-height">
+          <p *ngIf="!correctSelected" class="text-muted">You need to select correct states first to move on to grouping</p>
+          <span *ngIf="correctSelected" appMathJax [mathString]="userMinimalExpressionInMathjax()"></span>
+        </div>
+      </div>
+
+      <div *ngIf="correctSelected" class="panel panel-default"
+           [ngClass]='{"panel-success": finalCorrect,
+                        "panel-danger": finalCorrect == false && foundBestGroups == false,
+                        "panel-warning": finalCorrect == false && foundBestGroups}'>
+        <div class="panel-heading">Your answer</div>
+        <div class="panel-body" *ngIf="userGroupingAnswers.length == 0"></div>
+
+        <div class="panel-body panel-body-bottom-border answer-list"
+            *ngFor="let answer of userGroupingAnswers; index as i"
+            (mouseenter)="interMap.hoverCells(answer.selectedAsCells)"
+            (mouseleave)="interMap.unhoverAll()">
+          <p>
+            <a (click)="removeAnswerGroup(i)" class="close" title="Remove a group">&times;</a>
+            <strong>Group {{i+1}}:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{answer.selectedAsCells}}
+          </p>
+          <p>
+            <strong>Expression: </strong><span appMathJax [mathString]="answer.answeredAsExpression.toMathJax()"></span>
+          </p>
+
+          <div class="form-inline">
+
+            <div class="input-group form-group"
+                 [ngClass]='{"input-group-success": answer.varsComparison.aVar == true, "input-group-danger": answer.varsComparison.aVar == false}'>
+              <span class="input-group-addon">A</span>
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.aVar">
+                <option [ngValue]="true">True</option>
+                <option [ngValue]="false">False</option>
+                <option [ngValue]="null">N/A</option>
+              </select>
+            </div>
+
+            <div class="input-group form-group"
+                 [ngClass]='{"input-group-success": answer.varsComparison.bVar == true, "input-group-danger": answer.varsComparison.bVar == false}'>
+              <span class="input-group-addon">B</span>
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.bVar">
+                <option [ngValue]="true">True</option>
+                <option [ngValue]="false">False</option>
+                <option [ngValue]="null">N/A</option>
+              </select>
+            </div>
+
+            <div class="input-group form-group"
+                 [ngClass]='{"input-group-success": answer.varsComparison.cVar == true, "input-group-danger": answer.varsComparison.cVar == false}'>
+              <span class="input-group-addon">C</span>
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.cVar">
+                <option [ngValue]="true">True</option>
+                <option [ngValue]="false">False</option>
+                <option [ngValue]="null">N/A</option>
+              </select>
+            </div>
+
+            <div class="input-group form-group"
+                 [ngClass]='{"input-group-success": answer.varsComparison.dVar == true, "input-group-danger": answer.varsComparison.dVar == false}'>
+              <span class="input-group-addon">D</span>
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.dVar">
+                <option [ngValue]="true">True</option>
+                <option [ngValue]="false">False</option>
+                <option [ngValue]="null">N/A</option>
+              </select>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="panel-footer text-center">
+          <button class="btn btn-primary" (click)="onVerifyGrouping()">Verify</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+</ng-container>

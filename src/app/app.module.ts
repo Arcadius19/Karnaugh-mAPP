@@ -43,6 +43,9 @@ import { PracticeFindBestGroupsComponent } from './practice/find-best-groups/pra
 import { PracticeNameGroupComponent } from './practice/name-group/practice-name-group.component';
 import { PracticeKmapToExprComponent } from './practice/kmap-to-expr/practice-kmap-to-expr.component';
 import { InstantSolverComponent } from './instant-solver/instant-solver.component';
+import { MinimizeExprComponent } from './exercises/exercise-types/minimize-expr/minimize-expr.component';
+import { PracticeMinimizeExprComponent } from './practice/minimize-expr/practice-minimize-expr.component';
+import {MinimizeExprService} from './exercises/exercise-types/minimize-expr/minimize-expr.service';
 
 
 @NgModule({
@@ -78,7 +81,9 @@ import { InstantSolverComponent } from './instant-solver/instant-solver.componen
     PracticeFindBestGroupsComponent,
     PracticeNameGroupComponent,
     PracticeKmapToExprComponent,
-    InstantSolverComponent
+    InstantSolverComponent,
+    MinimizeExprComponent,
+    PracticeMinimizeExprComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +101,8 @@ import { InstantSolverComponent } from './instant-solver/instant-solver.componen
     ExExprToKmapService,
     ExFindBestGroupsService,
     ExNameGroupService,
-    ExKmapToExprService
+    ExKmapToExprService,
+    MinimizeExprService
   ],
   bootstrap: [AppComponent]
 })

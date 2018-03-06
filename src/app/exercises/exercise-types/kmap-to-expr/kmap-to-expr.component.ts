@@ -6,6 +6,7 @@ import {ExKmapToExpr, ExKmapToExprService} from './ex-kmap-to-expr.service';
 import {KarnaughMap} from '../../../auxiliary/karnaugh-map';
 import {BestGroupsSolver} from '../../../auxiliary/best-groups-solver';
 import {ExpressionGroup} from '../../../auxiliary/expression-group';
+import {UserGroupingAnswer} from '../../../auxiliary/user-grouping-answer';
 
 @Component({
   selector: 'app-ex-kmap-to-expr',
@@ -28,7 +29,7 @@ export class KmapToExprComponent implements OnInit {
                                                      // e.g. G1: {aVar: True, bVar: null, cVar: False, dVar: null}
   bestGroupsCells: number[][][];                     // all possible solutions as arrays of cells in each group, e.g. G1: [8, 9, 12, 13]
 
-  userAnswers: UserAnswer[];
+  userAnswers: UserGroupingAnswer[];
   foundBestGroups: boolean;
   finalCorrect: boolean;
 
@@ -81,7 +82,7 @@ export class KmapToExprComponent implements OnInit {
   onGroup() {
     let successGroup = this.interKmapComponent.onGroup();
     if (successGroup) {
-      this.userAnswers.push(new UserAnswer(successGroup));
+      this.userAnswers.push(new UserGroupingAnswer(successGroup));
     }
 
   }
@@ -92,8 +93,6 @@ export class KmapToExprComponent implements OnInit {
   }
 
   onVerify() {
-    console.log('Solutions as expressions: ', this.bestGroupsExpressions);
-    console.log('Solutions as cells: ', this.bestGroupsCells);
     let nMatches = 0;
     let nCorrectAndMatch = 0;
 
@@ -114,9 +113,9 @@ export class KmapToExprComponent implements OnInit {
           }
         }
       }
-      groupsMatchedCorrectly = nMatches == this.userAnswers.length && this.userAnswers.length == this.bestGroupsCells.length;
+      groupsMatchedCorrectly = nMatches == this.userAnswers.length && this.userAnswers.length == this.bestGroupsCells[index].length;
       groupsMatchedAndLabelledCorrectly =
-        nCorrectAndMatch == this.userAnswers.length && this.userAnswers.length == this.bestGroupsCells.length;
+        nCorrectAndMatch == this.userAnswers.length && this.userAnswers.length == this.bestGroupsCells[index].length;
 
       if (groupsMatchedCorrectly) { break; }
     }
@@ -130,25 +129,4 @@ export class KmapToExprComponent implements OnInit {
     return ExpressionGroup.toComplexExpressionMathJax(this.userAnswers.map(answer => answer.answeredAsExpression));
   }
 
-}
-
-export class UserAnswer {
-  selectedAsCells: number[];
-  selectedAsExpression: ExpressionGroup[];
-  validGroup: boolean;
-  answeredAsExpression: ExpressionGroup;
-  varsComparison: ExpressionGroup;
-  correct: boolean;         // selectedAsExpression.equals(answeredAsExpression)
-  match: boolean;           // there is such a group in final solution
-
-  constructor(selectedAsCells: number[]) {
-    this.selectedAsCells = selectedAsCells;
-    let selectedGroupsAsMaps = (new KarnaughMap()).cellsToMap(this.selectedAsCells);
-    this.selectedAsExpression = BestGroupsSolver.findBestGroups(selectedGroupsAsMaps)[0];
-    this.answeredAsExpression = new ExpressionGroup(null, null, null, null);
-    this.validGroup = this.selectedAsExpression.length == 1;
-    this.varsComparison = new ExpressionGroup(null, null, null, null);
-    this.correct = null;
-    this.match = null;
-  }
 }

@@ -14,7 +14,7 @@ export class MathJax {
     expression = expression.replace(MathJax.iffRep, '\\iff');
     expression = expression.replace(MathJax.ifThenRep, '\\implies');
     expression = expression.replace(MathJax.trueRep, '\\top');
-    expression = expression.replace(MathJax.falseRep, '\\neg');
+    expression = expression.replace(MathJax.falseRep, '\\bot');
 
     return `\\( ${expression}\\)`;
   }

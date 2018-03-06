@@ -4,6 +4,7 @@ import {ExFindBestGroupsService} from '../exercises/exercise-types/find-best-gro
 import {ExExprToKmapService} from '../exercises/exercise-types/expr-to-kmap/ex-expr-to-kmap.service';
 import {ExLabelSquaresService} from '../quiz/label-squares/ex-label-squares.service';
 import {ExNameGroupService} from '../exercises/exercise-types/name-group/ex-name-group.service';
+import {MinimizeExprService} from '../exercises/exercise-types/minimize-expr/minimize-expr.service';
 
 @Component({
   selector: 'app-practice',
@@ -18,7 +19,8 @@ export class PracticeComponent implements OnInit {
     private exprToKmapService: ExExprToKmapService,
     private findBestGroupsService: ExFindBestGroupsService,
     private nameGroupService: ExNameGroupService,
-    private kmapToExprService: ExKmapToExprService
+    private kmapToExprService: ExKmapToExprService,
+    private minimizeExprService: MinimizeExprService
   ) { }
 
   ngOnInit() {
@@ -27,5 +29,6 @@ export class PracticeComponent implements OnInit {
     this.exercises.push(this.findBestGroupsService.getBasicPractice());
     this.exercises.push(this.nameGroupService.getBasicPractice());
     this.exercises.push(this.kmapToExprService.getBasicPractice());
+    this.exercises.push(this.minimizeExprService.getBasicPractice());
   }
 }

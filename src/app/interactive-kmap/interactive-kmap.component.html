@@ -1,41 +1,37 @@
-<div class="row">
-  <div class="col-sm-6 col-sm-offset-3">
-    <table id="kmap_table">
+<table id="kmap_table">
 
-      <tr>
-        <td rowspan="2" colspan="2"></td>
-        <th colspan="4">
-          <ng-container *ngIf="kmap.nVars == 3">BC</ng-container>
-          <ng-container *ngIf="kmap.nVars == 4">CD</ng-container>
-        </th>
-      </tr>
-      <tr>
-        <th>00</th>
-        <th>01</th>
-        <th>11</th>
-        <th>10</th>
-      </tr>
+  <tr>
+    <td rowspan="2" colspan="2"></td>
+    <th colspan="4">
+      <ng-container *ngIf="kmap.nVars == 3">BC</ng-container>
+      <ng-container *ngIf="kmap.nVars == 4">CD</ng-container>
+    </th>
+  </tr>
+  <tr>
+    <th>00</th>
+    <th>01</th>
+    <th>11</th>
+    <th>10</th>
+  </tr>
 
-      <ng-container *ngFor="let binary of kmap.binariesVertical; index as i">
-        <tr>
-          <ng-container *ngIf="i == 0">
-            <th rowspan="4" *ngIf="kmap.nVars==4">AB</th>
-            <th rowspan="2" *ngIf="kmap.nVars==3">A</th>
-          </ng-container>
-
-          <th>{{binary}}</th>
-          <td *ngFor="let j of [0,1,2,3]" (click)="onClickCell(i, j)"
-              [ngClass]='{
-              "hover": !premarkedCells && active && !marked[i][j],
-              "selected-neutral": marked[i][j] && active,
-              "premarked-active": premarked[i][j] && active,
-              "premarked": premarked[i][j],
-              "highlighted": highlight[i][j] && active}'>
-            <div class="content">{{kmap.cellIds[i][j]}}</div>
-          </td>
-        </tr>
+  <ng-container *ngFor="let binary of kmap.binariesVertical; index as i">
+    <tr>
+      <ng-container *ngIf="i == 0">
+        <th rowspan="4" *ngIf="kmap.nVars==4">AB</th>
+        <th rowspan="2" *ngIf="kmap.nVars==3">A</th>
       </ng-container>
 
-    </table>
-  </div>
-</div>
+      <th>{{binary}}</th>
+      <td *ngFor="let j of [0,1,2,3]" (click)="onClickCell(i, j)"
+          [ngClass]='{
+          "hover": !partiallyActive && active && !marked[i][j],
+          "selected-neutral": marked[i][j] && active,
+          "premarked-active": premarked[i][j] && active,
+          "premarked": premarked[i][j],
+          "highlighted": highlight[i][j] && active}'>
+        <div class="content">{{kmap.cellIds[i][j]}}</div>
+      </td>
+    </tr>
+  </ng-container>
+
+</table>

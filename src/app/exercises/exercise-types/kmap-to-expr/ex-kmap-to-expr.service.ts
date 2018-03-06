@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import {KarnaughMap} from '../../../auxiliary/karnaugh-map';
 import {Exercise} from '../../exercise';
 import {ExerciseService, ExericseID} from '../../exercise.service';
-import {GlobalVariables} from '../../../auxiliary/global-variables';
 
 export class ExKmapToExpr extends Exercise {
 

@@ -20,7 +20,11 @@
     </div>
 
     <div class="panel-body text-center">
-      <app-interactive-kmap [premarkedCells]="kmap.markExpression(exercise.expressionGroup)" [active]="false"></app-interactive-kmap>
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <app-interactive-kmap [premarkedCells]="kmap.markExpression(exercise.expressionGroup)" [active]="false"></app-interactive-kmap>
+        </div>
+      </div>
     </div>
   </div>
 

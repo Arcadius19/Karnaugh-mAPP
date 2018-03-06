@@ -101,12 +101,8 @@ export class BestGroupsSolver {
 
     let kmap = new KarnaughMap((this.nRows == 4) ? 4 : 3);
 
-    console.log('bestGroupMaps', bestGroupMaps);
-    console.log('bestGroupsOfGroups', bestGroupsOfGroups);
+    return bestGroupsOfGroups.map(groupOfGroups => groupOfGroups.map(group => kmap.mapToExpression(group)));
 
-    let bestGroupsOfGroupsExpressions = bestGroupsOfGroups.map(groupOfGroups => groupOfGroups.map(group => kmap.mapToExpression(group)));
-
-    return bestGroupsOfGroupsExpressions;
   }
 
   private static checkAndPush(gridGroup: GridGroup) {
@@ -145,15 +141,6 @@ export class BestGroupsSolver {
     }
     return hasUngrouped;
   }
-
-  private static findAuxMinimalAndMark() {
-    let bestGroupExpressions = BestGroupsSolver.bestGroups.map(group => group.toExpressionGroup((this.nRows == 4) ? 4 : 3));
-    // TODO: support multiple solutions instead f taking the first one
-    bestGroupExpressions = ExpressionGroup.findMinimal(bestGroupExpressions)[0];
-    BestGroupsSolver.bestGroups = bestGroupExpressions.map(group => group.toGridGroup((this.nRows == 4) ? 4 : 3));
-    BestGroupsSolver.bestGroups.forEach(group => BestGroupsSolver.markGroup(group));
-  }
-
 
   private static markGroup(gridGroup: GridGroup): void {
     for (let i = gridGroup.offRow; i < gridGroup.offRow + gridGroup.rangeRow; i++) {
@@ -218,6 +205,94 @@ export class BestGroupsSolver {
               if (BestGroupsSolver.coverAll(BestGroupsSolver.sumGroups(groups[a], groups[b], groups[c], groups[d], groups[e]))) {
                 result.push([groups[a], groups[b], groups[c], groups[d], groups[e]]);
                 found = true;
+              }
+            }
+          }
+        }
+      }
+    }
+    if (found) { return result; }
+
+    for (let a = 0; a < groups.length; a++) {
+      for (let b = a + 1; b < groups.length; b++) {
+        for (let c = b + 1; c < groups.length; c++) {
+          for (let d = c + 1; d < groups.length; d++) {
+            for (let e = d + 1; e < groups.length; e++) {
+              for (let f = e + 1; f < groups.length; f++) {
+                if (BestGroupsSolver.coverAll(BestGroupsSolver
+                        .sumGroups(groups[a], groups[b], groups[c], groups[d], groups[e], groups[f]))) {
+                  result.push([groups[a], groups[b], groups[c], groups[d], groups[e], groups[f]]);
+                  found = true;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if (found) { return result; }
+
+    for (let a = 0; a < groups.length; a++) {
+      for (let b = a + 1; b < groups.length; b++) {
+        for (let c = b + 1; c < groups.length; c++) {
+          for (let d = c + 1; d < groups.length; d++) {
+            for (let e = d + 1; e < groups.length; e++) {
+              for (let f = e + 1; f < groups.length; f++) {
+                for (let g = f + 1; g < groups.length; g++) {
+                  if (BestGroupsSolver.coverAll(BestGroupsSolver
+                          .sumGroups(groups[a], groups[b], groups[c], groups[d], groups[e], groups[f], groups[g]))) {
+                    result.push([groups[a], groups[b], groups[c], groups[d], groups[e], groups[f], groups[g]]);
+                    found = true;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if (found) { return result; }
+
+    for (let a = 0; a < groups.length; a++) {
+      for (let b = a + 1; b < groups.length; b++) {
+        for (let c = b + 1; c < groups.length; c++) {
+          for (let d = c + 1; d < groups.length; d++) {
+            for (let e = d + 1; e < groups.length; e++) {
+              for (let f = e + 1; f < groups.length; f++) {
+                for (let g = f + 1; g < groups.length; g++) {
+                  for (let h = g + 1; h < groups.length; h++) {
+                    if (BestGroupsSolver.coverAll(BestGroupsSolver
+                            .sumGroups(groups[a], groups[b], groups[c], groups[d], groups[e], groups[f], groups[g], groups[h]))) {
+                      result.push([groups[a], groups[b], groups[c], groups[d], groups[e], groups[f], groups[g], groups[h]]);
+                      found = true;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if (found) { return result; }
+
+    for (let a = 0; a < groups.length; a++) {
+      for (let b = a + 1; b < groups.length; b++) {
+        for (let c = b + 1; c < groups.length; c++) {
+          for (let d = c + 1; d < groups.length; d++) {
+            for (let e = d + 1; e < groups.length; e++) {
+              for (let f = e + 1; f < groups.length; f++) {
+                for (let g = f + 1; g < groups.length; g++) {
+                  for (let h = g + 1; h < groups.length; h++) {
+                    for (let i = h + 1; i < groups.length; i++) {
+                      if (BestGroupsSolver.coverAll(BestGroupsSolver
+                          .sumGroups(groups[a], groups[b], groups[c], groups[d], groups[e], groups[f], groups[g], groups[h], groups[i]))) {
+                        result.push([groups[a], groups[b], groups[c], groups[d], groups[e], groups[f], groups[g], groups[h], groups[i]]);
+                        found = true;
+                      }
+                    }
+                  }
+                }
               }
             }
           }

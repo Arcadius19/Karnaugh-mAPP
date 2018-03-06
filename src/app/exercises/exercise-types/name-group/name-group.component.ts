@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {InteractiveKmapComponent} from '../../../interactive-kmap/interactive-kmap.component';
+import {InteractiveKmapComponent} from '../../../auxiliary/interactive-kmap/interactive-kmap.component';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {ExNameGroup, ExNameGroupService} from './ex-name-group.service';

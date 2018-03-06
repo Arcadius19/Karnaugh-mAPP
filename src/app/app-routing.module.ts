@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ExercisesComponent } from './quiz/exercises.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
-import { OldInstantSolverComponent } from './playground/instant-solver.component';
 import { QuizExprToKmapComponent } from './quiz/expr-to-kmap/quiz-expr-to-kmap.component';
 import {QuizIntroductionComponent} from './quiz/introduction/quiz-introduction.component';
 import {QuizFindBestGroupsComponent} from './quiz/find-best-groups/quiz-find-best-groups.component';
@@ -21,6 +20,7 @@ import {PracticeKmapToExprComponent} from './practice/kmap-to-expr/practice-kmap
 import {InstantSolverComponent} from './instant-solver/instant-solver.component';
 import {PracticeMinimizeExprComponent} from './practice/minimize-expr/practice-minimize-expr.component';
 import {QuizMinimizeExprComponent} from './quiz/minimize-expr/quiz-minimize-expr.component';
+import {PracticeLabelSquaresComponent} from './practice/practice-label-squares/practice-label-squares.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -29,6 +29,7 @@ const routes: Routes = [
     component: PracticeComponent,
     children: [
       { path: '', component: PracticeIntroductionComponent },
+      { path: 'label-squares', component: PracticeLabelSquaresComponent },
       { path: 'expr-to-kmap',
         children: [
           { path: ':id', component: PracticeExprToKmapComponent }
@@ -56,7 +57,7 @@ const routes: Routes = [
       },
       { path: '**', component: PageNotFoundComponent }
     ]},
-  { path: 'exercises',
+  { path: 'quiz',
     component: ExercisesComponent,
     children: [
       { path: '', component: QuizIntroductionComponent},

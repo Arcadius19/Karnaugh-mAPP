@@ -1,0 +1,78 @@
+<div class="custom-header">
+  <h2>Label the squares</h2>
+</div>
+
+<div class="text-justify">
+  <p>
+    If A, B, C, D have binary values a, b, c, d with 1 representing &#8868; and 0 representing &perp;,
+    we will refer to the state using the decimal value of the binary string abcd.
+  </p>
+  <p>
+    Thus 0 represents the state 0000 in which all four atoms are false,
+    while 15 represents the state 1111 in which they are all true, as shown below in the Karnaugh Map.
+  </p>
+</div>
+
+<div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
+  <div class="panel-heading">
+    Label each of the remaining squares in the Karnaugh map with the corresponding number – as described above.
+  </div>
+
+  <div class="panel-body text-center">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <table id="kmap_table">
+
+          <tr>
+            <td rowspan="2" colspan="2"></td>
+            <th colspan="4">CD</th>
+          </tr>
+          <tr>
+            <th>00</th>
+            <th>01</th>
+            <th>11</th>
+            <th>10</th>
+          </tr>
+
+          <ng-container *ngFor="let binary of kmap.binariesVertical; index as i">
+            <tr>
+              <ng-container *ngIf="i == 0">
+                <th rowspan="4">AB</th>
+              </ng-container>
+
+              <th>{{binary}}</th>
+              <td *ngFor="let j of [0,1,2,3]">
+                <div class="content">
+                  <input type="number"
+                         min = "0"
+                         max = "15"
+                         maxlength="2"
+                         class="form-control"
+                         [ngClass] = '{
+                          "input-warning": !isInputValid(userAnswer[i][j]) && !submitted,
+                          "input-success": (userAnswer[i][j] == kmap.cellIds[i][j]) && submitted,
+                          "input-danger": (userAnswer[i][j] != kmap.cellIds[i][j]) && submitted }'
+                         [disabled]="submitted || kmap.cellIds[i][j] == 0 || kmap.cellIds[i][j] == 15"
+                         title="{{ !isInputValid(userAnswer[i][j]) ? 'Invalid input. Provide a number between 0 and 15.' : ''}}"
+                         [(ngModel)] = userAnswer[i][j]
+                         required>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-footer text-center">
+    <ng-container *ngIf="!submitted">
+      <button class="btn btn-primary" (click)="onVerify()" [disabled]="!isFormValid()">Verify</button>
+    </ng-container>
+    <ng-container *ngIf="submitted">
+      <button class="btn btn-primary" (click)="submitted = false; correct = null" [disabled]="!isFormValid()">Modify values</button>
+      <button class="btn btn-primary" (click)="ngOnInit()" [disabled]="!isFormValid()">Reset and try again</button>
+    </ng-container>
+  </div>
+</div>

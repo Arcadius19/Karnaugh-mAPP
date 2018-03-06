@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {KarnaughMap} from '../auxiliary/karnaugh-map';
+import {KarnaughMap} from '../karnaugh-map';
 
 @Component({
   selector: 'app-interactive-kmap',
@@ -11,10 +11,12 @@ export class InteractiveKmapComponent implements OnInit {
   @Input() active = true;   // default
   @Input() partiallyActive;
   @Input() premarkedCells: number[] = null;
+  @Input() positiveMarking = null;
 
   kmap: KarnaughMap;
   premarked: number[][];
   marked: number[][];
+
   selectedGroups: number[][];
   highlight: number[][];
 

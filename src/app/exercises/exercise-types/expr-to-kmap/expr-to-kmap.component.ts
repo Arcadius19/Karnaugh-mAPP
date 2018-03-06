@@ -4,7 +4,7 @@ import 'rxjs/add/operator/switchMap';
 import {ExExprToKmap, ExExprToKmapService} from './ex-expr-to-kmap.service';
 import {Observable} from 'rxjs/Observable';
 import {MathJax} from '../../../auxiliary/mathjax-aux/math-jax';
-import {InteractiveKmapComponent} from '../../../interactive-kmap/interactive-kmap.component';
+import {InteractiveKmapComponent} from '../../../auxiliary/interactive-kmap/interactive-kmap.component';
 import {KarnaughMap} from '../../../auxiliary/karnaugh-map';
 
 @Component({
@@ -43,6 +43,13 @@ export class ExprToKmapComponent implements OnInit {
         this.router.navigate([this.routePath]);
         return;
       }
+      this.markTrue = Math.random() > 0.5;
+      if (!this.interKmapComponent) {
+        this.interKmapComponent = new InteractiveKmapComponent();
+        this.interKmapComponent.nVars = this.nVars;
+        this.interKmapComponent.positiveMarking = this.markTrue;
+        this.interKmapComponent.ngOnInit();
+      }
 
       this.populateProperties(exercise);
       this.resetComponent();
@@ -55,26 +62,17 @@ export class ExprToKmapComponent implements OnInit {
 
   populateProperties(exercise: ExExprToKmap) {
     this.id = exercise.id;
-    this.markTrue = Math.random() > 0.5;
     this.latexExpression = MathJax.toMathJax(exercise.expression);
-    this.solution = (new KarnaughMap(this.nVars)).evaluate(exercise.expression);
+    let evaluations = this.interKmapComponent.kmap.evaluate(exercise.expression);
+    this.solution = (this.markTrue) ? evaluations : evaluations.map(row => row.map(cell => 1 - cell));
   }
 
   resetComponent() {
-    if (this.interKmapComponent) {
-      this.interKmapComponent.marked = this.interKmapComponent.marked.map(row => row.map(cell => 0)); // reset marked
-    }
+    this.interKmapComponent.marked = this.interKmapComponent.marked.map(row => row.map(cell => 0)); // reset marked
+    this.interKmapComponent.active = true;
     this.correct = null;
   }
 
   onVerify() { }
-
-  onTryAgain() {
-    this.resetComponent();
-  }
-
-  onShowSolution() {
-    console.log(this.solution);
-  }
 
 }

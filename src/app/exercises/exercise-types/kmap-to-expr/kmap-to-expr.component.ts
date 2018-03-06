@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {InteractiveKmapComponent} from '../../../interactive-kmap/interactive-kmap.component';
+import {InteractiveKmapComponent} from '../../../auxiliary/interactive-kmap/interactive-kmap.component';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ExKmapToExpr, ExKmapToExprService} from './ex-kmap-to-expr.service';
@@ -21,7 +21,6 @@ export class KmapToExprComponent implements OnInit {
 
   exercise$: Observable<ExKmapToExpr>;
   id: number;
-  points: number;
 
   kmap = new KarnaughMap();                          // By default, always with 4 variables
 

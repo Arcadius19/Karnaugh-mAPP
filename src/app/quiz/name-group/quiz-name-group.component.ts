@@ -8,7 +8,7 @@ import {ExNameGroup} from '../../exercises/exercise-types/name-group/ex-name-gro
   styleUrls: ['./quiz-name-group.component.css']
 })
 export class QuizNameGroupComponent extends NameGroupComponent implements OnInit {
-  routePath = 'exercises';
+  routePath = 'quiz';
   points: number;
 
   getQuestion(params) {

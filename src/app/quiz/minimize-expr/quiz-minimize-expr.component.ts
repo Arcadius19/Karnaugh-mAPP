@@ -8,7 +8,7 @@ import {ExMinimizeExpr} from '../../exercises/exercise-types/minimize-expr/minim
   styleUrls: ['./quiz-minimize-expr.component.css']
 })
 export class QuizMinimizeExprComponent extends MinimizeExprComponent implements OnInit {
-  routePath = 'exercises';
+  routePath = 'quiz';
   points: number;
 
   getQuestion(params) {

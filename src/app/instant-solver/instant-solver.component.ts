@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomParser} from '../auxiliary/custom-parser';
 import {MathJax} from '../auxiliary/mathjax-aux/math-jax';
-import {InteractiveKmapComponent} from '../interactive-kmap/interactive-kmap.component';
+import {InteractiveKmapComponent} from '../auxiliary/interactive-kmap/interactive-kmap.component';
 import {BestGroupsSolver} from '../auxiliary/best-groups-solver';
 import {ExpressionGroup} from '../auxiliary/expression-group';
 

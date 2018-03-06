@@ -33,7 +33,12 @@
 
 .panel-warning .panel-footer {
   background-color: #fcf8e3;
-  border-color: #faebcc
+  border-color: #faebcc;
+}
+
+.panel-info .panel-footer {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
 }
 
 .answer-heading {

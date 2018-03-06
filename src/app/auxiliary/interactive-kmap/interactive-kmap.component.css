@@ -33,7 +33,7 @@ th .content, td .content {
   cursor: pointer;
 }
 
-td.selected-neutral:hover, td.premarked-active:hover {
+td.selected-neutral:hover, td.selected-positive:hover, td.selected-negative:hover, td.premarked-active:hover {
   filter: brightness(85%);
   cursor: pointer;
 }
@@ -42,8 +42,16 @@ td.selected-neutral {
   background: dodgerblue;
 }
 
+td.selected-positive {
+  background: rgba(85, 199, 83, 0.67);
+}
+
+td.selected-negative {
+  background: rgba(210, 0, 9, 0.6);
+}
+
 .premarked {
-  background: #fff063;
+  background: #fdffad;
 }
 
 .highlighted {

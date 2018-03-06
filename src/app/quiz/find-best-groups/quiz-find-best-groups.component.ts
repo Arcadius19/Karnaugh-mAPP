@@ -8,7 +8,7 @@ import {ExFindBestGroups} from '../../exercises/exercise-types/find-best-groups/
   styleUrls: ['./quiz-find-best-groups.component.css']
 })
 export class QuizFindBestGroupsComponent extends FindBestGroupsComponent implements OnInit {
-  routePath = 'exercise';
+  routePath = 'quiz';
   points: number;
 
   getQuestion(params) {

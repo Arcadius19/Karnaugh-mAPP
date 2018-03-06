@@ -13,7 +13,7 @@
     </h2>
   </div>
 
-  <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
+  <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false, "panel-info": showAnswer == true}'>
     <div class="panel-heading" *ngIf="markTrue">
       Mark all the states for which the following expression <strong>evaluates to true.</strong>
     </div>
@@ -21,44 +21,49 @@
       Mark all the states that <strong>are excluded</strong> by the following expression
     </div>
 
-    <div class="panel-body text-center latex-height">
+    <div class="panel-body text-center latex-height panel-body-bottom-border">
       <span appMathJax [mathString]="latexExpression"></span>
     </div>
-  </div>
 
-  <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
     <div class="panel-body">
       <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
-          <app-interactive-kmap [nVars]="nVars"></app-interactive-kmap>
+          <app-interactive-kmap [nVars]="nVars" [positiveMarking]="markTrue"></app-interactive-kmap>
         </div>
       </div>
     </div>
-  </div>
 
-  <p class="text-center" *ngIf="correct == null">
-    <button class="btn btn-primary" (click)="onVerify()">Verify</button>
-  </p>
+    <div class="panel-footer text-center">
+      <ng-container *ngIf="correct == null && !showAnswer">
+        <button class="btn btn-primary" (click)="onVerify()">Verify</button>
+      </ng-container>
 
-  <p class="text-center" *ngIf="correct != null">
-    <button class="btn btn-primary" (click)="onVerify()">Verify Again</button>
-    <button class="btn btn-default" (click)="onTryAgain()">Reset</button>
-    <button class="btn btn-success" (click)="onShowSolution()" *ngIf="correct == false">Show Answer</button>
-  </p>
+      <ng-container *ngIf="correct != null">
+        <button class="btn btn-primary" (click)="onVerify()">Verify Again</button>
+        <button class="btn btn-default" (click)="resetComponent()">Reset</button>
+        <button class="btn btn-success" (click)="onShowSolution()" *ngIf="correct == false">Show Answer</button>
+      </ng-container>
+
+      <ng-container *ngIf="showAnswer">
+        <button class="btn btn-default" (click)="resetComponent()">Reset</button>
+      </ng-container>
+    </div>
+
+  </div>    <!-- end of a panel -->
 
   <div *ngIf="correct" class="alert alert-success">
     <strong>Success!</strong> Well done!
   </div>
 
-  <div *ngIf="!correct && nTrueCorrect < nTrue && nTrueIncorrect == 0" class="alert alert-danger">
+  <div *ngIf="correct == false && nTrueCorrect < nTrue && nTrueIncorrect == 0" class="alert alert-danger">
     <strong>Wrong!</strong> Are you sure there are no more states that meet the requirement?
   </div>
 
-  <div *ngIf="!correct && nTrueCorrect >= nTrue && nTrueIncorrect > 0" class="alert alert-danger">
+  <div *ngIf="correct == false && nTrueCorrect >= nTrue && nTrueIncorrect > 0" class="alert alert-danger">
     <strong>Wrong!</strong> Some of the states seem to have been marked unnecessarily.
   </div>
 
-  <div *ngIf="!correct && nTrueCorrect < nTrue && nTrueIncorrect > 0" class="alert alert-danger">
+  <div *ngIf="correct == false && nTrueCorrect < nTrue && nTrueIncorrect > 0" class="alert alert-danger">
     <strong>Wrong!</strong> Give it a second thought.
   </div>
 

@@ -8,8 +8,8 @@ import {ExExprToKmap} from '../../exercises/exercise-types/expr-to-kmap/ex-expr-
   styleUrls: ['./quiz-expr-to-kmap.component.css']
 })
 export class QuizExprToKmapComponent extends ExprToKmapComponent implements OnInit {
+  routePath = 'quiz';
   points: number;
-  routePath = '/exercises';
 
   getQuestion(params) {
     return this.service.getExerciseTestAsync(params.get('id'));
@@ -21,15 +21,7 @@ export class QuizExprToKmapComponent extends ExprToKmapComponent implements OnIn
   }
 
   onVerify() {
-    let solutionMarked: number[][];
-
-    if (this.markTrue) {
-      solutionMarked = this.solution;
-    } else {
-      // reverse values
-      solutionMarked = this.solution.map(row => row.map(cell => 1 - cell));
-    }
-    this.correct = this.interKmapComponent.marked.every((row, i) => row.every((cell, j) => cell == solutionMarked[i][j]));
+    this.correct = this.interKmapComponent.marked.every((row, i) => row.every((cell, j) => cell == this.solution[i][j]));
 
     if (this.correct) {
       this.service.addPointsToTotal(this.id, this. points);

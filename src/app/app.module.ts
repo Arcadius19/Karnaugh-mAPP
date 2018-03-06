@@ -4,20 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
-import { KmapComponent } from './playground/kmap/kmap.component';
-import { FormComponent } from './playground/form/form.component';
-import { ParserService } from './auxiliary/parser.service';
 import { MathjaxDirective } from './auxiliary/mathjax-aux/mathjax.directive';
-import { TypeFormComponent } from './playground/kmap/type-form/type-form.component';
-import { GlobalVariablesService } from './auxiliary/global-variables.service';
 import { AppRoutingModule } from './app-routing.module';
 import { ExercisesComponent } from './quiz/exercises.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
-import { OldInstantSolverComponent } from './playground/instant-solver.component';
 import { QuizExprToKmapComponent } from './quiz/expr-to-kmap/quiz-expr-to-kmap.component';
 import { QuizIntroductionComponent } from './quiz/introduction/quiz-introduction.component';
-import { InteractiveKmapComponent } from './interactive-kmap/interactive-kmap.component';
+import { InteractiveKmapComponent } from './auxiliary/interactive-kmap/interactive-kmap.component';
 import { QuizFindBestGroupsComponent } from './quiz/find-best-groups/quiz-find-best-groups.component';
 import { QuizNameGroupComponent } from './quiz/name-group/quiz-name-group.component';
 import { QuizLabelSquaresComponent } from './quiz/label-squares/quiz-label-squares.component';
@@ -47,6 +41,8 @@ import { MinimizeExprComponent } from './exercises/exercise-types/minimize-expr/
 import { PracticeMinimizeExprComponent } from './practice/minimize-expr/practice-minimize-expr.component';
 import {MinimizeExprService} from './exercises/exercise-types/minimize-expr/minimize-expr.service';
 import { QuizMinimizeExprComponent } from './quiz/minimize-expr/quiz-minimize-expr.component';
+import { PracticeLabelSquaresComponent } from './practice/practice-label-squares/practice-label-squares.component';
+import { LabelSquaresComponent } from './exercises/exercise-types/label-squares/label-squares.component';
 
 
 @NgModule({
@@ -55,14 +51,10 @@ import { QuizMinimizeExprComponent } from './quiz/minimize-expr/quiz-minimize-ex
   ],
   declarations: [
     AppComponent,
-    KmapComponent,
-    FormComponent,
     MathjaxDirective,
-    TypeFormComponent,
     ExercisesComponent,
     PageNotFoundComponent,
     HomeComponent,
-    OldInstantSolverComponent,
     QuizExprToKmapComponent,
     QuizIntroductionComponent,
     InteractiveKmapComponent,
@@ -85,7 +77,9 @@ import { QuizMinimizeExprComponent } from './quiz/minimize-expr/quiz-minimize-ex
     InstantSolverComponent,
     MinimizeExprComponent,
     PracticeMinimizeExprComponent,
-    QuizMinimizeExprComponent
+    QuizMinimizeExprComponent,
+    PracticeLabelSquaresComponent,
+    LabelSquaresComponent
   ],
   imports: [
     BrowserModule,
@@ -95,8 +89,6 @@ import { QuizMinimizeExprComponent } from './quiz/minimize-expr/quiz-minimize-ex
     ModalModule.forRoot()
   ],
   providers: [
-    ParserService,
-    GlobalVariablesService,
     BsModalService,
     ExerciseService,
     ExLabelSquaresService,

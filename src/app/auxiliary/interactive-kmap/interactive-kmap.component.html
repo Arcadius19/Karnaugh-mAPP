@@ -25,7 +25,9 @@
       <td *ngFor="let j of [0,1,2,3]" (click)="onClickCell(i, j)"
           [ngClass]='{
           "hover": !partiallyActive && active && !marked[i][j],
-          "selected-neutral": marked[i][j] && active,
+          "selected-neutral": marked[i][j] && positiveMarking == null,
+          "selected-positive": marked[i][j] && positiveMarking == true,
+          "selected-negative": marked[i][j] && positiveMarking == false,
           "premarked-active": premarked[i][j] && active,
           "premarked": premarked[i][j],
           "highlighted": highlight[i][j] && active}'>

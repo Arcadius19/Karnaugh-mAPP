@@ -8,7 +8,8 @@ import {ExKmapToExpr} from '../../exercises/exercise-types/kmap-to-expr/ex-kmap-
   styleUrls: ['./quiz-kmap-to-expr.component.css']
 })
 export class QuizKmapToExprComponent extends KmapToExprComponent implements OnInit {
-  routePath = 'exercise';
+  routePath = 'quiz';
+  points: number;
 
   getQuestion(params) {
     return this.service.getExerciseTestAsync(params.get('id'));

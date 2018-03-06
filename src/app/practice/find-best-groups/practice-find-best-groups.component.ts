@@ -8,6 +8,23 @@ import {FindBestGroupsComponent} from '../../exercises/exercise-types/find-best-
 })
 export class PracticeFindBestGroupsComponent extends FindBestGroupsComponent implements OnInit {
   routePath = 'practice';
+  foundResolution: boolean;
 
+  resetComponent() {
+    super.resetComponent();
+    this.foundResolution = null;
+  }
 
+  onVerify() {
+    this.foundResolution = this.interKmapComponent.checkForResolution();
+    if (!this.foundResolution) {
+      super.onVerify();
+    }
+  }
+
+  removeAnswerGroup(i: number) {
+    this.interKmapComponent.removeAnswerGroup(i);
+    this.foundResolution = false;
+    this.correct = null;
+  }
 }

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {KarnaughMap} from '../karnaugh-map';
+import {BestGroupsSolver} from '../best-groups-solver';
 
 @Component({
   selector: 'app-interactive-kmap',
@@ -20,9 +21,10 @@ export class InteractiveKmapComponent implements OnInit {
   selectedGroups: number[][];
   highlight: number[][];
 
-  // additional
+  // additional info for feedback
   doubleSelected = false;
   emptySelected = false;
+  invalidGroup = false;
 
   constructor() { }
 
@@ -35,6 +37,7 @@ export class InteractiveKmapComponent implements OnInit {
     this.highlight = this.kmap.cellIds.map(row => row.map(cell => 0));
     this.doubleSelected = false;
     this.emptySelected = false;
+    this.invalidGroup = false;
   }
 
   onClickCell(i: number, j: number) {
@@ -51,19 +54,27 @@ export class InteractiveKmapComponent implements OnInit {
     this.highlight = this.highlight.map(row => row.map(cell => 0));
   }
 
-  onGroup() {
+  onGroup(validateGroup = false) {
     let selectedCells = this.kmap.mapToCells(this.marked).sort((n1, n2) => n1 - n2);
     let successGroup = null;
 
     if (selectedCells.length == 0) {
       this.emptySelected = true;
       setTimeout(() => { this.emptySelected = false; }, 2000);
-    } else if (!this.checkIfAlreadySelected(selectedCells)) {
-      this.selectedGroups.push(selectedCells);
-      successGroup = true;
-    } else {
+    } else if (this.checkIfAlreadySelected(selectedCells)) {
       this.doubleSelected = true;
       setTimeout(() => { this.doubleSelected = false; }, 2000);
+    } else if (validateGroup) {
+      if (BestGroupsSolver.findBestGroups(this.marked)[0].length != 1) {     // check if cells form a valid group
+        this.invalidGroup = true;
+        setTimeout(() => { this.invalidGroup = false; }, 2000);
+      } else {
+        this.selectedGroups.push(selectedCells);
+        successGroup = true;
+      }
+    } else {
+      this.selectedGroups.push(selectedCells);
+      successGroup = true;
     }
     this.marked = this.marked.map(row => row.map(cell => 0));
 
@@ -119,6 +130,23 @@ export class InteractiveKmapComponent implements OnInit {
       }
     }
 
+    return false;
+  }
+
+  // check if any of teh selected groups is the resolution of two other groups
+  checkForResolution() {
+    for (let index = 0; index < this.selectedGroups.length; index++) {
+      for (let i = 0; i < this.selectedGroups.length; i++) {
+        for (let j = i + 1; j < this.selectedGroups.length; j++) {
+          if (index != i && index != j) {
+            let sum = this.selectedGroups[i].concat(this.selectedGroups[j]);
+            if (this.selectedGroups[index].every(cell => sum.includes(cell))) {
+              return true;
+            }
+          }
+        }
+      }
+    }
     return false;
   }
 

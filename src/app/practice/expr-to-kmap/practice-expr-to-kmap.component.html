@@ -39,7 +39,7 @@
       </ng-container>
 
       <ng-container *ngIf="correct != null">
-        <button class="btn btn-primary" (click)="onVerify()">Verify Again</button>
+        <button class="btn btn-primary" (click)="onVerify()" *ngIf="correct == false">Verify Again</button>
         <button class="btn btn-default" (click)="resetComponent()">Reset</button>
         <button class="btn btn-success" (click)="onShowSolution()" *ngIf="correct == false">Show Answer</button>
       </ng-container>

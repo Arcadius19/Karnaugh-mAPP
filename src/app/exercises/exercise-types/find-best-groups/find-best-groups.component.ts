@@ -40,11 +40,13 @@ export class FindBestGroupsComponent implements OnInit {
         // such an exercise does not exist
         this.router.navigate([this.routePath]);
       } else {
-        if (this.interKmapComponent) {
-          this.interKmapComponent.nVars = exercise.nVars;
-          this.interKmapComponent.premarkedCells = exercise.cells;
-          this.interKmapComponent.ngOnInit();
+        if (!this.interKmapComponent) {
+          this.interKmapComponent = new InteractiveKmapComponent();
         }
+        this.interKmapComponent.nVars = exercise.nVars;
+        this.interKmapComponent.premarkedCells = exercise.cells;
+        this.interKmapComponent.ngOnInit();
+
         this.populateProperties(exercise);
         this.resetComponent();
       }
@@ -66,10 +68,15 @@ export class FindBestGroupsComponent implements OnInit {
 
   resetComponent() {
     this.correct = null;
+    this.interKmapComponent.active = true;
+    this.interKmapComponent.selectedGroups = [];
   }
 
   onVerify() {
     this.correct = this.interKmapComponent.compareSelectedToBest(this.solutions);
+    if (this.correct) {
+      this.interKmapComponent.active = false;
+    }
   }
 
 }

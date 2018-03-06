@@ -20,6 +20,7 @@ import {PracticeNameGroupComponent} from './practice/name-group/practice-name-gr
 import {PracticeKmapToExprComponent} from './practice/kmap-to-expr/practice-kmap-to-expr.component';
 import {InstantSolverComponent} from './instant-solver/instant-solver.component';
 import {PracticeMinimizeExprComponent} from './practice/minimize-expr/practice-minimize-expr.component';
+import {QuizMinimizeExprComponent} from './quiz/minimize-expr/quiz-minimize-expr.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -78,6 +79,11 @@ const routes: Routes = [
       { path: 'kmap-to-expr',
         children: [
           { path: ':id', component: QuizKmapToExprComponent }
+        ]
+      },
+      { path: 'minimize-expr',
+        children: [
+          { path: ':id', component: QuizMinimizeExprComponent }
         ]
       },
       {path: '**', component: PageNotFoundComponent }

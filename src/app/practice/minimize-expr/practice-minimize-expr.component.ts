@@ -7,6 +7,6 @@ import {MinimizeExprComponent} from '../../exercises/exercise-types/minimize-exp
   styleUrls: ['./practice-minimize-expr.component.css']
 })
 export class PracticeMinimizeExprComponent extends MinimizeExprComponent implements OnInit {
-
+  routePath = 'practice';
 
 }

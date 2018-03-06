@@ -46,6 +46,7 @@ import { InstantSolverComponent } from './instant-solver/instant-solver.componen
 import { MinimizeExprComponent } from './exercises/exercise-types/minimize-expr/minimize-expr.component';
 import { PracticeMinimizeExprComponent } from './practice/minimize-expr/practice-minimize-expr.component';
 import {MinimizeExprService} from './exercises/exercise-types/minimize-expr/minimize-expr.service';
+import { QuizMinimizeExprComponent } from './quiz/minimize-expr/quiz-minimize-expr.component';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import {MinimizeExprService} from './exercises/exercise-types/minimize-expr/mini
     PracticeKmapToExprComponent,
     InstantSolverComponent,
     MinimizeExprComponent,
-    PracticeMinimizeExprComponent
+    PracticeMinimizeExprComponent,
+    QuizMinimizeExprComponent
   ],
   imports: [
     BrowserModule,

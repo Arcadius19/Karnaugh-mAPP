@@ -12,9 +12,4 @@ export class PracticeFindBestGroupsComponent extends FindBestGroupsComponent imp
   resetComponent() {
     super.resetComponent();
   }
-
-  removeAnswerGroup(i: number) {
-    this.interKmapComponent.removeAnswerGroup(i);
-    this.correct = null;
-  }
 }

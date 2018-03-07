@@ -13,57 +13,67 @@
     </h2>
   </div>
 
-  <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
-    <div class="panel-heading">
-      Find the best possible groups for the marked states.
-    </div>
+  <div class="row">
 
-    <div class="panel-body text-center">
-      <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-          <app-interactive-kmap [nVars]="exercise.nVars" [premarkedCells]="exercise.cells" #interMap></app-interactive-kmap>
+    <div class="col-sm-6">
+
+      <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
+        <div class="panel-heading">
+          Find the best possible groups for the marked states.
+        </div>
+
+        <div class="panel-body text-center">
+          <div class="row">
+            <div class="col-lg-12" (click)="(correct == false) ? correct = null : null">
+              <app-interactive-kmap [nVars]="exercise.nVars" [premarkedCells]="exercise.cells" #interMap></app-interactive-kmap>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-body" *ngIf="interMap.doubleSelected">
+          <div class="alert alert-danger">
+            This group has already been added.
+          </div>
+        </div>
+
+        <div class="panel-body" *ngIf="interMap.emptySelected">
+          <div class="alert alert-danger">
+            Select states to group.
+          </div>
+        </div>
+
+        <div class="panel-footer text-center">
+            <button *ngIf="!correct" class="btn btn-primary" (click)="interMap.onGroup()">Group states</button>
+            <button *ngIf="correct" class="btn btn-default" (click)="resetComponent()">Reset</button>
         </div>
       </div>
+
     </div>
-  </div>
 
-  <!--TODO-->
-  <!--Make it be overlayed over the components above button-->
-  <!--<div [class.show]="doubleSelected" class="step alert-float">-->
-  <div *ngIf="interMap.doubleSelected" style="position: fixed; top: 60px; right: 15px">
-    <div class="alert alert-danger">
-      This group has already been added.
+    <div class="col-sm-6">
+
+      <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
+        <div class="panel-heading">Your answer <button class="btn btn-xs btn-default" (click)="resetComponent()">Reset all</button></div>
+        <div class="panel-body" *ngIf="interMap.selectedGroups.length == 0"></div>
+        <div class="panel-body panel-body-bottom-border answer-list"
+            *ngFor="let group of interMap.selectedGroups; index as i"
+            (mouseenter)="interMap.hoverCells(group)"
+            (mouseleave)="interMap.unhoverAll()">
+          <a *ngIf="!correct" (click)="removeAnswerGroup(i)" class="close" title="Remove a group">&times;</a>
+          <strong>Group {{i+1}}:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{group}}
+        </div>
+
+        <div class="panel-footer text-center">
+            <button class="btn btn-primary" (click)="onVerify()" [disabled]="correct">Verify</button>
+        </div>
+      </div>
+
+      <div *ngIf="correct" class="alert alert-success">
+        <strong>Success!</strong> Well done.
+      </div>
+
     </div>
-  </div>
 
-  <div *ngIf="interMap.emptySelected" style="position: fixed; top: 60px; right: 15px">
-    <div class="alert alert-danger">
-      Select states to group.
-    </div>
-  </div>
-
-  <p class="text-center">
-    <button class="btn btn-primary" (click)="interMap.onGroup()">Group states</button>
-    <button class="btn btn-primary" (click)="onVerify()">Verify</button>
-  </p>
-
-  <div *ngIf="correct" class="alert alert-success">
-    <strong>Success!</strong> You gained {{exercise.points}} points.
-  </div>
-
-  <div class="list-group">
-    <li class="list-group-item" [ngClass]='{
-    "answer-heading": correct == null,
-    "list-group-item-success": correct,
-    "list-group-item-danger": correct == false}'>Your answer</li>
-    <li class="list-group-item" *ngIf="interMap.selectedGroups.length == 0"></li>
-    <li class="list-group-item answer-list"
-        *ngFor="let group of interMap.selectedGroups; index as i"
-        (mouseenter)="interMap.hoverCells(group)"
-        (mouseleave)="interMap.unhoverAll()">
-      <a (click)="interMap.removeAnswerGroup(i)" class="close" title="Remove a group">&times;</a>
-      <strong>Group {{i+1}}:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{group}}
-    </li>
   </div>
 
 </ng-container>

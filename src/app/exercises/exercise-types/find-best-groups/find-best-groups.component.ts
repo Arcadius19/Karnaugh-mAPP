@@ -72,6 +72,11 @@ export class FindBestGroupsComponent implements OnInit {
     this.interKmapComponent.selectedGroups = [];
   }
 
+  removeAnswerGroup(i: number) {
+    this.interKmapComponent.removeAnswerGroup(i);
+    this.correct = null;
+  }
+
   onVerify() {
     this.correct = this.interKmapComponent.compareSelectedToBest(this.solutions);
     if (this.correct) {

@@ -25,6 +25,7 @@ export class InteractiveKmapComponent implements OnInit {
   doubleSelected = false;
   emptySelected = false;
   invalidGroup = false;
+  foundResolution = false;
 
   constructor() { }
 
@@ -133,7 +134,7 @@ export class InteractiveKmapComponent implements OnInit {
     return false;
   }
 
-  // check if any of teh selected groups is the resolution of two other groups
+  // check if any of the selected groups is the resolution of two other groups
   checkForResolution() {
     for (let index = 0; index < this.selectedGroups.length; index++) {
       for (let i = 0; i < this.selectedGroups.length; i++) {
@@ -141,6 +142,8 @@ export class InteractiveKmapComponent implements OnInit {
           if (index != i && index != j) {
             let sum = this.selectedGroups[i].concat(this.selectedGroups[j]);
             if (this.selectedGroups[index].every(cell => sum.includes(cell))) {
+              this.foundResolution = true;
+              setTimeout(() => { this.foundResolution = false; }, 2000);
               return true;
             }
           }

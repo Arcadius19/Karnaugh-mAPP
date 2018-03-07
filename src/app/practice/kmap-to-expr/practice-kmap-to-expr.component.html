@@ -15,59 +15,87 @@
 
   <div class="row">
 
-    <div class="col-lg-6">
+    <div class="col-md-6">
 
       <div class="panel panel-default"
-           [ngClass]='{"panel-success": finalCorrect, "panel-danger": finalCorrect == false}'>
+           [ngClass]='{"panel-success": finalCorrect,
+                        "panel-danger": finalCorrect == false && foundBestGroups == false,
+                        "panel-warning": finalCorrect == false && foundBestGroups}'>
         <div class="panel-heading" *ngIf="!markTrue">
           Group marked states, give an expression for each of them and then provide a final minimal solution in DNF form.
         </div>
 
         <div class="panel-body text-center">
           <div class="row text-center">
-            <div class="col-sm-6 col-sm-offset-3 col-lg-12 col-lg-offset-0">
+            <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
               <app-interactive-kmap [premarkedCells]="exercise.cells" #interMap></app-interactive-kmap>
             </div>
           </div>
         </div>
 
+        <div class="panel-body" *ngIf="interMap.doubleSelected">
+          <div class="alert alert-danger">
+            This group has already been added.
+          </div>
+        </div>
+
+        <div class="panel-body" *ngIf="interMap.emptySelected">
+          <div class="alert alert-danger">
+            Select states to group.
+          </div>
+        </div>
+
+        <div class="panel-body" *ngIf="interMap.invalidGroup">
+          <div class="alert alert-danger">
+            Selected cells do not form a valid group.
+          </div>
+        </div>
+
+        <div class="panel-body" *ngIf="interMap.foundResolution">
+          <div class="alert alert-warning">
+            There seems to be a redundant group.
+          </div>
+        </div>
+
         <div class="panel-footer text-center">
-          <button class="btn btn-primary" (click)="onGroup()">Group states</button>
+          <button *ngIf="!foundBestGroups" class="btn btn-primary" (click)="onGroup(); clearFeedback()">Group states</button>
         </div>
       </div>
 
     </div>
 
-    <div class="col-lg-6">
+    <div class="col-md-6">
 
-      <div *ngIf="userAnswers.length > 0"
-           class="panel panel-default"
-           [ngClass]='{"panel-success": finalCorrect, "panel-danger": finalCorrect == false}'>
-        <div class="panel-heading">
-          Your final minimal expression
-        </div>
+      <div class="panel panel-default"
+           [ngClass]='{"panel-success": finalCorrect,
+                        "panel-danger": finalCorrect == false && foundBestGroups == false,
+                        "panel-warning": finalCorrect == false && foundBestGroups}'>
+        <div class="panel-heading"> Your final minimal expression</div>
         <div class="panel-body text-center latex-height">
           <span appMathJax [mathString]="userMinimalExpressionInMathjax()"></span>
         </div>
       </div>
 
-      <div class="list-group">
-        <li class="list-group-item" [ngClass]='{
-        "answer-heading": finalCorrect == null,
-        "list-group-item-success": finalCorrect,
-        "list-group-item-danger": finalCorrect == false}'>Your answer</li>
-        <li class="list-group-item" *ngIf="userAnswers.length == 0"></li>
+      <div class="panel panel-default"
+           [ngClass]='{"panel-success": finalCorrect,
+                        "panel-danger": finalCorrect == false && foundBestGroups == false,
+                        "panel-warning": finalCorrect == false && foundBestGroups}'>
+        <div class="panel-heading">Your answer <button class="btn btn-xs btn-default" (click)="resetComponent()">Reset all</button></div>
+        <div *ngIf="finalCorrect == false && bestGroupsExpressions.length > 1" class="panel-heading">
+          There are {{bestGroupsExpressions.length}} possible solutions. The following colouring feedback applies to only one of them.
+        </div>
+        <div class="panel-body" *ngIf="userAnswers.length == 0"></div>
 
-        <li class="list-group-item answer-list"
+        <div class="panel-body panel-body-bottom-border answer-list"
             *ngFor="let answer of userAnswers; index as i"
             (mouseenter)="interMap.hoverCells(answer.selectedAsCells)"
             (mouseleave)="interMap.unhoverAll()"
             [ngClass]='{
-              "list-group-item-custom-success": answer.correct && answer.match,
-              "list-group-item-custom-danger": answer.correct == false && answer.match == false,
-              "list-group-item-custom-warning": (answer.correct == false && answer.match) || (answer.correct && answer.match == false)}'>
+              "panel-body-success": answer.correct && answer.match,
+              "panel-body-danger": answer.correct == false && answer.match == false,
+              "panel-body-warning": answer.correct == false && answer.match}'>
           <p>
-            <a (click)="removeAnswerGroup(i)" class="close" title="Remove a group">&times;</a>
+            <a *ngIf="!foundBestGroups" (click)="removeAnswerGroup(i); clearFeedback()" class="close" title="Remove a group">&times;</a>
             <strong>Group {{i+1}}:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{answer.selectedAsCells}}
           </p>
           <p>
@@ -79,7 +107,7 @@
             <div class="input-group form-group"
                  [ngClass]='{"input-group-success": answer.varsComparison.aVar == true, "input-group-danger": answer.varsComparison.aVar == false}'>
               <span class="input-group-addon">A</span>
-              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.aVar">
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.aVar" [disabled]="finalCorrect">
                 <option [ngValue]="true">True</option>
                 <option [ngValue]="false">False</option>
                 <option [ngValue]="null">N/A</option>
@@ -89,7 +117,7 @@
             <div class="input-group form-group"
                  [ngClass]='{"input-group-success": answer.varsComparison.bVar == true, "input-group-danger": answer.varsComparison.bVar == false}'>
               <span class="input-group-addon">B</span>
-              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.bVar">
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.bVar" [disabled]="finalCorrect">
                 <option [ngValue]="true">True</option>
                 <option [ngValue]="false">False</option>
                 <option [ngValue]="null">N/A</option>
@@ -99,7 +127,7 @@
             <div class="input-group form-group"
                  [ngClass]='{"input-group-success": answer.varsComparison.cVar == true, "input-group-danger": answer.varsComparison.cVar == false}'>
               <span class="input-group-addon">C</span>
-              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.cVar">
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.cVar" [disabled]="finalCorrect">
                 <option [ngValue]="true">True</option>
                 <option [ngValue]="false">False</option>
                 <option [ngValue]="null">N/A</option>
@@ -109,7 +137,7 @@
             <div class="input-group form-group"
                  [ngClass]='{"input-group-success": answer.varsComparison.dVar == true, "input-group-danger": answer.varsComparison.dVar == false}'>
               <span class="input-group-addon">D</span>
-              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.dVar">
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.dVar" [disabled]="finalCorrect">
                 <option [ngValue]="true">True</option>
                 <option [ngValue]="false">False</option>
                 <option [ngValue]="null">N/A</option>
@@ -118,14 +146,11 @@
 
           </div>
 
-        </li>
+        </div>
 
-        <li class="list-group-item text-center" [ngClass]='{
-        "answer-heading": finalCorrect == null,
-        "list-group-item-success": finalCorrect,
-        "list-group-item-danger": finalCorrect == false}'>
-          <button class="btn btn-primary" (click)="onVerify()">Verify</button>
-        </li>
+        <div class="panel-footer text-center">
+          <button class="btn btn-primary" (click)="onVerify()" [disabled]="finalCorrect">Verify</button>
+        </div>
 
       </div>
 

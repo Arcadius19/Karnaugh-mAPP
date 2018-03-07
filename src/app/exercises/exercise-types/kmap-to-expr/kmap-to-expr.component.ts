@@ -7,6 +7,7 @@ import {KarnaughMap} from '../../../auxiliary/karnaugh-map';
 import {BestGroupsSolver} from '../../../auxiliary/best-groups-solver';
 import {ExpressionGroup} from '../../../auxiliary/expression-group';
 import {UserGroupingAnswer} from '../../../auxiliary/user-grouping-answer';
+import {MathJax} from '../../../auxiliary/mathjax-aux/math-jax';
 
 @Component({
   selector: 'app-ex-kmap-to-expr',
@@ -50,10 +51,12 @@ export class KmapToExprComponent implements OnInit {
         this.router.navigate([this.routePath]);
         return;
       }
-      if (this.interKmapComponent) {
-        this.interKmapComponent.premarkedCells = exercise.cells;
-        this.interKmapComponent.ngOnInit();
+      if (!this.interKmapComponent) {
+        this.interKmapComponent = new InteractiveKmapComponent();
       }
+      this.interKmapComponent.premarkedCells = exercise.cells;
+      this.interKmapComponent.ngOnInit();
+
       this.populateParameters(exercise);
       this.resetComponent();
     });
@@ -76,14 +79,16 @@ export class KmapToExprComponent implements OnInit {
     this.userAnswers = [];
     this.foundBestGroups = null;
     this.finalCorrect = null;
+    this.interKmapComponent.active = true;
+    this.interKmapComponent.selectedGroups = [];
   }
 
   onGroup() {
-    let successGroup = this.interKmapComponent.onGroup();
+    let successGroup = this.interKmapComponent.onGroup(true);
     if (successGroup) {
       this.userAnswers.push(new UserGroupingAnswer(successGroup));
     }
-
+    this.interKmapComponent.checkForResolution();
   }
 
   removeAnswerGroup(index: number) {
@@ -122,10 +127,24 @@ export class KmapToExprComponent implements OnInit {
     this.foundBestGroups = groupsMatchedCorrectly;
     this.finalCorrect = groupsMatchedAndLabelledCorrectly;
 
+    if (this.foundBestGroups) {
+      this.interKmapComponent.active = false;
+    }
+
   }
 
   userMinimalExpressionInMathjax(): string {
-    return ExpressionGroup.toComplexExpressionMathJax(this.userAnswers.map(answer => answer.answeredAsExpression));
+    if (this.userAnswers.length == 0) {
+      return MathJax.toMathJax('0');
+    } else {
+      return ExpressionGroup.toComplexExpressionMathJax(this.userAnswers.map(answer => answer.answeredAsExpression));
+    }
+  }
+
+  clearFeedback() {
+    this.finalCorrect = null;
+    this.foundBestGroups = null;
+    this.userAnswers.forEach(answer => answer.clearComparison());
   }
 
 }

@@ -5,7 +5,6 @@ import {Observable} from 'rxjs/Observable';
 import {ExNameGroup, ExNameGroupService} from './ex-name-group.service';
 import {KarnaughMap} from '../../../auxiliary/karnaugh-map';
 import {ExpressionGroup} from '../../../auxiliary/expression-group';
-import {MathJax} from '../../../auxiliary/mathjax-aux/math-jax';
 
 @Component({
   selector: 'app-ex-name-group',

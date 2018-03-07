@@ -31,10 +31,11 @@ let EXERCISES_TEST = [
 ];
 
 let EXERCISES_PRACTICE = [
-  new ExMinimizeExpr('A and B or C', 0),
-  new ExMinimizeExpr('C and B => D', 0),
-  new ExMinimizeExpr('A <=> C or D', 0),
-  new ExMinimizeExpr('(A <=> B) or C and (B => D)', 0),
+  new ExMinimizeExpr('A and B or C', null),
+  new ExMinimizeExpr('C and B => D', null),
+  new ExMinimizeExpr('A <=> C or D', null),
+  new ExMinimizeExpr('A and not B or C and B', null),
+  new ExMinimizeExpr('(A <=> B) or C and (B => D)', null),
 ];
 
 @Injectable()

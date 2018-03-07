@@ -21,4 +21,10 @@ export class UserGroupingAnswer {
     this.correct = null;
     this.match = null;
   }
+
+  clearComparison() {
+    this.varsComparison = new ExpressionGroup(null, null, null, null);
+    this.correct = null;
+    this.match = null;
+  }
 }

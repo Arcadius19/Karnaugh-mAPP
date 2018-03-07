@@ -25,7 +25,8 @@ let EXERCISES_TEST = [
 let EXERCISES_PRACTICE = [
   new ExKmapToExpr(1, 1, kmap.mapToCells(kmap.evaluate('D'))),
   new ExKmapToExpr(2, 3, kmap.mapToCells(kmap.evaluate('(A and D and D) or (not B and not C)'))),
-  new ExKmapToExpr(3, 4, [0, 4, 1, 8, 5, 7, 13, 15])
+  new ExKmapToExpr(3, 4, [0, 4, 1, 8, 5, 7, 13, 15]),
+  new ExKmapToExpr(4, 5, [0, 1, 3, 2, 6, 7, 8, 9, 12, 13])
 ];
 
 @Injectable()

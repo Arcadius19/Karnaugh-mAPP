@@ -21,29 +21,25 @@
       Mark all the states that <strong>are excluded</strong> by the following expression
     </div>
 
-    <div class="panel-body text-center latex-height">
+    <div class="panel-body text-center latex-height panel-body-bottom-border">
       <span appMathJax [mathString]="latexExpression"></span>
     </div>
-  </div>
 
-  <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
     <div class="panel-body">
       <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-          <app-interactive-kmap [nVars]="nVars"></app-interactive-kmap>
+        <div class="col-sm-6 col-sm-offset-3" (click)="(correct == false) ? correct = null : null ">
+          <app-interactive-kmap [nVars]="nVars" [positiveMarking]="markTrue"></app-interactive-kmap>
         </div>
       </div>
     </div>
-  </div>
 
-  <p class="text-center" *ngIf="correct == null">
-    <button class="btn btn-primary" (click)="onVerify()">Verify</button>
-  </p>
+    <div class="panel-footer text-center">
+      <button *ngIf="correct == null && !showAnswer" class="btn btn-primary" (click)="onVerify()">Verify</button>
+      <button class="btn btn-primary" (click)="onVerify()" *ngIf="correct == false">Verify Again</button>
+      <button class="btn btn-default" (click)="resetComponent()">Reset</button>
+    </div>
 
-  <p class="text-center" *ngIf="correct != null">
-    <button class="btn btn-primary" (click)="onVerify()">Verify Again</button>
-    <button class="btn btn-default" (click)="onTryAgain()">Reset</button>
-  </p>
+  </div>    <!-- end of a panel -->
 
   <div *ngIf="correct" class="alert alert-success">
     <strong>Success!</strong> You gained {{exercise.points}} points.

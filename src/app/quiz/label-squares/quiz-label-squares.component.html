@@ -61,10 +61,11 @@
   <div class="panel-footer text-center">
     <ng-container *ngIf="!submitted">
       <button class="btn btn-primary" (click)="onVerify()" [disabled]="!isFormValid()">Verify</button>
+      <button class="btn btn-default" (click)="ngOnInit()">Reset</button>
     </ng-container>
     <ng-container *ngIf="submitted">
-      <button class="btn btn-primary" (click)="submitted = false; correct = null" [disabled]="!isFormValid()">Modify values</button>
-      <button class="btn btn-primary" (click)="ngOnInit()" [disabled]="!isFormValid()">Reset and try again</button>
+      <button class="btn btn-primary" (click)="submitted = false; correct = null">Modify values</button>
+      <button class="btn btn-default" (click)="ngOnInit()">Reset and try again</button>
     </ng-container>
   </div>
 </div>

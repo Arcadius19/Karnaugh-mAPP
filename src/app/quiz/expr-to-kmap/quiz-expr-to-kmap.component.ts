@@ -25,6 +25,7 @@ export class QuizExprToKmapComponent extends ExprToKmapComponent implements OnIn
 
     if (this.correct) {
       this.service.addPointsToTotal(this.id, this. points);
+      this.interKmapComponent.active = false;
     } else {
       this.service.addAttempt(this.id);
     }

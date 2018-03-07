@@ -27,7 +27,7 @@
 
     <div class="panel-body">
       <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
+        <div class="col-sm-6 col-sm-offset-3" (click)="(correct == false) ? correct = null : null ">
           <app-interactive-kmap [nVars]="nVars" [positiveMarking]="markTrue"></app-interactive-kmap>
         </div>
       </div>

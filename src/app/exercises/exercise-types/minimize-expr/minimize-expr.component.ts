@@ -29,6 +29,8 @@ export class MinimizeExprComponent implements OnInit {
   cnfSolutionBestGroupsExpressions: ExpressionGroup[][];        // all possible CNF solutions as Expressions,
   cnfSolutionBestGroupsCells: number[][][];
 
+  noOfPossibleSolutions: number;
+
   dnfForm = true;
   nVars = 4;    // may be changed dynamically
 
@@ -92,11 +94,17 @@ export class MinimizeExprComponent implements OnInit {
   }
 
   resetComponent() {
+    this.noOfPossibleSolutions = null;
     this.correctSelected = null;
     this.interKmapComponent.ngOnInit();
+    this.resetGrouping();
+  }
+
+  resetGrouping() {
     this.userGroupingAnswers = [];
     this.foundBestGroups = null;
     this.finalCorrect = null;
+    this.interKmapComponent.selectedGroups = [];
   }
 
   onVerifySelected() {
@@ -143,7 +151,8 @@ export class MinimizeExprComponent implements OnInit {
   }
 
   onGroup() {
-    let successGroup = this.interKmapComponent.onGroup();
+    let successGroup = this.interKmapComponent.onGroup(true);
+    this.interKmapComponent.checkForResolution();
     if (successGroup) {
       this.userGroupingAnswers.push(new UserGroupingAnswer(successGroup));
     }
@@ -155,15 +164,17 @@ export class MinimizeExprComponent implements OnInit {
   }
 
   onVerifyGrouping() {
-    let nMatches = 0;
-    let nCorrectAndMatch = 0;
-
     let groupsMatchedCorrectly = false;
     let groupsMatchedAndLabelledCorrectly = false;
 
     let bestGroupsCells = (this.dnfForm) ? this.dnfSolutionBestGroupsCells : this.cnfSolutionBestGroupsCells;
 
+    this.noOfPossibleSolutions = (this.dnfForm) ? this.dnfSolutionBestGroupsCells.length : this.cnfSolutionBestGroupsCells.length;
+
     for (let index = 0; index < bestGroupsCells.length; index++) {
+      let nMatches = 0;
+      let nCorrectAndMatch = 0;
+
       for (let answer of this.userGroupingAnswers) {
         if (answer.validGroup) {
           answer.varsComparison = answer.selectedAsExpression[0].compareVariables(answer.answeredAsExpression);
@@ -195,6 +206,12 @@ export class MinimizeExprComponent implements OnInit {
     } else {
       return MathJax.toMathJax('0');
     }
+  }
+
+  clearFeedback() {
+    this.finalCorrect = null;
+    this.foundBestGroups = null;
+    this.userGroupingAnswers.forEach(answer => answer.clearComparison());
   }
 
 }

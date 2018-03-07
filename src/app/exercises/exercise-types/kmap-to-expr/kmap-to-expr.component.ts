@@ -97,13 +97,13 @@ export class KmapToExprComponent implements OnInit {
   }
 
   onVerify() {
-    let nMatches = 0;
-    let nCorrectAndMatch = 0;
-
     let groupsMatchedCorrectly = false;
     let groupsMatchedAndLabelledCorrectly = false;
 
     for (let index = 0; index < this.bestGroupsCells.length; index++) {
+      let nMatches = 0;
+      let nCorrectAndMatch = 0;
+
       for (let answer of this.userAnswers) {
         if (answer.validGroup) {
           answer.varsComparison = answer.selectedAsExpression[0].compareVariables(answer.answeredAsExpression);

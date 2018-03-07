@@ -35,6 +35,7 @@ let EXERCISES_PRACTICE = [
   new ExMinimizeExpr('C and B => D', null),
   new ExMinimizeExpr('A <=> C or D', null),
   new ExMinimizeExpr('A and not B or C and B', null),
+  new ExMinimizeExpr('A and not C or C and B or (not A and not B and C)', null),
   new ExMinimizeExpr('(A <=> B) or C and (B => D)', null),
 ];
 

@@ -4,8 +4,8 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {ExNameGroup, ExNameGroupService} from './ex-name-group.service';
 import {KarnaughMap} from '../../../auxiliary/karnaugh-map';
-import {MathJax} from '../../../auxiliary/mathjax-aux/math-jax';
 import {ExpressionGroup} from '../../../auxiliary/expression-group';
+import {MathJax} from '../../../auxiliary/mathjax-aux/math-jax';
 
 @Component({
   selector: 'app-ex-name-group',
@@ -49,10 +49,11 @@ export class NameGroupComponent implements OnInit {
         // such an exercise does not exist
         this.router.navigate([this.routePath]);
       } else {
-        if (this.interKmapComponent) {
-          this.interKmapComponent.premarkedCells = this.kmap.markExpression(exercise.expressionGroup);
-          this.interKmapComponent.ngOnInit();
+        if (!this.interKmapComponent) {
+          this.interKmapComponent = new InteractiveKmapComponent();
         }
+        this.interKmapComponent.premarkedCells = this.kmap.markExpression(exercise.expressionGroup);
+        this.interKmapComponent.ngOnInit();
 
         this.populateParameters(exercise);
         this.resetComponent();
@@ -95,9 +96,13 @@ export class NameGroupComponent implements OnInit {
     this.variables[3].result = varsComparison.dVar;
 
     this.correct = userAnswer.equals(solution);
+  }
 
-    this.latexUserExpression = userAnswer.toMathJax();
+  getLatexUserAnswer(dnfType = true): string {
+    let userAnswer = new ExpressionGroup(
+      this.variables[0].answer, this.variables[1].answer, this.variables[2].answer, this.variables[3].answer);
 
+    return ExpressionGroup.toComplexExpressionMathJax([userAnswer], dnfType);
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ExLabelSquaresService} from './ex-label-squares.service';
+import {ExLabelSquaresService} from '../../exercises/exercise-types/label-squares/ex-label-squares.service';
 import {LabelSquaresComponent} from '../../exercises/exercise-types/label-squares/label-squares.component';
 
 @Component({

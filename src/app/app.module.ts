@@ -29,7 +29,7 @@ import {ExerciseService} from './exercises/exercise.service';
 import {ExExprToKmapService} from './exercises/exercise-types/expr-to-kmap/ex-expr-to-kmap.service';
 import {ExKmapToExprService} from './exercises/exercise-types/kmap-to-expr/ex-kmap-to-expr.service';
 import {ExFindBestGroupsService} from './exercises/exercise-types/find-best-groups/ex-find-best-groups.service';
-import {ExLabelSquaresService} from './quiz/label-squares/ex-label-squares.service';
+import {ExLabelSquaresService} from './exercises/exercise-types/label-squares/ex-label-squares.service';
 import { KmapToExprComponent } from './exercises/exercise-types/kmap-to-expr/kmap-to-expr.component';
 import { FindBestGroupsComponent } from './exercises/exercise-types/find-best-groups/find-best-groups.component';
 import { NameGroupComponent } from './exercises/exercise-types/name-group/name-group.component';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {ExerciseService, ExericseID} from '../../exercises/exercise.service';
-import {Exercise} from '../../exercises/exercise';
+import {ExerciseService, ExericseID} from '../../exercise.service';
+import {Exercise} from '../../exercise';
 
 export class ExLabelSquares extends Exercise {
 

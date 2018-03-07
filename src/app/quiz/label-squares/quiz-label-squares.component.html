@@ -7,15 +7,11 @@
   If A, B, C, D have binary values a, b, c, d with 1 representing &#8868; and 0 representing &perp;,
     we will refer to the state using the decimal value of the binary string abcd.
   </p>
-  <p>
-    Thus 0 represents the state 0000 in which all four atoms are false,
-    while 15 represents the state 1111 in which they are all true.
-  </p>
 </div>
 
 <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
   <div class="panel-heading">
-    Label each of the sixteen squares in the Karnaugh map with the corresponding number – as described above.
+    Label each of the sixteen squares in the Karnaugh map with the corresponding decimal number – as described above.
   </div>
 
   <div class="panel-body text-center">
@@ -48,10 +44,6 @@
                          max = "15"
                          maxlength="2"
                          class="form-control"
-                         [ngClass] = '{
-                          "input-warning": !isInputValid(userAnswer[i][j]) && !submitted,
-                          "input-success": (userAnswer[i][j] == kmap.cellIds[i][j]) && submitted,
-                          "input-danger": (userAnswer[i][j] != kmap.cellIds[i][j]) && submitted }'
                          [disabled]="submitted"
                          title="{{ !isInputValid(userAnswer[i][j]) ? 'Invalid input. Provide a number between 0 and 15, inclusively.' : ''}}"
                          [(ngModel)] = userAnswer[i][j]

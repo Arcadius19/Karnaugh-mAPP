@@ -13,109 +13,128 @@
     </h2>
   </div>
 
-  <div class="panel panel-default"
-       [ngClass]='{"panel-success": finalCorrect,
-                    "panel-danger": finalCorrect == false && !foundBestGroups,
-                    "panel-warning": finalCorrect == false && foundBestGroups}'>
-    <div class="panel-heading" *ngIf="!markTrue">
-      Group marked states, give an expression for each of them and then provide a final minimal solution in DNF form.
-    </div>
-
-    <div class="panel-body text-center">
-      <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-          <app-interactive-kmap [premarkedCells]="exercise.cells" #interMap></app-interactive-kmap>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel-footer text-center">
-      <button class="btn btn-primary" (click)="onGroup()">Group states</button>
+  <div class="panel-body" *ngIf="finalCorrect">
+    <div class="alert alert-success">
+      <strong>Congratulation!</strong> You have gained {{exercise.points}} points.
     </div>
   </div>
 
-  <div *ngIf="userAnswers.length > 0"
-       class="panel panel-default"
-       [ngClass]='{"panel-success": finalCorrect,
-                    "panel-danger": finalCorrect == false && !foundBestGroups,
-                    "panel-warning": finalCorrect == false && foundBestGroups}'>
-    <div class="panel-heading">
-      Your final minimal expression
+  <div class="row">
+
+    <div class="col-md-6">
+
+      <div class="panel panel-default"
+           [ngClass]='{"panel-success": finalCorrect,
+                        "panel-danger": finalCorrect == false}'>
+        <div class="panel-heading" *ngIf="!markTrue">
+          Group marked states, give an expression for each of them and then provide a final minimal solution in DNF form.
+        </div>
+
+        <div class="panel-body text-center">
+          <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+              <app-interactive-kmap [premarkedCells]="exercise.cells" #interMap></app-interactive-kmap>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-body" *ngIf="interMap.doubleSelected">
+          <div class="alert alert-danger">
+            This group has already been added.
+          </div>
+        </div>
+
+        <div class="panel-body" *ngIf="interMap.emptySelected">
+          <div class="alert alert-danger">
+            Select states to group.
+          </div>
+        </div>
+
+        <div class="panel-footer text-center">
+          <button class="btn btn-primary" (click)="onGroup(false); clearFeedback()">Group states</button>
+        </div>
+      </div>
+
     </div>
-    <div class="panel-body text-center latex-height">
-      <span appMathJax [mathString]="userMinimalExpressionInMathjax()"></span>
-    </div>
-  </div>
 
-  <div class="list-group">
-    <li class="list-group-item" [ngClass]='{
-    "answer-heading": finalCorrect == null,
-    "list-group-item-success": finalCorrect,
-    "list-group-item-danger": finalCorrect == false && !foundBestGroups,
-    "list-group-item-warning": finalCorrect == false && foundBestGroups}'>Your answer</li>
-    <li class="list-group-item" *ngIf="userAnswers.length == 0"></li>
+    <div class="col-md-6">
 
-    <li class="list-group-item answer-list"
-        *ngFor="let answer of userAnswers; index as i"
-        (mouseenter)="interMap.hoverCells(answer.selectedAsCells)"
-        (mouseleave)="interMap.unhoverAll()">
-      <p>
-        <a (click)="removeAnswerGroup(i)" class="close" title="Remove a group">&times;</a>
-        <strong>Group {{i+1}}:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{answer.selectedAsCells}}
-      </p>
-      <p>
-        <strong>Expression: </strong><span appMathJax [mathString]="answer.answeredAsExpression.toMathJax()"></span>
-      </p>
+      <div class="panel panel-default"
+           [ngClass]='{"panel-success": finalCorrect,
+                        "panel-danger": finalCorrect == false}'>
+        <div class="panel-heading"> Your final minimal expression</div>
+        <div class="panel-body text-center latex-height">
+          <span appMathJax [mathString]="userMinimalExpressionInMathjax()"></span>
+        </div>
+      </div>
 
-      <div class="form-inline">
+      <div class="panel panel-default"
+           [ngClass]='{"panel-success": finalCorrect,
+                        "panel-danger": finalCorrect == false}'>
+        <div class="panel-heading">Your answer <button class="btn btn-xs btn-default" (click)="resetComponent()">Reset all</button></div>
+        <div class="panel-body" *ngIf="userAnswers.length == 0"></div>
 
-        <div class="input-group form-group">
-          <span class="input-group-addon">A</span>
-          <select class="form-control" [(ngModel)]="answer.answeredAsExpression.aVar">
-            <option [ngValue]="true">True</option>
-            <option [ngValue]="false">False</option>
-            <option [ngValue]="null">N/A</option>
-          </select>
+        <div class="panel-body panel-body-bottom-border answer-list"
+            *ngFor="let answer of userAnswers; index as i"
+            (mouseenter)="interMap.hoverCells(answer.selectedAsCells)"
+            (mouseleave)="interMap.unhoverAll()">
+          <p>
+            <a (click)="removeAnswerGroup(i); clearFeedback()" class="close" title="Remove a group">&times;</a>
+            <strong>Group {{i+1}}:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{answer.selectedAsCells}}
+          </p>
+          <p>
+            <strong>Expression: </strong><span appMathJax [mathString]="answer.answeredAsExpression.toMathJax()"></span>
+          </p>
+
+          <div class="form-inline">
+
+            <div class="input-group form-group">
+              <span class="input-group-addon">A</span>
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.aVar" [disabled]="finalCorrect">
+                <option [ngValue]="true">True</option>
+                <option [ngValue]="false">False</option>
+                <option [ngValue]="null">N/A</option>
+              </select>
+            </div>
+
+            <div class="input-group form-group">
+              <span class="input-group-addon">B</span>
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.bVar" [disabled]="finalCorrect">
+                <option [ngValue]="true">True</option>
+                <option [ngValue]="false">False</option>
+                <option [ngValue]="null">N/A</option>
+              </select>
+            </div>
+
+            <div class="input-group form-group">
+              <span class="input-group-addon">C</span>
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.cVar" [disabled]="finalCorrect">
+                <option [ngValue]="true">True</option>
+                <option [ngValue]="false">False</option>
+                <option [ngValue]="null">N/A</option>
+              </select>
+            </div>
+
+            <div class="input-group form-group">
+              <span class="input-group-addon">D</span>
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.dVar" [disabled]="finalCorrect">
+                <option [ngValue]="true">True</option>
+                <option [ngValue]="false">False</option>
+                <option [ngValue]="null">N/A</option>
+              </select>
+            </div>
+
+          </div>
+
         </div>
 
-        <div class="input-group form-group">
-          <span class="input-group-addon">B</span>
-          <select class="form-control" [(ngModel)]="answer.answeredAsExpression.bVar">
-            <option [ngValue]="true">True</option>
-            <option [ngValue]="false">False</option>
-            <option [ngValue]="null">N/A</option>
-          </select>
-        </div>
-
-        <div class="input-group form-group">
-          <span class="input-group-addon">C</span>
-          <select class="form-control" [(ngModel)]="answer.answeredAsExpression.cVar">
-            <option [ngValue]="true">True</option>
-            <option [ngValue]="false">False</option>
-            <option [ngValue]="null">N/A</option>
-          </select>
-        </div>
-
-        <div class="input-group form-group">
-          <span class="input-group-addon">D</span>
-          <select class="form-control" [(ngModel)]="answer.answeredAsExpression.dVar">
-            <option [ngValue]="true">True</option>
-            <option [ngValue]="false">False</option>
-            <option [ngValue]="null">N/A</option>
-          </select>
+        <div class="panel-footer text-center">
+          <button class="btn btn-primary" (click)="onVerify()" [disabled]="finalCorrect">Verify</button>
         </div>
 
       </div>
 
-    </li>
-
-    <li class="list-group-item text-center" [ngClass]='{
-    "answer-heading": finalCorrect == null,
-    "list-group-item-success": finalCorrect,
-    "list-group-item-danger": finalCorrect == false && !foundBestGroups,
-    "list-group-item-warning": finalCorrect == false && foundBestGroups}'>
-      <button class="btn btn-primary" (click)="onVerify()">Verify</button>
-    </li>
+    </div>
 
   </div>
 

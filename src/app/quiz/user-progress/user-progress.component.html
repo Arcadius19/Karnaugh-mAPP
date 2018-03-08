@@ -22,23 +22,23 @@
           <td colspan="6"><strong>{{exercise.name}}</strong></td>
         </tr>
         <tr *ngFor="let question of exercise.questions">
-          <td [routerLink]="(exercise.isSingleton) ? 'exercises/' + exercise.route : 'exercises/' + exercise.route + '/' + question.id"
+          <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
               (click)="progressModal.hide()" class="hover-cell">
             <span [innerHTML]="question.name"></span>
           </td>
-          <td [routerLink]="(exercise.isSingleton) ? 'exercises/' + exercise.route : 'exercises/' + exercise.route + '/' + question.id"
+          <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
               (click)="progressModal.hide()" class="hover-cell">
             {{question.points}}
           </td>
-          <td [routerLink]="(exercise.isSingleton) ? 'exercises/' + exercise.route : 'exercises/' + exercise.route + '/' + question.id"
+          <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
               (click)="progressModal.hide()" class="hover-cell">
             {{checkPoints(exercise.id, question.id, question.points)}}
           </td>
-          <td [routerLink]="(exercise.isSingleton) ? 'exercises/' + exercise.route : 'exercises/' + exercise.route + '/' + question.id"
+          <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
               (click)="progressModal.hide()" class="hover-cell">
             {{checkAttemptsUntilCorrect(exercise.id, question.id)}}
           </td>
-          <td [routerLink]="(exercise.isSingleton) ? 'exercises/' + exercise.route : 'exercises/' + exercise.route + '/' + question.id"
+          <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
               (click)="progressModal.hide()" class="hover-cell">
             {{checkTotalAttempts(exercise.id, question.id)}}
           </td>

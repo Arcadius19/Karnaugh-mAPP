@@ -83,8 +83,8 @@ export class KmapToExprComponent implements OnInit {
     this.interKmapComponent.selectedGroups = [];
   }
 
-  onGroup() {
-    let successGroup = this.interKmapComponent.onGroup(true);
+  onGroup(validateGroup = true) {
+    let successGroup = this.interKmapComponent.onGroup(validateGroup);
     if (successGroup) {
       this.userAnswers.push(new UserGroupingAnswer(successGroup));
     }

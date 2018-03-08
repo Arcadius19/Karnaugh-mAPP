@@ -49,10 +49,10 @@
       <div class="panel panel-default" [ngClass]='{"panel-success": correctSelected, "panel-danger": correctSelected == false}'>
         <div class="panel-heading">
           <ng-container *ngIf="dnfForm">
-            To find the solution in DNF, start with marking all the states for which the initial expression evaluates to true.
+            To find the solution in <strong>DNF</strong>, start with marking all the <strong>states for which the initial expression evaluates to true.</strong>
           </ng-container>
           <ng-container *ngIf="!dnfForm">
-            To find the solution in CNF, start with marking all the states that are excluded by the initial expression.
+            To find the solution in <strong>CNF</strong>, start with marking all the <strong>states that are excluded by the initial expression.</strong>
           </ng-container>
         </div>
 
@@ -195,20 +195,18 @@
               </select>
             </div>
 
-          </div>
+          </div>  <!-- end of form -->
 
-        </div>
+        </div>  <!-- end of one group box -->
 
         <div class="panel-footer text-center">
           <button class="btn btn-primary" (click)="onVerifyGrouping()" [disabled]="finalCorrect">Verify</button>
         </div>
 
-      </div>
+      </div>  <!-- end of panel -->
 
-    </div>
+    </div>  <!-- end of col-md-6 -->
 
-  </div>
-
-
+  </div>  <!-- end of row -->
 
 </ng-container>

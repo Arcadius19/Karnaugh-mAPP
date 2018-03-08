@@ -25,6 +25,7 @@ export class QuizMinimizeExprComponent extends MinimizeExprComponent implements 
     super.onVerifyGrouping();
     if (this.finalCorrect == true) {
       this.service.addPointsToTotal(this.id, this.points);
+      this.interKmapComponent.active = false;
     } else {
       this.service.addAttempt(this.id);
     }

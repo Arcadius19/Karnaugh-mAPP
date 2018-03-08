@@ -9,4 +9,10 @@ import {KmapToExprComponent} from '../../exercises/exercise-types/kmap-to-expr/k
 export class PracticeKmapToExprComponent extends KmapToExprComponent implements OnInit {
   routePath = 'practice';
 
+  onVerify() {
+    super.onVerify();
+    if (this.foundBestGroups) {
+      this.interKmapComponent.active = false;
+    }
+  }
 }

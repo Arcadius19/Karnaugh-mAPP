@@ -1,9 +1,9 @@
 <ng-container *ngIf="!(exercise$ | async) as exercise">
-  <div class="page-header header-no-top-margin">
-    <h2>Minimize Expression <br>
-      <small >Loading...</small>
-    </h2>
-  </div>
+<div class="page-header header-no-top-margin">
+  <h2>Minimize Expression <br>
+    <small >Loading...</small>
+  </h2>
+</div>
 </ng-container>
 
 <ng-container *ngIf="exercise$ | async as exercise">
@@ -11,6 +11,10 @@
     <h2>Minimize Expression <br>
       <small >Question {{exercise.id}}</small>
     </h2>
+  </div>
+
+  <div *ngIf="finalCorrect == true" class="alert alert-success">
+    <strong>Congratulation!</strong> You have gained {{exercise.points}} points.
   </div>
 
   <div class="panel panel-default" [ngClass]='{"panel-success": finalCorrect, "panel-danger": finalCorrect == false}'>
@@ -23,10 +27,6 @@
     </div>
   </div>
 
-  <div *ngIf="finalCorrect == true" class="alert alert-success">
-    <strong>Congratulation!</strong> You gained {{exercise.points}} points.
-  </div>
-
   <div class="row">
 
     <div class="col-md-6">
@@ -34,16 +34,16 @@
       <div class="panel panel-default" [ngClass]='{"panel-success": correctSelected, "panel-danger": correctSelected == false}'>
         <div class="panel-heading">
           <ng-container *ngIf="dnfForm">
-            To find the solution in DNF, start with marking all the states for which the initial expression evaluates to true.
+            To find the solution in <strong>DNF</strong>, start with marking all the <strong>states for which the initial expression evaluates to true.</strong>
           </ng-container>
           <ng-container *ngIf="!dnfForm">
-            To find the solution in CNF, start with marking all the states that are excluded by the initial expression.
+            To find the solution in <strong>CNF</strong>, start with marking all the <strong>states that are excluded by the initial expression.</strong>
           </ng-container>
         </div>
 
         <div class="panel-body text-center">
           <div class="row text-center">
-            <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+            <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0" (click)="(correctSelected==false) ? correctSelected = null : null">
               <app-interactive-kmap [nVars]="nVars" #interMap></app-interactive-kmap>
             </div>
           </div>
@@ -57,7 +57,7 @@
             <button class="btn btn-default" (click)="resetComponent()">Reset</button>
           </ng-container>
           <ng-container *ngIf="correctSelected">
-            <button class="btn btn-primary" (click)="onGroup()">Group states</button>
+            <button class="btn btn-primary" (click)="onGroup(false); clearFeedback()">Group states</button>
             <button class="btn btn-default" (click)="resetComponent()">Reset</button>
           </ng-container>
         </div>
@@ -68,14 +68,20 @@
         <strong>Wrong!</strong> Give it a second thought.
       </div>
 
+      <div *ngIf="interMap.doubleSelected" class="alert alert-danger">
+        This group has already been added.
+      </div>
+
+      <div *ngIf="interMap.emptySelected" class="alert alert-danger">
+        Select states to group.
+      </div>
+
     </div>
 
     <div class="col-md-6">
 
       <div class="panel panel-default"
-           [ngClass]='{"panel-success": finalCorrect,
-                        "panel-danger": finalCorrect == false && foundBestGroups == false,
-                        "panel-warning": finalCorrect == false && foundBestGroups}'>
+           [ngClass]='{"panel-success": finalCorrect, "panel-danger": finalCorrect == false}'>
         <div class="panel-heading">
           <p [ngClass]="{'text-muted': !correctSelected}">Your final minimal expression in
             <span *ngIf="dnfForm">DNF</span>
@@ -89,10 +95,8 @@
       </div>
 
       <div *ngIf="correctSelected" class="panel panel-default"
-           [ngClass]='{"panel-success": finalCorrect,
-                        "panel-danger": finalCorrect == false && foundBestGroups == false,
-                        "panel-warning": finalCorrect == false && foundBestGroups}'>
-        <div class="panel-heading">Your answer</div>
+           [ngClass]='{"panel-success": finalCorrect, "panel-danger": finalCorrect == false}'>
+        <div class="panel-heading">Your answer <button class="btn btn-xs btn-default" (click)="resetGrouping()">Reset groups</button></div>
         <div class="panel-body" *ngIf="userGroupingAnswers.length == 0"></div>
 
         <div class="panel-body panel-body-bottom-border answer-list"
@@ -100,7 +104,7 @@
              (mouseenter)="interMap.hoverCells(answer.selectedAsCells)"
              (mouseleave)="interMap.unhoverAll()">
           <p>
-            <a (click)="removeAnswerGroup(i)" class="close" title="Remove a group">&times;</a>
+            <a *ngIf="!finalCorrect" (click)="removeAnswerGroup(i); clearFeedback()" class="close" title="Remove a group">&times;</a>
             <strong>Group {{i+1}}:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{answer.selectedAsCells}}
           </p>
           <p>
@@ -111,7 +115,7 @@
 
             <div class="input-group form-group">
               <span class="input-group-addon">A</span>
-              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.aVar">
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.aVar" [disabled]="finalCorrect" (change)="clearFeedback()">
                 <option [ngValue]="true">True</option>
                 <option [ngValue]="false">False</option>
                 <option [ngValue]="null">N/A</option>
@@ -120,7 +124,7 @@
 
             <div class="input-group form-group">
               <span class="input-group-addon">B</span>
-              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.bVar">
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.bVar" [disabled]="finalCorrect">
                 <option [ngValue]="true">True</option>
                 <option [ngValue]="false">False</option>
                 <option [ngValue]="null">N/A</option>
@@ -129,7 +133,7 @@
 
             <div class="input-group form-group">
               <span class="input-group-addon">C</span>
-              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.cVar">
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.cVar" [disabled]="finalCorrect">
                 <option [ngValue]="true">True</option>
                 <option [ngValue]="false">False</option>
                 <option [ngValue]="null">N/A</option>
@@ -138,7 +142,7 @@
 
             <div class="input-group form-group">
               <span class="input-group-addon">D</span>
-              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.dVar">
+              <select class="form-control" [(ngModel)]="answer.answeredAsExpression.dVar" [disabled]="finalCorrect">
                 <option [ngValue]="true">True</option>
                 <option [ngValue]="false">False</option>
                 <option [ngValue]="null">N/A</option>
@@ -150,7 +154,7 @@
         </div>  <!-- end of one group box -->
 
         <div class="panel-footer text-center">
-          <button class="btn btn-primary" (click)="onVerifyGrouping()">Verify</button>
+          <button class="btn btn-primary" (click)="onVerifyGrouping()" [disabled]="finalCorrect">Verify</button>
         </div>
 
       </div>  <!-- end of panel -->

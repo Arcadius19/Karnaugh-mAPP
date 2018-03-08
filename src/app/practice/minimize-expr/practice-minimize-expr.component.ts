@@ -9,4 +9,11 @@ import {MinimizeExprComponent} from '../../exercises/exercise-types/minimize-exp
 export class PracticeMinimizeExprComponent extends MinimizeExprComponent implements OnInit {
   routePath = 'practice';
 
+  onVerifyGrouping() {
+    super.onVerifyGrouping();
+    if (this.foundBestGroups) {
+      this.interKmapComponent.active = false;
+    }
+  }
+
 }

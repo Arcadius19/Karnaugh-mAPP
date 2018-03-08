@@ -104,6 +104,7 @@ export class MinimizeExprComponent implements OnInit {
     this.userGroupingAnswers = [];
     this.foundBestGroups = null;
     this.finalCorrect = null;
+    this.interKmapComponent.active = true;
     this.interKmapComponent.selectedGroups = [];
   }
 
@@ -150,8 +151,8 @@ export class MinimizeExprComponent implements OnInit {
     this.interKmapComponent.marked = this.interKmapComponent.marked.map(row => row.map(cell => 0));
   }
 
-  onGroup() {
-    let successGroup = this.interKmapComponent.onGroup(true);
+  onGroup(validateGroup = true) {
+    let successGroup = this.interKmapComponent.onGroup(validateGroup);
     this.interKmapComponent.checkForResolution();
     if (successGroup) {
       this.userGroupingAnswers.push(new UserGroupingAnswer(successGroup));
@@ -198,6 +199,7 @@ export class MinimizeExprComponent implements OnInit {
 
     this.foundBestGroups = groupsMatchedCorrectly;
     this.finalCorrect = groupsMatchedAndLabelledCorrectly;
+
   }
 
   userMinimalExpressionInMathjax(): string {

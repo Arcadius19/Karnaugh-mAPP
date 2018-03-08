@@ -127,10 +127,6 @@ export class KmapToExprComponent implements OnInit {
     this.foundBestGroups = groupsMatchedCorrectly;
     this.finalCorrect = groupsMatchedAndLabelledCorrectly;
 
-    if (this.foundBestGroups) {
-      this.interKmapComponent.active = false;
-    }
-
   }
 
   userMinimalExpressionInMathjax(): string {

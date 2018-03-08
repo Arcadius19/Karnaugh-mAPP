@@ -24,6 +24,7 @@ export class QuizKmapToExprComponent extends KmapToExprComponent implements OnIn
     super.onVerify();
     if (this.finalCorrect == true) {
       this.service.addPointsToTotal(this.id, this.points);
+      this.interKmapComponent.active = false;
     } else {
       this.service.addAttempt(this.id);
     }

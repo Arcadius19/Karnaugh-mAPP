@@ -1,10 +1,54 @@
-<div class="jumbotron">
-  <div class="text-justify">
-    <p>
-      Practice, practice, practice! <br/>
-      <small>
-        Practice makes perfect.
-      </small>
-    </p>
-  </div>
+<div class="custom-header">
+  <h2>Practice makes perfect! <br />
+  <small>
+    Here you can find various types of exercises involving the Karnaugh map. Simply choose any category you want to practise.
+  </small>
+  </h2>
 </div>
+
+<div class="panel panel-default"
+     [class.panel-primary]="ex1active" (mouseover)="ex1active=true" (mouseout)="ex1active=false"
+     routerLink="label-squares">
+  <div class="panel-heading">Label Squares</div>
+  <div class="panel-body">Assign each state in the Karnaugh map with its corresponding decimal number.</div>
+</div>
+
+<div class="panel panel-default"
+     [class.panel-primary]="ex2active" (mouseover)="ex2active=true" (mouseout)="ex2active=false"
+     routerLink="expr-to-kmap/1">
+  <div class="panel-heading">Expression to Karnaugh Map</div>
+  <div class="panel-body">Mark all the states in the Karnaugh map which either satisfy or are excluded by the given expression.
+  This is the first step you need to do when minimizing the expression or turning it into DNF or CNF form.</div>
+</div>
+
+<div class="panel panel-default"
+     [class.panel-primary]="ex3active" (mouseover)="ex3active=true" (mouseout)="ex3active=false"
+     routerLink="find-groups/1">
+  <div class="panel-heading">Find the Best Groups</div>
+  <div class="panel-body">Given the Karnaugh map with marked states, group them in the best possible way.
+    For the guidance about grouping states in the Karnaugh map, see <a routerLink="/tutorial" title="Go to Tutorial">tutorial</a> </div>
+</div>
+
+<div class="panel panel-default"
+     [class.panel-primary]="ex4active" (mouseover)="ex4active=true" (mouseout)="ex4active=false"
+     routerLink="name-group/1">
+  <div class="panel-heading">Name teh Group</div>
+  <div class="panel-body">For a given group marked in the Karnaugh Map,
+    indicate the values of all variables whose conjunction uniquely identify the group.</div>
+</div>
+
+<div class="panel panel-default"
+     [class.panel-primary]="ex5active" (mouseover)="ex5active=true" (mouseout)="ex5active=false"
+     routerLink="kmap-to-expr">
+  <div class="panel-heading/1">Karnaugh Map to Expression</div>
+  <div class="panel-body">For the given Karnaugh Map, group the marked states in the best possible way and then find
+  the expression uniquely identifying each of them to produce the expression in DNF describing the initial Karnaugh map.</div>
+</div>
+
+<div class="panel panel-default"
+     [class.panel-primary]="ex6active" (mouseover)="ex6active=true" (mouseout)="ex6active=false"
+     routerLink="minimze-expr/1">
+  <div class="panel-heading">Minimize the Expression</div>
+  <div class="panel-body">For the given expression, find its minimal DNF or CNF going through the Karnaugh map procedure step by step.</div>
+</div>
+

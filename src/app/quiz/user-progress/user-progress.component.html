@@ -5,50 +5,52 @@
   </button>
 </div>
 <div class="modal-body">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Question</th>
-        <th>Max points</th>
-        <th>Score</th>
-        <th>Attempts until correct</th>
-        <th>Total attempts</th>
-        <th class="text-right"><button class="btn btn-sm" (click)="onResetAll()">Reset All</button></th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let exercise of exercises">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
         <tr>
-          <td colspan="6"><strong>{{exercise.name}}</strong></td>
+          <th>Question</th>
+          <th>Max points</th>
+          <th>Score</th>
+          <th>Attempts until correct</th>
+          <th>Total attempts</th>
+          <th class="text-right"><button class="btn btn-sm" (click)="onResetAll()">Reset All</button></th>
         </tr>
-        <tr *ngFor="let question of exercise.questions">
-          <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
-              (click)="progressModal.hide()" class="hover-cell">
-            <span [innerHTML]="question.name"></span>
-          </td>
-          <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
-              (click)="progressModal.hide()" class="hover-cell">
-            {{question.points}}
-          </td>
-          <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
-              (click)="progressModal.hide()" class="hover-cell">
-            {{checkPoints(exercise.id, question.id, question.points)}}
-          </td>
-          <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
-              (click)="progressModal.hide()" class="hover-cell">
-            {{checkAttemptsUntilCorrect(exercise.id, question.id)}}
-          </td>
-          <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
-              (click)="progressModal.hide()" class="hover-cell">
-            {{checkTotalAttempts(exercise.id, question.id)}}
-          </td>
-          <td class="text-right">
-            <button class="btn btn-xs" (click)="onResetEntry(exercise.id, question.id, question.points)">Reset</button>
-          </td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let exercise of exercises">
+          <tr>
+            <td colspan="6"><strong>{{exercise.name}}</strong></td>
+          </tr>
+          <tr *ngFor="let question of exercise.questions">
+            <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
+                (click)="progressModal.hide()" class="hover-cell">
+              <span [innerHTML]="question.name"></span>
+            </td>
+            <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
+                (click)="progressModal.hide()" class="hover-cell">
+              {{question.points}}
+            </td>
+            <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
+                (click)="progressModal.hide()" class="hover-cell">
+              {{checkPoints(exercise.id, question.id, question.points)}}
+            </td>
+            <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
+                (click)="progressModal.hide()" class="hover-cell">
+              {{checkAttemptsUntilCorrect(exercise.id, question.id)}}
+            </td>
+            <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"
+                (click)="progressModal.hide()" class="hover-cell">
+              {{checkTotalAttempts(exercise.id, question.id)}}
+            </td>
+            <td class="text-right">
+              <button class="btn btn-xs" (click)="onResetEntry(exercise.id, question.id, question.points)">Reset</button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" (click)="progressModal.hide()">Close</button>

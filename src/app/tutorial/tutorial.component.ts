@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {isNumeric} from 'rxjs/util/isNumeric';
+import {KarnaughMap} from '../auxiliary/karnaugh-map';
 
 @Component({
   selector: 'app-tutorial',
@@ -7,52 +7,26 @@ import {isNumeric} from 'rxjs/util/isNumeric';
   styleUrls: ['./tutorial.component.css']
 })
 export class TutorialComponent implements OnInit {
-  uun: string;
-  url: string;
+  flagA = 8;
+  flagB = 4;
+  flagC = 2;
+  flagD = 1;
+  flags = [this.flagA, this.flagB, this.flagC, this.flagD];
+  alphabet = 'abcdefghijklmnop';
+  kmap = new KarnaughMap();
+
+  highlightKmapCell: boolean[];
+  highlightTableRow: boolean[];
 
   constructor() { }
 
   ngOnInit() {
-    this.uun = '';
-    this.url = null;
+    this.highlightKmapCell = new Array<boolean>(16).fill(false);
+    this.highlightTableRow = new Array<boolean>(16).fill(false);
   }
 
-  isValid(): boolean {
-    let length = this.uun.length;
-
-    if (length != 7 && length != 8) { return false; }
-
-    if (length == 8) {
-      if (this.uun.charAt(0).toLowerCase() != 's') {
-        return false;
-      } else {
-        return isNumeric(this.uun.slice(1));
-      }
-    } else {
-      return isNumeric(this.uun.slice(0));
-    }
+  getVariableValue(decimal: number, flag: number) {
+    return +!!(decimal & flag);
   }
-
-  onClick() {
-    let numeric: string;
-
-    if (this.uun.length == 7) {
-      numeric = this.uun.slice(0);
-    } else if (this.uun.length == 8) {
-      numeric = this.uun.slice(1);
-    } else {
-      return;
-    }
-
-    let firstFour = +numeric.slice(0, 4);
-    let lastThree = +numeric.slice(-3);
-    let convertedNumber = (10000 * (lastThree + 100) + firstFour) * 21565;
-
-    this.url = 'https://www.istore.mis.ed.ac.uk/imagerep/index2.cfm?photoid=' + convertedNumber + '215655&wiz=y';
-
-    // DEBUG
-    console.log('UUN: ', numeric);
-    console.log('Converted number: ', convertedNumber);
-  }onInit
 
 }

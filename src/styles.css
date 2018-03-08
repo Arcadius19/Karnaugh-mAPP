@@ -64,3 +64,9 @@
 .list-group-item-custom-warning, .panel-body-warning {
   background-color: #fcf8e3;
 }
+
+.full-width-modal, .full-width-modal .modal-content {
+  width: 90% !important;
+  margin: auto;
+}
+

@@ -10,7 +10,7 @@ import {QuizFindBestGroupsComponent} from './quiz/find-best-groups/quiz-find-bes
 import {QuizNameGroupComponent} from './quiz/name-group/quiz-name-group.component';
 import {QuizLabelSquaresComponent} from './quiz/label-squares/quiz-label-squares.component';
 import {QuizKmapToExprComponent} from './quiz/kmap-to-expr/quiz-kmap-to-expr.component';
-import {TutorialComponent} from './tutorial/tutorial.component';
+import {StudentPictureComponent} from './student-picture/student-picture.component';
 import {PracticeComponent} from './practice/practice.component';
 import {PracticeIntroductionComponent} from './practice/introduction/practice-introduction.component';
 import {PracticeExprToKmapComponent} from './practice/expr-to-kmap/practice-expr-to-kmap.component';
@@ -21,6 +21,7 @@ import {InstantSolverComponent} from './instant-solver/instant-solver.component'
 import {PracticeMinimizeExprComponent} from './practice/minimize-expr/practice-minimize-expr.component';
 import {QuizMinimizeExprComponent} from './quiz/minimize-expr/quiz-minimize-expr.component';
 import {PracticeLabelSquaresComponent} from './practice/practice-label-squares/practice-label-squares.component';
+import {TutorialComponent} from './tutorial/tutorial.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -91,6 +92,7 @@ const routes: Routes = [
     ]
   },
   { path: 'tutorial', component: TutorialComponent },
+  { path: 'foo', component: StudentPictureComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

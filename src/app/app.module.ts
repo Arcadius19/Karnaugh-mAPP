@@ -16,7 +16,7 @@ import { QuizFindBestGroupsComponent } from './quiz/find-best-groups/quiz-find-b
 import { QuizNameGroupComponent } from './quiz/name-group/quiz-name-group.component';
 import { QuizLabelSquaresComponent } from './quiz/label-squares/quiz-label-squares.component';
 import { QuizKmapToExprComponent } from './quiz/kmap-to-expr/quiz-kmap-to-expr.component';
-import { TutorialComponent } from './tutorial/tutorial.component';
+import { StudentPictureComponent } from './student-picture/student-picture.component';
 import { UserProgressComponent } from './quiz/user-progress/user-progress.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -44,11 +44,14 @@ import { QuizMinimizeExprComponent } from './quiz/minimize-expr/quiz-minimize-ex
 import { PracticeLabelSquaresComponent } from './practice/practice-label-squares/practice-label-squares.component';
 import { LabelSquaresComponent } from './exercises/exercise-types/label-squares/label-squares.component';
 import {CompletionExUpdateService} from './quiz/completion-ex-update.service';
+import { RewardVideoComponent } from './reward-video/reward-video.component';
+import {TutorialComponent} from './tutorial/tutorial.component';
 
 
 @NgModule({
   entryComponents: [
-    UserProgressComponent
+    UserProgressComponent,
+    RewardVideoComponent
   ],
   declarations: [
     AppComponent,
@@ -63,7 +66,6 @@ import {CompletionExUpdateService} from './quiz/completion-ex-update.service';
     QuizNameGroupComponent,
     QuizLabelSquaresComponent,
     QuizKmapToExprComponent,
-    TutorialComponent,
     UserProgressComponent,
     PracticeComponent,
     PracticeIntroductionComponent,
@@ -80,7 +82,10 @@ import {CompletionExUpdateService} from './quiz/completion-ex-update.service';
     PracticeMinimizeExprComponent,
     QuizMinimizeExprComponent,
     PracticeLabelSquaresComponent,
-    LabelSquaresComponent
+    LabelSquaresComponent,
+    TutorialComponent,
+    StudentPictureComponent,
+    RewardVideoComponent
   ],
   imports: [
     BrowserModule,

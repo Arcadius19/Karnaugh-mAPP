@@ -1,38 +1,110 @@
-<div class="panel panel-default">
-  <div class="panel-heading">Find your true self</div>
-  <div class="panel-body">
-
-    <form>
-    <div class="input-group">
-      <input type="text"
-             class="form-control"
-             placeholder="Student Number (UUN)"
-             [ngModelOptions]="{standalone: true}"
-             [(ngModel)] = "uun">
-
-      <div class="input-group-btn">
-        <button (click)="onClick()"
-                type="submit"
-                class="btn btn-primary"
-                [disabled]="!isValid()"
-                title="{{ !isValid() ? 'UUN should consist of 7 digits optionally preceded with \'s\'' : '' }}">
-          GO!
-        </button>
-      </div>
-    </div>
-    </form>
-
-  </div>
+<div class="page-header">
+  <h1>Tutorial <br />
+    <small>Get to know Karnaugh Map</small>
+  </h1>
 </div>
 
-<p *ngIf="url != null" class="text-center"><button (click)="ngOnInit()" class="btn btn-danger">I-don't-want-anyone-to-see-this button</button></p>
+<div class="row">
+  <div class="col-md-6">
+    <div class="text-justify">
+      <p>
+        <strong>Karnaugh Map</strong> is a tool used to simplify complex Boolean algebra expressions into their minimal
+        disjunctive or conjunctive normal form. Essentially, it is a diagram that displays the truth table in an
+        unconventional arrangement so as to make the minimized form apparent. The method was proposed by E. W. Veitch and
+        modified slightly by M. Karnaugh.
+      </p>
+      <p>
+        Karnaugh maps are usually used for expressions involving two, three and four variables. Each cell of the
+        diagram represents different combination of values for all variables. Row and column parameters are chose  in
+        a way so that two adjacent cells differ by the value of only one variable. Such a layout is a core of the
+        Karnaugh map.
+      </p>
+      <p>
+        Terms that differ in precisely one variable, <em>i.e.</em> are represented by adjacent cells, can be
+        combined. Groups, however, must contain 2<sup>n</sup> cells. It also needs to be noted that <strong>opposite
+        edges are treated as adjacent.
+      </strong>
+      </p>
 
-<div class="panel panel-default" *ngIf="url != null">
-  <div class="panel-heading">You... or someone you stalk</div>
-  <div class="panel-body text-center">
-    <img [src]="url">
+      <h3>Grouping cells</h3>
+      <p>
+        In the process of minimizing the expression using the Karnaugh Map, the following rules for grouping terms
+        must be obeyed:
+      </p>
+      <ol>
+        <li>Groups must consists of only the same values (only <em>true's</em> or only <em>false's</em>)</li>
+        <li>Groups must be horizontal or vertical, but never diagonal</li>
+        <li>Groups must consist of 2<sup>n</sup> cells (<em>i.e.</em> 1, 2, 4, 8 etc.)</li>
+        <li>Groups should be as large as possible</li>
+        <li>Each <em>true</em> (or <em>false</em>) must be in at least one group</li>
+        <li>Groups may overlap</li>
+        <li>Groups may wrap around the table (since opposite edges are, in fact, adjacent)</li>
+        <li>There should be as few groups as possible</li>
+      </ol>
+
+    </div>
   </div>
-  <div class="panel-footer">
-    <strong>URL:</strong> <a [href]="url" target="_blank">{{url}}</a>
+
+  <div class="col-md-6">
+
+    <div class="row">
+      <div class="col-sm-6">
+        <table class="table table-bordered table-condensed" id="table-tutorial">
+          <thead>
+          <tr>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>D</th>
+            <th>Cell</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let decimal of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]"
+              class="table-tutorial-row"
+              [ngClass]='{"table-hover": highlightTableRow[decimal]}'
+              (mouseover)="highlightTableRow[decimal]=true; highlightKmapCell[decimal]=true"
+              (mouseout)="highlightTableRow[decimal]=false; highlightKmapCell[decimal]=false">
+            <td *ngFor="let flag of flags">{{getVariableValue(decimal, flag)}}</td>
+            <td><em>{{alphabet.charAt(decimal)}}</em></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-sm-6">
+        <table id="kmap-tutorial">
+          <tr>
+            <td rowspan="2" colspan="2"></td>
+            <th colspan="4">CD</th>
+          </tr>
+          <tr>
+            <th>00</th>
+            <th>01</th>
+            <th>11</th>
+            <th>10</th>
+          </tr>
+
+          <ng-container *ngFor="let binary of ['00','01','11','10']; index as i">
+            <tr>
+              <ng-container *ngIf="i == 0">
+                <th rowspan="4">AB</th>
+              </ng-container>
+
+              <th>{{binary}}</th>
+              <td *ngFor="let j of [0,1,2,3]"
+                  class="kmap-cell"
+                  [ngClass]='{"kmap-hover": highlightKmapCell[kmap.cellIds[i][j]]}'
+                  (mouseover)="highlightTableRow[kmap.cellIds[i][j]]=true; highlightKmapCell[kmap.cellIds[i][j]]=true"
+                  (mouseout)="highlightTableRow[kmap.cellIds[i][j]]=false; highlightKmapCell[kmap.cellIds[i][j]]=false">
+                <div class="content"><em>{{alphabet.charAt(kmap.cellIds[i][j])}}</em></div>
+              </td>
+            </tr>
+          </ng-container>
+
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>

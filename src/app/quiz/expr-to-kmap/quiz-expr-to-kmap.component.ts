@@ -1,4 +1,4 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ExprToKmapComponent} from '../../exercises/exercise-types/expr-to-kmap/expr-to-kmap.component';
 import {ExExprToKmap} from '../../exercises/exercise-types/expr-to-kmap/ex-expr-to-kmap.service';
 
@@ -24,12 +24,13 @@ export class QuizExprToKmapComponent extends ExprToKmapComponent implements OnIn
     this.correct = this.interKmapComponent.marked.every((row, i) => row.every((cell, j) => cell == this.solution[i][j]));
 
     if (this.correct) {
-      this.service.addPointsToTotal(this.id, this. points);
+      this.service.addPointsToTotal(this.id, this.points);
       this.interKmapComponent.active = false;
     } else {
       this.service.addAttempt(this.id);
     }
-
   }
+
+
 
 }

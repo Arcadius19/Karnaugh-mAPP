@@ -43,6 +43,7 @@ import {MinimizeExprService} from './exercises/exercise-types/minimize-expr/mini
 import { QuizMinimizeExprComponent } from './quiz/minimize-expr/quiz-minimize-expr.component';
 import { PracticeLabelSquaresComponent } from './practice/practice-label-squares/practice-label-squares.component';
 import { LabelSquaresComponent } from './exercises/exercise-types/label-squares/label-squares.component';
+import {CompletionExUpdateService} from './quiz/completion-ex-update.service';
 
 
 @NgModule({
@@ -96,7 +97,8 @@ import { LabelSquaresComponent } from './exercises/exercise-types/label-squares/
     ExFindBestGroupsService,
     ExNameGroupService,
     ExKmapToExprService,
-    MinimizeExprService
+    MinimizeExprService,
+    CompletionExUpdateService
   ],
   bootstrap: [AppComponent]
 })

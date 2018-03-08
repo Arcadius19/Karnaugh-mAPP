@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {MathJax} from '../auxiliary/mathjax-aux/math-jax';
+import {Component, OnInit, SimpleChange} from '@angular/core';
 import {ExLabelSquaresService} from '../exercises/exercise-types/label-squares/ex-label-squares.service';
 import {ExExprToKmapService} from '../exercises/exercise-types/expr-to-kmap/ex-expr-to-kmap.service';
 import {ExFindBestGroupsService} from '../exercises/exercise-types/find-best-groups/ex-find-best-groups.service';
@@ -8,6 +7,8 @@ import {ExKmapToExprService} from '../exercises/exercise-types/kmap-to-expr/ex-k
 import {UserProgressComponent} from './user-progress/user-progress.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import {MinimizeExprService} from '../exercises/exercise-types/minimize-expr/minimize-expr.service';
+import {ExerciseService} from '../exercises/exercise.service';
+import {CompletionExUpdateService} from './completion-ex-update.service';
 
 @Component({
   selector: 'app-exercises',
@@ -26,7 +27,8 @@ export class ExercisesComponent implements OnInit {
     private nameGroupService: ExNameGroupService,
     private kmapToExprService: ExKmapToExprService,
     private minimizeExprService: MinimizeExprService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private completionUpdateService: CompletionExUpdateService
     ) { }
 
   ngOnInit() {
@@ -35,36 +37,56 @@ export class ExercisesComponent implements OnInit {
     this.exercises.push(this.findBestGroupsService.getBasicTest());
     this.exercises.push(this.nameGroupService.getBasicTest());
     this.exercises.push(this.kmapToExprService.getBasicTest());
-  this.exercises.push(this.minimizeExprService.getBasicTest());
+    this.exercises.push(this.minimizeExprService.getBasicTest());
 
-    for (let exercises of this.exercises) {
-      exercises.questions.forEach(exercise => this.maxPoints += exercise.points);
+    for (let exercise of this.exercises) {
+      exercise.questions.forEach(question => {
+        this.maxPoints += question.points;
+        question.completed = ExerciseService.checkIfCompleted(exercise.id, question.id);
+      });
     }
 
     if (!localStorage.getItem('totalPoints')) {
       localStorage.setItem('totalPoints', String(0));
     }
+
+    this.labelSquaresService.completionUpdate$.subscribe(qID => this.updateCompletion(this.labelSquaresService.id, qID));
+    this.exprToKmapService.completionUpdate$.subscribe(qID => this.updateCompletion(this.exprToKmapService.id, qID));
+    this.findBestGroupsService.completionUpdate$.subscribe(qID => this.updateCompletion(this.findBestGroupsService.id, qID));
+    this.nameGroupService.completionUpdate$.subscribe(qID => this.updateCompletion(this.nameGroupService.id, qID));
+    this.kmapToExprService.completionUpdate$.subscribe(qID => this.updateCompletion(this.kmapToExprService.id, qID));
+    this.minimizeExprService.completionUpdate$.subscribe(qID => this.updateCompletion(this.minimizeExprService.id, qID));
+    this.completionUpdateService.completionDelete$.subscribe(IDs => this.updateCompletion(IDs.exID, IDs.qID, false));
+    this.completionUpdateService.uncompleteAll$.subscribe(() => this.removeAllCompletions());
   }
 
-  toBrowserText(expression: string): string {
-    return MathJax.toBrowserText(expression);
-  }
-
-  checkPoints(): number {
+  checkTotalPoints(): number {
     return +localStorage.getItem('totalPoints');
   }
 
-  pointsRatio(): string {
-    return Math.round(this.checkPoints() / this.maxPoints * 100) + '%';
-  }
-
-  onReset() {
-    localStorage.clear();
+  totalPointsRatio(): string {
+    return Math.round(this.checkTotalPoints() / this.maxPoints * 100) + '%';
   }
 
   openUserProgress() {
     this.progressModal = this.modalService.show(UserProgressComponent);
     this.progressModal.content.exercises = this.exercises;
+  }
+
+  updateCompletion(exID, qID, isCompleted = true) {
+    this.exercises.forEach(exercise => {
+      if (exercise.id == exID) {
+        exercise.questions.forEach(question => {
+          if (question.id == qID) {
+            question.completed = isCompleted;
+          }
+        });
+      }
+    });
+  }
+
+  removeAllCompletions() {
+    this.exercises.forEach(exercise => exercise.questions.forEach(question => question.completed = false));
   }
 
 }

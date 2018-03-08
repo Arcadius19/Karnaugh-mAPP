@@ -4,6 +4,7 @@ export class Exercise {
   id: number;
   points: number;
   name: string;
+  completed: boolean;
 
   expression: string;                 // Expr-to-kmap
 
@@ -21,7 +22,8 @@ export class Exercise {
     let result = {
       id: this.id,
       points: this.points,
-      name: this.name
+      name: this.name,
+      completed: null
     };
 
     return result;

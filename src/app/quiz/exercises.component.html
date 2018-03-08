@@ -3,11 +3,11 @@
     <div class="row">
       <div class="col-lg-11 col-sm-10 col-xs-9">
         <div class="progress" >
-          <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="pointsRatio()"
-               aria-valuemin="0" aria-valuemax="100" [style.width]="pointsRatio()">
-            {{pointsRatio()}}
+          <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="totalPointsRatio()"
+               aria-valuemin="0" aria-valuemax="100" [style.width]="totalPointsRatio()">
+            {{totalPointsRatio()}}
           </div>
-          {{checkPoints()}} / {{maxPoints}}
+          {{checkTotalPoints()}} / {{maxPoints}}
         </div>
       </div>
 
@@ -32,7 +32,8 @@
         <ul class="panel-collapse collapse list-group" id="collape{{exercise.id}}">
             <a  *ngFor="let question of exercise.questions"
                 [routerLink]="exercise.route + '/' + question.id"
-                class="list-group-item">
+                class="list-group-item"
+                [ngClass]='{"list-group-item-success": question.completed}'>
               <span [innerHTML]="question.name"></span>
             </a>
         </ul>

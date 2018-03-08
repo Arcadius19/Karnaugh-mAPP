@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Exercise} from './exercise';
+import {Subject} from 'rxjs/Subject';
 
 export class ExericseID {
   static LABEL          = 0;
@@ -20,6 +21,9 @@ export class ExerciseService {
   EXERCISES_PRACTICE: Exercise[];
   isSingleton: boolean;
 
+  private completionUpdateSource = new Subject<number>();
+  completionUpdate$ = this.completionUpdateSource.asObservable();
+
   constructor(id: number, name: string, route: string, exercisesTest: Exercise[], exercisesPractice: Exercise[], isSingleton?: boolean) {
     this.id = id;
     this.EXERCISES_TEST = exercisesTest;
@@ -27,6 +31,16 @@ export class ExerciseService {
     this.name = name;
     this.route = route;
     this.isSingleton = !!(isSingleton) ;
+  }
+
+  static checkIfCompleted(exID: number, qID: number): boolean {
+    let questionKey = 'ex' + exID + 'q' + qID;
+    let currentState = localStorage.getItem(questionKey);
+    if (!currentState) { return false; }
+
+    let currentStateObject = JSON.parse(currentState);
+    return currentStateObject.attemptsUntilCorrect != null;
+
   }
 
   getExercisesTest() {
@@ -77,6 +91,7 @@ export class ExerciseService {
         attempts: 1
       };
       localStorage.setItem(questionKey, JSON.stringify(questionItem));
+      this.completionUpdateSource.next(qID);
     } else {
       let currentStateObject = JSON.parse(currentState);
       currentStateObject.attempts++;
@@ -84,6 +99,7 @@ export class ExerciseService {
         localStorage.setItem('totalPoints', String(+localStorage.getItem('totalPoints') + points));
         currentStateObject.points = points;
         currentStateObject.attemptsUntilCorrect = currentStateObject.attempts;
+        this.completionUpdateSource.next(qID);
       }
       localStorage.setItem(questionKey, JSON.stringify(currentStateObject));
     }

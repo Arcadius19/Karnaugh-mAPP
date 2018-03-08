@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import {isNumeric} from 'rxjs/util/isNumeric';
-import {local} from 'd3-selection';
+import {CompletionExUpdateService} from '../completion-ex-update.service';
 
 @Component({
   selector: 'app-user-progress',
   templateUrl: './user-progress.component.html',
-  styleUrls: ['./user-progress.component.css']
+  styleUrls: ['./user-progress.component.css'],
 })
 export class UserProgressComponent implements OnInit {
   exercises;
 
-  constructor(public progressModal: BsModalRef) { }
+  constructor(public progressModal: BsModalRef, private completionUpdateService: CompletionExUpdateService) { }
 
   ngOnInit() {
   }
@@ -52,12 +51,14 @@ export class UserProgressComponent implements OnInit {
       localStorage.removeItem('ex' + exID + 'q' + qID);
       let currentTotal = +localStorage.getItem('totalPoints');
       localStorage.setItem('totalPoints', String(currentTotal - points));
+      this.completionUpdateService.removeCompletion(exID, qID);
     }
   }
 
   onResetAll() {
     localStorage.clear();
     localStorage.setItem('totalPoints', String(0));
+    this.completionUpdateService.removeAllCompletes();
   }
 
 }

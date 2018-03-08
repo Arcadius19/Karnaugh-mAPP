@@ -13,25 +13,34 @@
     </h2>
   </div>
 
-  <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
-    <div class="panel-heading">
-      Choose the right values for all variables for which the highlighted states evaluate to true
-      and the other states are excluded.
-    </div>
+  <div class="row">
 
-    <div class="panel-body text-center">
-      <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-          <app-interactive-kmap [premarkedCells]="kmap.markExpression(exercise.expressionGroup)" [active]="false"></app-interactive-kmap>
+    <div class="col-md-6">
+      <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
+        <div class="panel-heading">
+          Choose the right values for all variables for which the highlighted states evaluate to true
+          and the other states are excluded.
+        </div>
+
+        <div class="panel-body text-center">
+          <div class="row">
+            <div class="col-md-12 col-md-offset-0 col-sm-6 col-sm-offset-3">
+              <app-interactive-kmap [premarkedCells]="kmap.markExpression(exercise.expressionGroup)" [active]="false"></app-interactive-kmap>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
-    <div class="panel-heading">
-      Your answer: <span appMathJax [mathString]="latexUserExpression"></span>
-    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default" [ngClass]='{"panel-success": correct, "panel-danger": correct == false}'>
+        <div class="panel-heading">Your answer</div>
+        <div class="panel-heading">
+          Satisfied by: <span appMathJax [mathString]="getLatexUserAnswer()"></span>
+        </div>
+        <div class="panel-heading">
+          Excluded by: <span appMathJax [mathString]="getLatexUserAnswer(false)"></span>
+        </div>
 
     <div class="panel-body text-center">
       <form (ngSubmit)="onVerify()" #answerForm="ngForm" id="answerForm">
@@ -40,7 +49,7 @@
             <span class="input-group-addon">{{variable.name}}</span>
             <div class="form-control equi-distance">
               <label class="radio-inline">
-                <input type="radio" name="{{variable.name}}" [(ngModel)]="variable.answer" [value]="true">True</label>
+                <input type="radio" name="{{variable.name}}" [(ngModel)]="variable.answer" [value]="true" [disabled]="correct">True</label>
               <label class="radio-inline">
                 <input type="radio" name="{{variable.name}}" [(ngModel)]="variable.answer" [value]="false">False</label>
               <label class="radio-inline"
@@ -52,17 +61,25 @@
       </form>
     </div>
 
-    <div class="panel-footer text-center">
-      <button type="submit" form="answerForm" class="btn btn-primary" [disabled]="!answerForm.valid">Verify</button>
-    </div>
-  </div>
+        <div class="panel-footer text-center">
+          <ng-container *ngIf="!correct">
+            <button type="submit" form="answerForm" class="btn btn-primary" [disabled]="!answerForm.valid">Verify</button>
+          </ng-container>
+          <ng-container *ngIf="correct">
+            <button class="btn btn-default" (click)="resetComponent()">Reset</button>
+          </ng-container>
+        </div>
+      </div>
 
   <div *ngIf="correct" class="alert alert-success">
     <strong>Success!</strong> You gained {{exercise.points}} points.
   </div>
 
-  <div *ngIf="correct == false" class="alert alert-success">
-    <strong>Wrong!</strong> Please, try again.
-  </div>
+      <div *ngIf="correct == false" class="alert alert-danger">
+        <strong>Wrong!</strong> Please, try again.
+      </div>
+    </div>
+
+  </div>    <!-- end of outer row -->
 
 </ng-container>

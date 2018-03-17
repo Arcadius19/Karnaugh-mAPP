@@ -20,8 +20,8 @@ export class CustomParser {
   }
 
   static preParse(query: string): string {
-    let parsedQuery = CustomParser.ifThenParse(query);
-    parsedQuery = CustomParser.iffParse(parsedQuery);
+    let parsedQuery = CustomParser.iffParse(query);
+    parsedQuery = CustomParser.ifThenParse(parsedQuery);
 
     return parsedQuery;
   }

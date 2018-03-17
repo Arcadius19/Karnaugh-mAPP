@@ -19,3 +19,15 @@ Privacy Issues
 
 
 Key - how to produce
+
+Check parser on: A => D and C or (not B and A) or (D <=> C)
+
+((not A or (D and C or (not B and A) or D)) and C)
+
+or
+
+(not (not A or (D and C or (not B and A) or D)) and not C)
+
+
+IF-THEN removed:
+not (A) or (D and C or (not B and A) or (D)) <=> C

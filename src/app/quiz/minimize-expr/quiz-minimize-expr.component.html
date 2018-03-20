@@ -29,7 +29,7 @@
 
   <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-md-6 col-lg-5">
 
       <div class="panel panel-default" [ngClass]='{"panel-success": correctSelected, "panel-danger": correctSelected == false}'>
         <div class="panel-heading">
@@ -78,7 +78,7 @@
 
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6 col-lg-7">
 
       <div class="panel panel-default"
            [ngClass]='{"panel-success": finalCorrect, "panel-danger": finalCorrect == false}'>
@@ -113,7 +113,7 @@
 
           <div class="form-inline">
 
-            <div class="input-group form-group">
+            <div class="input-group form-group input-group-sm">
               <span class="input-group-addon">A</span>
               <select class="form-control" [(ngModel)]="answer.answeredAsExpression.aVar" [disabled]="finalCorrect" (change)="clearFeedback()">
                 <option [ngValue]="true">True</option>
@@ -122,7 +122,7 @@
               </select>
             </div>
 
-            <div class="input-group form-group">
+            <div class="input-group form-group input-group-sm">
               <span class="input-group-addon">B</span>
               <select class="form-control" [(ngModel)]="answer.answeredAsExpression.bVar" [disabled]="finalCorrect">
                 <option [ngValue]="true">True</option>
@@ -131,7 +131,7 @@
               </select>
             </div>
 
-            <div class="input-group form-group">
+            <div class="input-group form-group input-group-sm">
               <span class="input-group-addon">C</span>
               <select class="form-control" [(ngModel)]="answer.answeredAsExpression.cVar" [disabled]="finalCorrect">
                 <option [ngValue]="true">True</option>
@@ -140,7 +140,7 @@
               </select>
             </div>
 
-            <div class="input-group form-group">
+            <div class="input-group form-group input-group-sm">
               <span class="input-group-addon">D</span>
               <select class="form-control" [(ngModel)]="answer.answeredAsExpression.dVar" [disabled]="finalCorrect">
                 <option [ngValue]="true">True</option>

@@ -15,7 +15,7 @@
 
   <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-md-6 col-lg-5">
 
       <div class="panel panel-default"
            [ngClass]='{"panel-success": finalCorrect,
@@ -64,7 +64,7 @@
 
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6 col-lg-7">
 
       <div class="panel panel-default"
            [ngClass]='{"panel-success": finalCorrect,
@@ -104,7 +104,7 @@
 
           <div class="form-inline">
 
-            <div class="input-group form-group"
+            <div class="input-group form-group input-group-sm"
                  [ngClass]='{"input-group-success": answer.varsComparison.aVar == true, "input-group-danger": answer.varsComparison.aVar == false}'>
               <span class="input-group-addon">A</span>
               <select class="form-control" [(ngModel)]="answer.answeredAsExpression.aVar" [disabled]="finalCorrect">
@@ -114,7 +114,7 @@
               </select>
             </div>
 
-            <div class="input-group form-group"
+            <div class="input-group form-group input-group-sm"
                  [ngClass]='{"input-group-success": answer.varsComparison.bVar == true, "input-group-danger": answer.varsComparison.bVar == false}'>
               <span class="input-group-addon">B</span>
               <select class="form-control" [(ngModel)]="answer.answeredAsExpression.bVar" [disabled]="finalCorrect">
@@ -124,7 +124,7 @@
               </select>
             </div>
 
-            <div class="input-group form-group"
+            <div class="input-group form-group input-group-sm"
                  [ngClass]='{"input-group-success": answer.varsComparison.cVar == true, "input-group-danger": answer.varsComparison.cVar == false}'>
               <span class="input-group-addon">C</span>
               <select class="form-control" [(ngModel)]="answer.answeredAsExpression.cVar" [disabled]="finalCorrect">
@@ -134,7 +134,7 @@
               </select>
             </div>
 
-            <div class="input-group form-group"
+            <div class="input-group form-group input-group-sm"
                  [ngClass]='{"input-group-success": answer.varsComparison.dVar == true, "input-group-danger": answer.varsComparison.dVar == false}'>
               <span class="input-group-addon">D</span>
               <select class="form-control" [(ngModel)]="answer.answeredAsExpression.dVar" [disabled]="finalCorrect">

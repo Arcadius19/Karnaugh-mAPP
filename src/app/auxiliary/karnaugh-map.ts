@@ -119,7 +119,7 @@ export class KarnaughMap {
     return new ExpressionGroup(varA, varB, varC, varD);
   }
 
-  mapToExpression(map: number[][]): ExpressionGroup {
+  mapToExpressionGroup(map: number[][]): ExpressionGroup {
     if (map.length != this.cellIds.length || map[0].length != this.cellIds[0].length) {
       throw new Error ('Non-matching dimensions');
     }

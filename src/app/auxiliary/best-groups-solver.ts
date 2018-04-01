@@ -101,7 +101,7 @@ export class BestGroupsSolver {
 
     let kmap = new KarnaughMap((this.nRows == 4) ? 4 : 3);
 
-    return bestGroupsOfGroups.map(groupOfGroups => groupOfGroups.map(group => kmap.mapToExpression(group)));
+    return bestGroupsOfGroups.map(groupOfGroups => groupOfGroups.map(group => kmap.mapToExpressionGroup(group)));
 
   }
 

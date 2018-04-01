@@ -11,7 +11,7 @@ describe('Karnaugh Map', () => {
       [0, 0, 0, 0]
     ];
     let expected = new ExpressionGroup(false, false, null, null);
-    const result = (new KarnaughMap()).mapToExpression(marked);
+    const result = (new KarnaughMap()).mapToExpressionGroup(marked);
     expect(result).toEqual(expected);
 
   });
@@ -24,7 +24,7 @@ describe('Karnaugh Map', () => {
       [1, 0, 0, 0]
     ];
     let kmap = new KarnaughMap();
-    expect(function() {kmap.mapToExpression(marked); }).toThrow();
+    expect(function() {kmap.mapToExpressionGroup(marked); }).toThrow();
 
   });
 

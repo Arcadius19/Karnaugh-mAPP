@@ -3,9 +3,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import {ExExprToKmap, ExExprToKmapService} from './ex-expr-to-kmap.service';
 import {Observable} from 'rxjs/Observable';
-import {MathJax} from '../../../auxiliary/mathjax-aux/math-jax';
+import {MathJaxConverter} from '../../../auxiliary/mathjax-aux/math-jax-converter';
 import {InteractiveKmapComponent} from '../../../auxiliary/interactive-kmap/interactive-kmap.component';
-import {KarnaughMap} from '../../../auxiliary/karnaugh-map';
 
 @Component({
   selector: 'app-expr-to-kmap',
@@ -62,7 +61,7 @@ export class ExprToKmapComponent implements OnInit {
 
   populateProperties(exercise: ExExprToKmap) {
     this.id = exercise.id;
-    this.latexExpression = MathJax.toMathJax(exercise.expression);
+    this.latexExpression = MathJaxConverter.toMathJax(exercise.expression);
     let evaluations = this.interKmapComponent.kmap.evaluate(exercise.expression);
     this.solution = (this.markTrue) ? evaluations : evaluations.map(row => row.map(cell => 1 - cell));
   }

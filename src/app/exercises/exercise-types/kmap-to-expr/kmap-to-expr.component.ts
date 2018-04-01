@@ -7,7 +7,7 @@ import {KarnaughMap} from '../../../auxiliary/karnaugh-map';
 import {BestGroupsSolver} from '../../../auxiliary/best-groups-solver';
 import {ExpressionGroup} from '../../../auxiliary/expression-group';
 import {UserGroupingAnswer} from '../../../auxiliary/user-grouping-answer';
-import {MathJax} from '../../../auxiliary/mathjax-aux/math-jax';
+import {MathJaxConverter} from '../../../auxiliary/mathjax-aux/math-jax-converter';
 
 @Component({
   selector: 'app-ex-kmap-to-expr',
@@ -131,7 +131,7 @@ export class KmapToExprComponent implements OnInit {
 
   userMinimalExpressionInMathjax(): string {
     if (this.userAnswers.length == 0) {
-      return MathJax.toMathJax('0');
+      return MathJaxConverter.toMathJax('0');
     } else {
       return ExpressionGroup.toComplexExpressionMathJax(this.userAnswers.map(answer => answer.answeredAsExpression));
     }

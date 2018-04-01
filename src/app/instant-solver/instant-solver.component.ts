@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomParser} from '../auxiliary/custom-parser';
-import {MathJax} from '../auxiliary/mathjax-aux/math-jax';
+import {MathJaxConverter} from '../auxiliary/mathjax-aux/math-jax-converter';
 import {InteractiveKmapComponent} from '../auxiliary/interactive-kmap/interactive-kmap.component';
 import {BestGroupsSolver} from '../auxiliary/best-groups-solver';
 import {ExpressionGroup} from '../auxiliary/expression-group';
@@ -59,7 +59,7 @@ export class InstantSolverComponent implements OnInit {
   }
 
   queryToMathJax() {
-    return MathJax.toMathJax(this.query);
+    return MathJaxConverter.toMathJax(this.query);
   }
 
   onVarsChange() {

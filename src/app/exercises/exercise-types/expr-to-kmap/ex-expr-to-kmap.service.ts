@@ -3,7 +3,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import {ExerciseService, ExericseID} from '../../exercise.service';
 import {Exercise} from '../../exercise';
-import {MathJax} from '../../../auxiliary/mathjax-aux/math-jax';
+import {MathJaxConverter} from '../../../auxiliary/mathjax-aux/math-jax-converter';
 
 export class ExExprToKmap extends Exercise {
   expression: string;
@@ -12,7 +12,7 @@ export class ExExprToKmap extends Exercise {
   constructor(id: number, expression: string, points: number) {
     super(id, points);
     this.expression = expression;
-    this.name = id + '. ' + MathJax.toBrowserText(expression);
+    this.name = id + '. ' + MathJaxConverter.toBrowserText(expression);
   }
 }
 

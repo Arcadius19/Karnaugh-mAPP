@@ -21,6 +21,7 @@ export class StudentPictureComponent implements OnInit {
     this.url = null;
 
     // this.videoModal = this.modalService.show(RewardVideoComponent, {class: 'full-width-modal'});
+    // setTimeout(this.videoModal.hide, 8000);
   }
 
   isValid(): boolean {
@@ -59,6 +60,6 @@ export class StudentPictureComponent implements OnInit {
     // DEBUG
     console.log('UUN: ', numeric);
     console.log('Converted number: ', convertedNumber);
-  }onInit
+  }
 
 }

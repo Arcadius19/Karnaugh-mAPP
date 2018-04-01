@@ -1,5 +1,5 @@
 import {GridGroup} from './grid-group';
-import {MathJax} from './mathjax-aux/math-jax';
+import {MathJaxConverter} from './mathjax-aux/math-jax-converter';
 import {KarnaughMap} from './karnaugh-map';
 
 export class ExpressionGroup {
@@ -126,13 +126,13 @@ export class ExpressionGroup {
 
     let allTrues = true;
     for (let group of groups) {           // check if all expressions are {null, null, null, null}, i.e. = 1
-      if (group.countNotNulls() != 0) {   // if so, return 1 in MathJax form
+      if (group.countNotNulls() != 0) {   // if so, return 1 in MathJaxConverter form
         allTrues = false;
         break;
       }
     }
     if (allTrues) {
-      return MathJax.toMathJax('1');
+      return MathJaxConverter.toMathJax('1');
     }
 
     for (let group of groups) {
@@ -146,7 +146,7 @@ export class ExpressionGroup {
 
     result = result.slice(0, -connector.length);
 
-    return MathJax.toMathJax(result);
+    return MathJaxConverter.toMathJax(result);
   }
 
   prepareForMathJax(product = true): string {
@@ -167,7 +167,7 @@ export class ExpressionGroup {
   }
 
   toMathJax(product = true): string {
-        return MathJax.toMathJax(this.prepareForMathJax(product));
+        return MathJaxConverter.toMathJax(this.prepareForMathJax(product));
   }
 
   // COMPARING METHODS ======================

@@ -3,7 +3,7 @@ import {InteractiveKmapComponent} from '../../../auxiliary/interactive-kmap/inte
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ExMinimizeExpr, MinimizeExprService} from './minimize-expr.service';
 import {Observable} from 'rxjs/Observable';
-import {MathJax} from '../../../auxiliary/mathjax-aux/math-jax';
+import {MathJaxConverter} from '../../../auxiliary/mathjax-aux/math-jax-converter';
 import {UserGroupingAnswer} from '../../../auxiliary/user-grouping-answer';
 import {ExpressionGroup} from '../../../auxiliary/expression-group';
 import {BestGroupsSolver} from '../../../auxiliary/best-groups-solver';
@@ -79,7 +79,7 @@ export class MinimizeExprComponent implements OnInit {
 
   populateProperties(exercise: ExMinimizeExpr) {
     this.id = exercise.id;
-    this.latexExpression = MathJax.toMathJax(exercise.expression);
+    this.latexExpression = MathJaxConverter.toMathJax(exercise.expression);
     this.solutionMarked = this.interKmapComponent.kmap.evaluate(exercise.expression);
 
     this.dnfSolutionBestGroupsExpressions = BestGroupsSolver.findBestGroups(this.solutionMarked);
@@ -206,7 +206,7 @@ export class MinimizeExprComponent implements OnInit {
     if (this.userGroupingAnswers.length > 0) {
       return ExpressionGroup.toComplexExpressionMathJax(this.userGroupingAnswers.map(answer => answer.answeredAsExpression), this.dnfForm);
     } else {
-      return MathJax.toMathJax('0');
+      return MathJaxConverter.toMathJax('0');
     }
   }
 

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Honours Project Notes</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div class="container">
+
+<h1 class="display-4 border-bottom">Notes on the final report</h1>
+
+  <!--Navigation panel-->
+  <ul class="nav nav-tabs" id="notes-tab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active text-success" id="introduction-tab" data-toggle="tab" href="#introduction" role="tab"
+         aria-controls="introduction" aria-selected="true">Introduction</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-success" id="learning-aspect-tab" data-toggle="tab" href="#learning-aspect" role="tab"
+         aria-controls="learning-aspect"
+         aria-selected="false">Learning Aspect</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-success" id="app-features-tab" data-toggle="tab" href="#app-features" role="tab"
+         aria-controls="app-features"
+         aria-selected="false">Application Features</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="implementation-tab" data-toggle="tab" href="#implementation" role="tab"
+         aria-controls="implementation"
+         aria-selected="false">Implementation</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="evaluation-tab" data-toggle="tab" href="#evaluation" role="tab"
+         aria-controls="evaluation"
+         aria-selected="false">Evaluation</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="improvements-tab" data-toggle="tab" href="#improvements" role="tab"
+         aria-controls="improvements"
+         aria-selected="false">Future Work</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="bibliography-tab" data-toggle="tab" href="#bibliography" role="tab"
+         aria-controls="improvements"
+         aria-selected="false">Bibliography</a>
+    </li>
+  </ul>
+
+  <!--Actual Content-->
+  <div class="tab-content" id="myNotesTabContent">
+
+    <!--INTRODUCTION-->
+    <div class="tab-pane fade show active" id="introduction" role="tabpanel" aria-labelledby="introduction-tab">
+      <ol>
+        <li class="text-success">Motivation</li>
+        <li class="text-success">Chosen Topic</li>
+        <li class="text-success">Karnaugh Map
+          <ol>
+            <li class="text-success">Grouping States</li>
+            <li class="text-success">Producing DNF and CNF</li>
+          </ol>
+        </li>
+        <li class="text-success">Existing Tools
+          <ul>
+            <li>Lots of websites describing the Karnaugh map model and how to use it</li>
+            <li>Also a few web instant solvers</li>
+            <li>But hardly any of them teaches the user how to use the Karnaugh map in an interactive way</li>
+            <li>No exercises - just instant solution</li>
+            <li>Some of them do not even give the correct solution for complex problems (output more groups than
+              required by optimal solution</li>
+            <li class="text-warning">Refer to the specific tools. Assign the numbers to each of them which
+              corresponds to the position in bibliography which links to that tool</li>
+          </ul>
+        </li> <!--End of Existing Tools-->
+        <li class="text-success">Summary of work performed
+          <ul>
+            <li>Three stages of the process</li>
+            <li>Description of chapters</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+
+    <!--LEARNING ASPECTS-->
+    <div class="tab-pane fade" id="learning-aspect" role="tabpanel" aria-labelledby="learning-aspect-tab">
+      <ol>
+        <li class="text-success">Psychology behind Learning
+        <ol>
+          <li class="text-success">Learning by Association: Conditioning
+            <ol>
+              <li>Classic Conditioning</li>
+              <li>Operant Conditioning
+                <ul>
+                  <li class="text-warning">How to redirect a reader to <em>Introduction to Psychology</em> (Anon.,
+                    2015)</li>
+                </ul>
+              </li>
+            </ol>
+          </li>
+          <li class="text-success">Insight</li>
+          <li class="text-success">Observation
+            <ul>
+              <li class="text-warning">"Sometimes, when tackling a problem, one comes up with a solution out of
+                nowhere" - how to make it sound formal</li>
+            </ul>
+          </li>
+        </ol>
+        <li class="text-success">Motivation by Gamification
+          <ul>
+            <li class="text-success">Definition</li>
+            <li class="text-success">Elements of a game</li>
+            <li class="text-success">Underlying motivation theory</li>
+            <li class="text-success">Game Design Principles</li>
+          </ul>
+        </li>
+        <li class="text-success">Desired App Features
+          <ul>
+            <li class="text-success">Examples in tutorial</li>
+            <li>Instant solver</li>
+            <li class="text-success">Practice exercises
+              <ul>
+                <li>Instant detailed feedback</li>
+              </ul>
+            </li>
+            <li>Quiz exercises
+              <ul>
+                <li class="text-success">Right/wrong feedback</li>
+                <li class="text-success">Collect points</li>
+                <li class="text-success">Progress bar</li>
+                <li class="text-success">Collect badges for completing all exercises of one type</li>
+                <li class="text-success">Unlock questions when progressing</li>
+                <li class="text-success">Surprise when all badges collected</li>
+                <li>Leaderboards (compare results with others) - ineffective for the ap of this size</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+
+    <!--APPLICATION FEATURES-->
+    <div class="tab-pane fade" id="app-features" role="tabpanel" aria-labelledby="app-features-tab">
+      <ol>
+        <li class="text-success">Main Sections
+          <ul>
+            <li class="text-warning">Should there be a screenshot of a navbar?</li>
+          </ul>
+          <ol>
+            <li class="text-success">Home
+              <ul>
+                <li class="text-warning">Should there be a screenshot?</li>
+              </ul>
+            </li>
+            <li class="text-success">Tutorial
+              <ul>
+                <li class="text-warning">Screenshot?</li>
+              </ul>
+            </li>
+            <li class="text-success">Practice</li>
+            <li class="text-success">Quiz
+              <ul>
+                <li>Users gains points for every correctly answered question in Quiz -> positive
+                  reinforcement/gamification</li>
+                <li>Completion of all questions of one type results in a <span class="text-warning">badge</span></li>
+                <li>Completion of all questions in the quiz results in a <span class="text-warning">Logic joke
+                  which is a surprise</span></li>
+                <li class="text-warning">Possible surprises/rewards
+                  <ul>
+                    <li class="text-success">Badges</li>
+                    <li class="text-success">Logic jokes</li>
+                    <li>Logic trivia</li>
+                    <li>Funny memes</li>
+                  </ul>
+                </li>
+              </ul>
+              <ol>
+                <li class="text-success">Progress Status</li>
+              </ol>
+            </li>
+            <li class="text-success">Instant Solver</li>
+          </ol>
+        </li>
+        <li class="text-success">Exercise Types
+          <ul>
+            <li class="text-success">Exercises in the most recent tutorial</li>
+            <li class="text-warning">Should the tutorial sheet be referenced?</li>
+          </ul>
+          <ol>
+            <li class="text-success">Label Squares</li>
+            <li class="text-success">Expression to Karnaugh Map</li>
+            <li class="text-success">Find Best Groups</li>
+            <li class="text-success">Name Group</li>
+            <li class="text-success">Karnaugh Map to Expression</li>
+            <li class="text-success">Minimize Expression</li>
+            <li class="text-warning">Resolution <strong>[?]</strong></li>
+          </ol>
+        </li> <!--End of Exercise Types-->
+      </ol>
+    </div>
+
+    <!--IMPLEMENTATION-->
+    <div class="tab-pane fade" id="implementation" role="tabpanel" aria-labelledby="implementation-tab">
+      <ol>
+        <li class="text-success">Development Tools
+          <ol>
+            <li class="text-success">Major Programming Language: TypeScript</li>
+            <li class="text-success">Framework: Angular</li>
+            <li class="text-success">Styling framework: Boostrap</li>
+          </ol>
+        </li>
+        <li class="text-success">Components
+          <ul>
+            <li class="text-warning">Sections or description list?</li>
+          </ul>
+          <ol>
+            <li class="text-success">App</li>
+            <li class="text-success">Interactive Karnaugh Map</li>
+            <li class="text-success">Exercises</li>
+            <li class="text-success">User Progress</li>
+            <li class="text-success">Practice</li>
+            <li class="text-success">Quiz</li>
+            <li class="text-success">Home</li>
+            <li class="text-success">Tutorial</li>
+          </ol>
+        </li>
+        <li class="text-success">Exercise Services
+          <ol>
+            <li>General description</li>
+            <li>Overview of Exercise classes</li>
+          </ol>
+        </li>
+        <li>Auxiliary Classes
+          <ol>
+            <li class="text-success">Group Representation
+              <ol>
+                <li>Expression Group</li>
+                <li>Grid Group</li>
+                <li>Array of Cells</li>
+                <li>Karnaugh Map-Like Array of Binary Arrays</li>
+              </ol>
+            </li>
+            <li class="text-success">Best Group Solver</li>
+            <li class="text-success">Karnaugh Map</li>
+            <li class="text-success">Parser
+              <ol>
+                <li class="text-success">Cannot let the user type in any input and execute it via <code>eval()</code> method</li>
+                <li class="text-success">Using <em>expr-eval</em> library which does not support IF-THEN, IFF or XOR</li>
+                <li class="text-success">Added custom IF-THE and IFF parsing methods</li>
+              </ol>
+            </li>
+            <li>MathJax
+              <ul>
+                <li>Dynamic MathJax text in a MathJax directive</li>
+                <li>MathJax class which converts string to MathJax syntax</li>
+              </ul>
+            </li>
+          </ol>
+        </li>
+        <li>Data Storage
+          <ul>
+            <li>Privacy concern</li>
+            <li>Local storage</li>
+          </ul>
+        </li>
+        <li>Selected Unit Tests</li>
+        </ol>
+    </div>
+
+    <!--EVALUATION-->
+    <div class="tab-pane fade" id="evaluation" role="tabpanel" aria-labelledby="evaluation-tab">
+      <ol>
+        <li><em>Enhancing student learning experience with technology-mediated gamification: An empirical study</em>
+          <ul>
+            "According to the information systems success model (Delone & McLean, 2003), the
+            system's success is based on the following dimensions: system quality, information quality, service quality, user satisfaction, and
+            system use.
+            First, system quality refers to technical success, such as ease of use, functionality, reliability, flexibility, data quality, portability,
+            integration, and the importance of the gamified system and its platform. Information quality refers to the information in the gamified
+            course in terms of accuracy, timeliness, relevance, and consistency. Service quality means a comparison between what users think
+            should be offered and what is provided. User satisfaction measures users’ opinions of the gamified system and should cover the entire
+            user experience cycle. Finally, system use is typically voluntary and is measured as frequency of use, time of use, number of accesses,
+            usage pattern, and dependency. These dimensions present useful indicators that help system designers evaluate the effectiveness of an
+            IT-based gamified system at different stages of the course."
+          </ul>
+        </li>
+        <li>Refer to Learning Aspects; whether we did what was supposed to be done</li>
+        <li>User Testing</li>
+      </ol>
+    </div>
+
+    <!--FURTHER DEVELOPMENT-->
+    <div class="tab-pane fade" id="improvements" role="tabpanel" aria-labelledby="improvements-tab">
+    </div>
+
+    <!--BIBLIOGRAPHY-->
+    <div class="tab-pane fade" id="bibliography" role="tabpanel" aria-labelledby="bibliography-tab">
+      <ol>
+        <li>
+          <a href="https://www.allaboutcircuits.com/textbook/digital/chpt-8/logic-simplification-karnaugh-maps/">
+            Logic Simplification using KMap (note on Gray Code)
+          </a></li>
+        <li><em>Introduction to Psychology</em>, University of Minnesota Libraries Publishing, 2015</li>
+        <li><em>ng-book. The Complete Guide to Angular</em>, Nate Murray, Felipe Coury, Ari Lerner, and Carlos
+          Taborda, 2017</li>
+        <li><a href="http://www.archive.org/details/animalintelligen00thor">
+          Thorndike, E. L. (1911). Animal intelligence: Experimental studies. p244-250 New York, NY: Macmillan.
+        </a></li>
+        <li><a href="https://myhome.cengagebrain.co.uk/cb/dashboard.htm">
+          ORGB, p.90-103 2nd Edition, Debra L Nelson; James Campbell Quick; Ann Armstrong; Joan Condie
+        </a></li>
+        <li>
+          <a href="file:///C:\Users\Arkadiusz\OneDrive - University of Edinburgh\University of Edinburgh\Year 4\Honours Project\Final Report\Bibliography\Gamification - Using Game Elements in Serious Context.pdf">
+          <em>Progress in IS. Gamification. Using Game Elements in Serious Contexts</em>,
+          Stefan Stieglitz <em>et all</em>, 2017, Springer International Publishing Switzerland
+          </a></li>
+        <li>
+          <a href="https://docs.mathjax.org/en/latest/mathjax.html">https://docs.mathjax.org/en/latest/mathjax.html</a>
+        </li>
+        <li>Creative Commons</li>
+      </ol>
+    </div>
+
+  </div>  <!--END OF TAB CONTENT-->
+
+</div>
+</body>
+</html>

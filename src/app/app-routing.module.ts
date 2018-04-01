@@ -51,7 +51,7 @@ const routes: Routes = [
           { path: ':id', component: PracticeKmapToExprComponent }
         ]
       },
-      { path: 'minimize-expr',
+      { path: 'minimise-expr',
         children: [
           { path: ':id', component: PracticeMinimizeExprComponent }
         ]
@@ -83,7 +83,7 @@ const routes: Routes = [
           { path: ':id', component: QuizKmapToExprComponent }
         ]
       },
-      { path: 'minimize-expr',
+      { path: 'minimise-expr',
         children: [
           { path: ':id', component: QuizMinimizeExprComponent }
         ]

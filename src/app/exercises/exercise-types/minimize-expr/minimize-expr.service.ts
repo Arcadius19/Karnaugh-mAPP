@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ExerciseService, ExericseID} from '../../exercise.service';
 import {Exercise} from '../../exercise';
-import {MathJax} from '../../../auxiliary/mathjax-aux/math-jax';
+import {MathJaxConverter} from '../../../auxiliary/mathjax-aux/math-jax-converter';
 
 export class ExMinimizeExpr extends Exercise {
   static currentPracticeID = 1;
@@ -19,7 +19,7 @@ export class ExMinimizeExpr extends Exercise {
 
     super(id, points);
     this.expression = expression;
-    this.name = id + '. ' + MathJax.toBrowserText(expression);
+    this.name = id + '. ' + MathJaxConverter.toBrowserText(expression);
   }
 }
 
@@ -43,7 +43,7 @@ let EXERCISES_PRACTICE = [
 export class MinimizeExprService extends ExerciseService {
 
   constructor() {
-    super(ExericseID.MINIMIZE_EXPR, 'Minimize Expression', 'minimize-expr', EXERCISES_TEST, EXERCISES_PRACTICE);
+    super(ExericseID.MINIMIZE_EXPR, 'Minimise Expression', 'minimise-expr', EXERCISES_TEST, EXERCISES_PRACTICE);
   }
 
 }

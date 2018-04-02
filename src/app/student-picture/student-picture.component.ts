@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {isNumeric} from 'rxjs/util/isNumeric';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {RewardVideoComponent} from '../reward-video/reward-video.component';
 
 @Component({
   selector: 'app-student-picture',

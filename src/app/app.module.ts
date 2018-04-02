@@ -44,14 +44,12 @@ import { QuizMinimizeExprComponent } from './quiz/minimize-expr/quiz-minimize-ex
 import { PracticeLabelSquaresComponent } from './practice/practice-label-squares/practice-label-squares.component';
 import { LabelSquaresComponent } from './exercises/exercise-types/label-squares/label-squares.component';
 import {CompletionExUpdateService} from './quiz/completion-ex-update.service';
-import { RewardVideoComponent } from './reward-video/reward-video.component';
 import {TutorialComponent} from './tutorial/tutorial.component';
 
 
 @NgModule({
   entryComponents: [
-    UserProgressComponent,
-    RewardVideoComponent
+    UserProgressComponent
   ],
   declarations: [
     AppComponent,
@@ -84,8 +82,7 @@ import {TutorialComponent} from './tutorial/tutorial.component';
     PracticeLabelSquaresComponent,
     LabelSquaresComponent,
     TutorialComponent,
-    StudentPictureComponent,
-    RewardVideoComponent
+    StudentPictureComponent
   ],
   imports: [
     BrowserModule,

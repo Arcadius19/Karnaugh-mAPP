@@ -92,7 +92,6 @@ import {TutorialComponent} from './tutorial/tutorial.component';
     ModalModule.forRoot()
   ],
   providers: [
-    ExerciseService,
     ExLabelSquaresService,
     ExExprToKmapService,
     ExFindBestGroupsService,

@@ -12,7 +12,7 @@ export class ExericseID {
   static MINIMIZE_EXPR  = 5;
 }
 
-@Injectable()
+// @Injectable()
 export class ExerciseService {
   id: number;
   name: string;

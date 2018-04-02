@@ -34,7 +34,7 @@ let EXERCISES_PRACTICE = [
   new ExExprToKmap(6, 'B or A <=> D', 0),
 ];
 
-@Injectable()
+// @Injectable()
 export class ExExprToKmapService extends ExerciseService {
 
   constructor() {

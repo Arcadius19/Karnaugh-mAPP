@@ -29,7 +29,7 @@ let EXERCISES_PRACTICE = [
   new ExKmapToExpr(4, 5, [0, 1, 3, 2, 6, 7, 8, 9, 12, 13])
 ];
 
-@Injectable()
+// @Injectable()
 export class ExKmapToExprService extends ExerciseService {
 
   constructor() {

@@ -39,7 +39,7 @@ let EXERCISES_PRACTICE = [
   new ExMinimizeExpr('(A <=> B) or C and (B => D)', null),
 ];
 
-@Injectable()
+// @Injectable()
 export class MinimizeExprService extends ExerciseService {
 
   constructor() {

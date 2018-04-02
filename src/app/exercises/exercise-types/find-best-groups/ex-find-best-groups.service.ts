@@ -26,7 +26,7 @@ let EXERCISES_PRACTICE = [
   new ExFindBestGroups(4, 0, [0, 4, 2, 6], 3)
 ];
 
-@Injectable()
+// @Injectable()
 export class ExFindBestGroupsService extends ExerciseService {
 
   constructor() {

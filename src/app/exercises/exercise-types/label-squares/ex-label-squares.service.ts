@@ -14,7 +14,7 @@ export class ExLabelSquares extends Exercise {
 // Single instance of the exercise
 let EXERCISES = [new ExLabelSquares()];
 
-@Injectable()
+// @Injectable()
 export class ExLabelSquaresService extends ExerciseService {
 
   constructor() {

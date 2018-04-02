@@ -7,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PracticeIntroductionComponent implements OnInit {
 
+  ex1active: boolean;
+  ex2active: boolean;
+  ex3active: boolean;
+  ex4active: boolean;
+  ex5active: boolean;
+  ex6active: boolean;
+
   constructor() { }
 
   ngOnInit() {

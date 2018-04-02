@@ -4,7 +4,7 @@ import {Directive, ElementRef, Input, OnChanges} from '@angular/core';
 @Directive({
   selector: '[appMathJax]',
 })
-export class MathjaxDirective implements OnChanges {
+export class MathJaxDirective implements OnChanges {
   @Input() mathString: string;
 
   constructor(private el: ElementRef) { }

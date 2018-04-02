@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
-import { MathjaxDirective } from './auxiliary/mathjax-aux/mathjax.directive';
+import { MathJaxDirective } from './auxiliary/mathjax-aux/mathjax.directive';
 import { AppRoutingModule } from './app-routing.module';
 import { ExercisesComponent } from './quiz/exercises.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -55,7 +55,7 @@ import {TutorialComponent} from './tutorial/tutorial.component';
   ],
   declarations: [
     AppComponent,
-    MathjaxDirective,
+    MathJaxDirective,
     ExercisesComponent,
     PageNotFoundComponent,
     HomeComponent,

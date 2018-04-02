@@ -80,6 +80,8 @@ export class ExerciseService {
   }
 
   addPointsToTotal(qID: number, points: number) {
+    if (localStorage == undefined) { return; }
+
     let questionKey = this.getStoragePrefix() + qID;
     let currentState = localStorage.getItem(questionKey);
 
@@ -106,6 +108,8 @@ export class ExerciseService {
   }
 
   addAttempt(qID: number) {
+    if (localStorage == undefined) { return; }
+
     let questionKey = this.getStoragePrefix() + qID;
     let currentState = localStorage.getItem(questionKey);
     if (!currentState) {

@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
+import {ExerciseService} from './exercises/exercise.service';
 import { MathJaxDirective } from './auxiliary/mathjax-aux/mathjax.directive';
 import { AppRoutingModule } from './app-routing.module';
 import { ExercisesComponent } from './quiz/exercises.component';
@@ -25,7 +26,6 @@ import { PracticeIntroductionComponent } from './practice/introduction/practice-
 import { ExprToKmapComponent } from './exercises/exercise-types/expr-to-kmap/expr-to-kmap.component';
 import { PracticeExprToKmapComponent } from './practice/expr-to-kmap/practice-expr-to-kmap.component';
 import {ExNameGroupService} from './exercises/exercise-types/name-group/ex-name-group.service';
-import {ExerciseService} from './exercises/exercise.service';
 import {ExExprToKmapService} from './exercises/exercise-types/expr-to-kmap/ex-expr-to-kmap.service';
 import {ExKmapToExprService} from './exercises/exercise-types/kmap-to-expr/ex-kmap-to-expr.service';
 import {ExFindBestGroupsService} from './exercises/exercise-types/find-best-groups/ex-find-best-groups.service';
@@ -86,13 +86,12 @@ import {TutorialComponent} from './tutorial/tutorial.component';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule,
     ModalModule.forRoot()
   ],
   providers: [
-    BsModalService,
     ExerciseService,
     ExLabelSquaresService,
     ExExprToKmapService,
@@ -100,6 +99,7 @@ import {TutorialComponent} from './tutorial/tutorial.component';
     ExNameGroupService,
     ExKmapToExprService,
     MinimizeExprService,
+    BsModalService,
     CompletionExUpdateService
   ],
   bootstrap: [AppComponent]

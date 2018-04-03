@@ -26,8 +26,8 @@
           <button id="tooltip-info" class="form-text text-muted" (click)="tooltipInfoClicked = !tooltipInfoClicked"
                   placement="bottom" triggers="click" [tooltip]="tooltipTemplate">
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-            <span *ngIf="!tooltipInfoClicked">Click to display information on the syntax</span>
-            <span *ngIf="tooltipInfoClicked">Click to hide information on the syntax</span>
+            <span *ngIf="!tooltipInfoClicked">Show syntax info</span>
+            <span *ngIf="tooltipInfoClicked">Hide syntax info</span>
           </button>
           <ng-template #tooltipTemplate><span [innerHtml]="tooltipText"></span></ng-template>
         </form>

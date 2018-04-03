@@ -16,7 +16,6 @@ import { QuizFindBestGroupsComponent } from './quiz/find-best-groups/quiz-find-b
 import { QuizNameGroupComponent } from './quiz/name-group/quiz-name-group.component';
 import { QuizLabelSquaresComponent } from './quiz/label-squares/quiz-label-squares.component';
 import { QuizKmapToExprComponent } from './quiz/kmap-to-expr/quiz-kmap-to-expr.component';
-import { StudentPictureComponent } from './student-picture/student-picture.component';
 import { UserProgressComponent } from './quiz/user-progress/user-progress.component';
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -80,15 +79,15 @@ import {TutorialComponent} from './tutorial/tutorial.component';
     QuizMinimizeExprComponent,
     PracticeLabelSquaresComponent,
     LabelSquaresComponent,
-    TutorialComponent,
-    StudentPictureComponent
+    TutorialComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TooltipModule.forRoot()
   ],
   providers: [
     ExLabelSquaresService,

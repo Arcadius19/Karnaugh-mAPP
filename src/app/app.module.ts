@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
-import {ExerciseService} from './exercises/exercise.service';
 import { MathJaxDirective } from './auxiliary/mathjax-aux/mathjax.directive';
 import { AppRoutingModule } from './app-routing.module';
 import { ExercisesComponent } from './quiz/exercises.component';
@@ -19,8 +18,8 @@ import { QuizLabelSquaresComponent } from './quiz/label-squares/quiz-label-squar
 import { QuizKmapToExprComponent } from './quiz/kmap-to-expr/quiz-kmap-to-expr.component';
 import { StudentPictureComponent } from './student-picture/student-picture.component';
 import { UserProgressComponent } from './quiz/user-progress/user-progress.component';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { PracticeComponent } from './practice/practice.component';
 import { PracticeIntroductionComponent } from './practice/introduction/practice-introduction.component';
 import { ExprToKmapComponent } from './exercises/exercise-types/expr-to-kmap/expr-to-kmap.component';

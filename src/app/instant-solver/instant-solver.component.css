@@ -1,4 +1,12 @@
-.equi-distance {
-  display: flex;
-  justify-content: space-between;
+:host >>> .tooltip-inner {
+  max-width: 320px;
+}
+
+#tooltip-info:hover {
+  cursor: pointer;
+}
+
+button#tooltip-info {
+  border: 0;
+  background: rgba(255, 255, 255, 0);
 }

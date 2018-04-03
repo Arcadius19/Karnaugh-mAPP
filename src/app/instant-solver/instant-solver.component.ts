@@ -15,6 +15,9 @@ export class InstantSolverComponent implements OnInit {
   @ViewChild(InteractiveKmapComponent)
   interKmapComponent: InteractiveKmapComponent;
 
+  tooltipInfoClicked = false;
+  tooltipText: string;
+
   form: FormGroup;
   query = '';
 
@@ -32,6 +35,18 @@ export class InstantSolverComponent implements OnInit {
 
   ngOnInit() {
     this.query = '';
+    this.tooltipText = 'Use<br>' +
+                       'capital letters for variables (A,B,C,D) <br>' +
+                       '"not" for &not; <br>' +
+                       '"and" for &and; <br>' +
+                       '"or" for &or; <br>' +
+                       '"=>" for &rArr; <br>' +
+                       '"<=>" or "iff" for &hArr; <br>' +
+                       '"1" for &#8868; <br>' +
+                       '"1" for &perp; <br>' +
+                       '?: (conditional operator) is also allowed <br>' +
+                       'Spaces between variables and operator are required';
+
   }
 
   queryValidator(control: FormControl): { [s: string]: boolean} {

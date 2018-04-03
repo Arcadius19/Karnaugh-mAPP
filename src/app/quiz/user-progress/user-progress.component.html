@@ -18,9 +18,16 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let exercise of exercises">
-          <tr>
-            <td colspan="6"><strong>{{exercise.name}}</strong></td>
+        <ng-container *ngFor="let exercise of exercises; index as i">
+          <tr class="vcenter" [style.background-color]="checkIfGroupCompleted(i) ? backgroundColors[i] : null">
+            <td colspan="5">
+              <strong>{{exercise.name}}</strong>
+            </td>
+            <td class="text-center">
+              <span *ngIf="checkIfGroupCompleted(i)" class="glyphicon glyphicon-star reward-badge"
+                    [style.color]="badgeColors[i]"
+                    aria-hidden="true"></span>
+            </td>
           </tr>
           <tr *ngFor="let question of exercise.questions">
             <td [routerLink]="(exercise.isSingleton) ? 'quiz/' + exercise.route : 'quiz/' + exercise.route + '/' + question.id"

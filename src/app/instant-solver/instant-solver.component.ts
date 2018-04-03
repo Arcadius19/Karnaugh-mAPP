@@ -43,9 +43,9 @@ export class InstantSolverComponent implements OnInit {
                        '"=>" for &rArr; <br>' +
                        '"<=>" or "iff" for &hArr; <br>' +
                        '"1" for &#8868; <br>' +
-                       '"1" for &perp; <br>' +
+                       '"0" for &perp; <br>' +
                        '?: (conditional operator) is also allowed <br>' +
-                       'Spaces between variables and operator are required';
+                       'Spaces between variables and operators are required';
 
   }
 

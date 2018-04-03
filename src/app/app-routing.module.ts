@@ -10,7 +10,6 @@ import {QuizFindBestGroupsComponent} from './quiz/find-best-groups/quiz-find-bes
 import {QuizNameGroupComponent} from './quiz/name-group/quiz-name-group.component';
 import {QuizLabelSquaresComponent} from './quiz/label-squares/quiz-label-squares.component';
 import {QuizKmapToExprComponent} from './quiz/kmap-to-expr/quiz-kmap-to-expr.component';
-import {StudentPictureComponent} from './student-picture/student-picture.component';
 import {PracticeComponent} from './practice/practice.component';
 import {PracticeIntroductionComponent} from './practice/introduction/practice-introduction.component';
 import {PracticeExprToKmapComponent} from './practice/expr-to-kmap/practice-expr-to-kmap.component';
@@ -92,7 +91,6 @@ const routes: Routes = [
     ]
   },
   { path: 'tutorial', component: TutorialComponent },
-  { path: 'foo', component: StudentPictureComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

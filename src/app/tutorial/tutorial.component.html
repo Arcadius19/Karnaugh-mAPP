@@ -25,23 +25,6 @@
         edges are treated as adjacent.
       </strong>
       </p>
-
-      <h3>Grouping cells</h3>
-      <p>
-        In the process of minimizing the expression using the Karnaugh Map, the following rules for grouping terms
-        must be obeyed:
-      </p>
-      <ol>
-        <li>Groups must consists of only the same values (only <em>true's</em> or only <em>false's</em>)</li>
-        <li>Groups must be horizontal or vertical, but never diagonal</li>
-        <li>Groups must consist of 2<sup>n</sup> cells (<em>i.e.</em> 1, 2, 4, 8 etc.)</li>
-        <li>Groups should be as large as possible</li>
-        <li>Each <em>true</em> (or <em>false</em>) must be in at least one group</li>
-        <li>Groups may overlap</li>
-        <li>Groups may wrap around the table (since opposite edges are, in fact, adjacent)</li>
-        <li>There should be as few groups as possible</li>
-      </ol>
-
     </div>
   </div>
 
@@ -73,7 +56,7 @@
       </div>
 
       <div class="col-sm-6">
-        <table id="kmap-tutorial">
+        <table id="kmap-tutorial" class="kmap-tutorial">
           <tr>
             <td rowspan="2" colspan="2"></td>
             <th colspan="4">CD</th>
@@ -108,3 +91,347 @@
 
   </div>
 </div>
+
+
+<h3>Grouping cells</h3>
+<p class="text-justify">
+  In the process of minimizing the expression using the Karnaugh Map, the following rules for grouping terms
+  must be obeyed:
+</p>
+
+<div class="panel-group" id="grouping-panels">
+  <div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-parent="#grouping-panels" href="#rule1">
+      1. Groups must consist of only the same values (only <em>true's</em> or only <em>false's</em>)
+    </div>
+    <div id="rule1" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <app-kmap-tutorial [correct]="true" [correctCells]="[7,6,15,14,11,10]"
+                               [markedCells]="[7,6,15,14]"></app-kmap-tutorial>
+            <span class="text-muted">Example of <em>one</em> group</span>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <app-kmap-tutorial [correct]="false" [correctCells]="[7,6,15,14,11,10]" [markedCells]="[7,6,2,3]"></app-kmap-tutorial>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!--End of panel 1-->
+  <div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-parent="#grouping-panels" href="#rule2">
+      2. Groups must be horizontal or vertical, but never diagonal
+    </div>
+    <div id="rule2" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <app-kmap-tutorial [correct]="true" [correctCells]="[1,3,5,7,12,13,8,9]"
+                               [markedCells]="[1,3,5,7]"></app-kmap-tutorial>
+            <span class="text-muted">Example of <em>one</em> group</span>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <app-kmap-tutorial [correct]="false" [correctCells]="[1,3,5,7,12,13,8,9]"
+                               [markedCells]="[13,7]"></app-kmap-tutorial>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!--End of panel 2-->
+  <div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-parent="#grouping-panels" href="#rule3">
+      3. Groups must consist of 2<sup>n</sup> cells (<em>i.e.</em> 1, 2, 4, 8 etc.)
+    </div>
+    <div id="rule3" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <app-kmap-tutorial [correct]="true" [correctCells]="[1,3,5,7,13,15]"
+                               [markedCells]="[1,3,5,7]"></app-kmap-tutorial>
+            <span class="text-muted">Example of <em>one</em> group</span>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <app-kmap-tutorial [correct]="false" [correctCells]="[1,3,5,7,13,15]"
+                               [markedCells]="[1,3,5,7,13,15]"></app-kmap-tutorial>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!--End of panel 3-->
+  <div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-parent="#grouping-panels" href="#rule4">
+      4. Groups should be as large as possible
+    </div>
+    <div id="rule4" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <app-kmap-tutorial [correct]="true" [correctCells]="[0,1,4,5,12,13,8,9]"
+                               [markedCells]="[0,1,4,5,12,13,8,9]"></app-kmap-tutorial>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <table class="kmap-tutorial kmap-wrong">
+              <tr>
+                <td rowspan="2" colspan="2"></td>
+                <th colspan="4">CD</th>
+              </tr>
+              <tr>
+                <th>00</th><th>01</th><th>11</th><th>10</th>
+              </tr>
+              <ng-container *ngFor="let binary of ['00','01','11','10']; index as i">
+                <tr>
+                  <ng-container *ngIf="i == 0"><th rowspan="4">AB</th></ng-container>
+                  <th>{{binary}}</th>
+                  <td *ngFor="let j of [0,1,2,3]">
+                    <div class="content"
+                         [ngClass]="{
+                     'cell-mark-1': belongTo(i, j, [0,1,4,5]),
+                     'cell-mark-2': belongTo(i, j, [12,13,8,9]),
+                     'text-success': belongTo(i, j, [0,1,4,5,12,13,8,9]),
+                     'text-danger': !belongTo(i, j, [0,1,4,5,12,13,8,9])}">
+                      {{belongTo(i, j, [0,1,4,5,12,13,8,9]) ? 1 : 0 }}
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!--End of panel 4-->
+  <div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-parent="#grouping-panels" href="#rule5">
+      5. Each <em>true</em> (or <em>false</em>) must be in at least one group
+    </div>
+    <div id="rule5" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <table class="kmap-tutorial kmap-correct">
+              <tr>
+                <td rowspan="2" colspan="2"></td>
+                <th colspan="4">CD</th>
+              </tr>
+              <tr>
+                <th>00</th><th>01</th><th>11</th><th>10</th>
+              </tr>
+              <ng-container *ngFor="let binary of ['00','01','11','10']; index as i">
+                <tr>
+                  <ng-container *ngIf="i == 0"><th rowspan="4">AB</th></ng-container>
+                  <th>{{binary}}</th>
+                  <td *ngFor="let j of [0,1,2,3]">
+                    <div class="content"
+                         [ngClass]="{
+                   'cell-mark-1': belongTo(i, j, [4,5,12,13]),
+                   'cell-mark-2': belongTo(i, j, [2]),
+                   'text-success': belongTo(i, j, [4,5,12,13,2]),
+                   'text-danger': !belongTo(i, j, [4,5,12,13,2])}">
+                      {{belongTo(i, j, [4,5,12,13,2]) ? 1 : 0 }}
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <app-kmap-tutorial [correct]="false" [correctCells]="[4,5,12,13,2]"
+                               [markedCells]="[4,5,12,13]"></app-kmap-tutorial>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!--End of panel 5-->
+  <div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-parent="#grouping-panels" href="#rule6">
+      6. Groups may overlap
+    </div>
+    <div id="rule6" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <table class="kmap-tutorial kmap-correct">
+              <tr>
+                <td rowspan="2" colspan="2"></td>
+                <th colspan="4">CD</th>
+              </tr>
+              <tr>
+                <th>00</th><th>01</th><th>11</th><th>10</th>
+              </tr>
+              <ng-container *ngFor="let binary of ['00','01','11','10']; index as i">
+                <tr>
+                  <ng-container *ngIf="i == 0"><th rowspan="4">AB</th></ng-container>
+                  <th>{{binary}}</th>
+                  <td *ngFor="let j of [0,1,2,3]">
+                    <div class="content"
+                         [ngClass]="{
+                   'cell-mark-1': belongTo(i, j, [0,1,4]),
+                   'cell-mark-2': belongTo(i, j, [7,13,15]),
+                   'cell-mark-12-overlap': belongTo(i, j, [5]),
+                   'text-success': belongTo(i, j, [0,1,4,5,7,13,15]),
+                   'text-danger': !belongTo(i, j, [0,1,4,5,7,13,15])}">
+                      {{belongTo(i, j, [0,1,4,5,7,13,15]) ? 1 : 0 }}
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <table class="kmap-tutorial kmap-wrong">
+              <tr>
+                <td rowspan="2" colspan="2"></td>
+                <th colspan="4">CD</th>
+              </tr>
+              <tr>
+                <th>00</th><th>01</th><th>11</th><th>10</th>
+              </tr>
+              <ng-container *ngFor="let binary of ['00','01','11','10']; index as i">
+                <tr>
+                  <ng-container *ngIf="i == 0"><th rowspan="4">AB</th></ng-container>
+                  <th>{{binary}}</th>
+                  <td *ngFor="let j of [0,1,2,3]">
+                    <div class="content"
+                         [ngClass]="{
+                   'cell-mark-1': belongTo(i, j, [0,1,4,5]),
+                   'cell-mark-2': belongTo(i, j, [13,15]),
+                   'cell-mark-3': belongTo(i, j, [7]),
+                   'text-success': belongTo(i, j, [0,1,4,5,7,13,15]),
+                   'text-danger': !belongTo(i, j, [0,1,4,5,7,13,15])}">
+                      {{belongTo(i, j, [0,1,4,5,7,13,15]) ? 1 : 0 }}
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!--End of panel 6-->
+  <div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-parent="#grouping-panels" href="#rule7">
+      7. Groups may wrap around the table (since opposite edges are, in fact, adjacent)
+    </div>
+    <div id="rule7" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <app-kmap-tutorial [correct]="true" [correctCells]="[0,4,12,8,2,6,14,10]"
+                               [markedCells]="[0,4,12,8,2,6,14,10]"></app-kmap-tutorial>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <table class="kmap-tutorial kmap-wrong">
+              <tr>
+                <td rowspan="2" colspan="2"></td>
+                <th colspan="4">CD</th>
+              </tr>
+              <tr>
+                <th>00</th><th>01</th><th>11</th><th>10</th>
+              </tr>
+              <ng-container *ngFor="let binary of ['00','01','11','10']; index as i">
+                <tr>
+                  <ng-container *ngIf="i == 0"><th rowspan="4">AB</th></ng-container>
+                  <th>{{binary}}</th>
+                  <td *ngFor="let j of [0,1,2,3]">
+                    <div class="content"
+                         [ngClass]="{
+                   'cell-mark-1': belongTo(i, j, [0,4,12,8]),
+                   'cell-mark-2': belongTo(i, j, [2,6,14,10]),
+                   'text-success': belongTo(i, j, [0,4,12,8,2,6,14,10]),
+                   'text-danger': !belongTo(i, j, [0,4,12,8,2,6,14,10])}">
+                      {{belongTo(i, j, [0,4,12,8,2,6,14,10]) ? 1 : 0 }}
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!--End of panel 7-->
+  <div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-parent="#grouping-panels" href="#rule8">
+      8. There should be as few groups as possible
+    </div>
+    <div id="rule8" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <table class="kmap-tutorial kmap-correct">
+              <tr>
+                <td rowspan="2" colspan="2"></td>
+                <th colspan="4">CD</th>
+              </tr>
+              <tr>
+                <th>00</th><th>01</th><th>11</th><th>10</th>
+              </tr>
+              <ng-container *ngFor="let binary of ['00','01','11','10']; index as i">
+                <tr>
+                  <ng-container *ngIf="i == 0"><th rowspan="4">AB</th></ng-container>
+                  <th>{{binary}}</th>
+                  <td *ngFor="let j of [0,1,2,3]">
+                    <div class="content"
+                         [ngClass]="{
+                   'cell-mark-1': belongTo(i, j, [0,1,4,5]),
+                   'cell-mark-2': belongTo(i, j, [13,15,9,11]),
+                   'text-success': belongTo(i, j, [0,1,4,5,13,15,9,11]),
+                   'text-danger': !belongTo(i, j, [0,1,4,5,13,15,9,11])}">
+                      {{belongTo(i, j, [0,1,4,5,13,15,9,11]) ? 1 : 0 }}
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="col-xs-13 col-md-8 col-lg-6 text-center">
+            <table class="kmap-tutorial kmap-wrong">
+              <tr>
+                <td rowspan="2" colspan="2"></td>
+                <th colspan="4">CD</th>
+              </tr>
+              <tr>
+                <th>00</th><th>01</th><th>11</th><th>10</th>
+              </tr>
+              <ng-container *ngFor="let binary of ['00','01','11','10']; index as i">
+                <tr>
+                  <ng-container *ngIf="i == 0"><th rowspan="4">AB</th></ng-container>
+                  <th>{{binary}}</th>
+                  <td *ngFor="let j of [0,1,2,3]">
+                    <div class="content"
+                         [ngClass]="{
+                   'cell-mark-1': belongTo(i, j, [0,4]),
+                   'cell-mark-2': belongTo(i, j, [1,5,13,9]),
+                   'cell-mark-3': belongTo(i, j, [15,11]),
+                   'text-success': belongTo(i, j, [0,1,4,5,13,15,9,11]),
+                   'text-danger': !belongTo(i, j, [0,1,4,5,13,15,9,11])}">
+                      {{belongTo(i, j, [0,1,4,5,13,15,9,11]) ? 1 : 0 }}
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+      </div>
+    </div>
+  </div> <!--End of panel 8-->
+</div> <!--End of panel-group-->
+

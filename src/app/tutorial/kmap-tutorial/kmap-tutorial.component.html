@@ -1,0 +1,25 @@
+<table class="kmap-tutorial" [ngClass]="{'kmap-correct': correct, 'kmap-wrong': correct == false}">
+  <tr>
+    <td rowspan="2" colspan="2"></td>
+    <th colspan="4">CD</th>
+  </tr>
+  <tr>
+    <th>00</th><th>01</th><th>11</th><th>10</th>
+  </tr>
+  <ng-container *ngFor="let binary of ['00','01','11','10']; index as i">
+    <tr>
+      <ng-container *ngIf="i == 0"><th rowspan="4">AB</th></ng-container>
+      <th>{{binary}}</th>
+      <td *ngFor="let j of [0,1,2,3]">
+        <div class="content"
+             [ngClass]="{
+               'correct-cell': belongToMarked(i, j) && correct==true,
+               'wrong-cell': belongToMarked(i, j) && correct==false,
+               'text-success': belongToCorrect(i, j),
+               'text-danger': !belongToCorrect(i, j)}">
+          {{belongToCorrect(i, j) ? 1 : 0 }}
+        </div>
+      </td>
+    </tr>
+  </ng-container>
+</table>

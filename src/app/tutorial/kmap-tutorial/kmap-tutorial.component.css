@@ -28,16 +28,6 @@ table.kmap-tutorial th .content, table.kmap-tutorial td .content {
   right: 0;
 }
 
-tr.table-hover, td.kmap-hover {
-  color: white;
-  background-color: #337ab7;
-}
-
-#grouping-panels div.panel-heading:hover {
-  cursor: pointer;
-  background-color: #e1e1e1;
-}
-
 .correct-cell {
   background-color: #dff0d8;
 }
@@ -52,20 +42,4 @@ table.kmap-correct {
 
 table.kmap-wrong {
   border: 3px solid #ebccd1;
-}
-
-.cell-mark-1 {
-  background-color: #c1e2f0;
-}
-
-.cell-mark-2 {
-  background-color: #d3b9f0;
-}
-
-.cell-mark-3 {
-  background-color: #f0e0c7;
-}
-
-.cell-mark-12-overlap {
-  background-color: #CACEF0;
 }

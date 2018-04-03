@@ -29,4 +29,13 @@ export class TutorialComponent implements OnInit {
     return +!!(decimal & flag);
   }
 
+  belongTo(i: number, j: number, cells: number[]): boolean {
+    for (let cell of cells) {
+      if (this.kmap.cellIds[i][j] == cell) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }

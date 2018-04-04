@@ -1,0 +1,19 @@
+.expr-left-align {
+  padding-left: 3em;
+}
+
+.cell-mark-1 {
+  background-color: #c1e2f0;
+}
+
+.cell-mark-2 {
+  background-color: #d3b9f0;
+}
+
+.cell-mark-3 {
+  background-color: #f0e0c7;
+}
+
+.cell-mark-12-overlap {
+  background-color: #CACEF0;
+}

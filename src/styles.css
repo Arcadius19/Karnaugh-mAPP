@@ -70,3 +70,49 @@
   margin: auto;
 }
 
+table.kmap-tutorial, table.kmap-tutorial th, table.kmap-tutorial td {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+}
+table.kmap-tutorial th, table.kmap-tutorial td {
+  width: 16.66%;
+  text-align: center;
+  position: relative;
+}
+
+table.kmap-tutorial td:after {
+  content: '';
+  display: block;
+  margin-top: 100%;
+}
+
+table.kmap-tutorial {
+  width: 100%;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+table.kmap-tutorial th .content, table.kmap-tutorial td .content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.correct-cell {
+  background-color: #dff0d8;
+}
+
+.wrong-cell {
+  background-color: #f2dede;
+}
+
+table.kmap-correct {
+  border: 3px solid #d6e9c6;
+}
+
+table.kmap-wrong {
+  border: 3px solid #ebccd1;
+}
+

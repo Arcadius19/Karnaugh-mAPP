@@ -44,6 +44,7 @@ import { LabelSquaresComponent } from './exercises/exercise-types/label-squares/
 import {CompletionExUpdateService} from './quiz/completion-ex-update.service';
 import {TutorialComponent} from './tutorial/tutorial.component';
 import { KmapTutorialComponent } from './tutorial/kmap-tutorial/kmap-tutorial.component';
+import { ResolutionComponent } from './resolution/resolution.component';
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import { KmapTutorialComponent } from './tutorial/kmap-tutorial/kmap-tutorial.co
     PracticeLabelSquaresComponent,
     LabelSquaresComponent,
     TutorialComponent,
-    KmapTutorialComponent
+    KmapTutorialComponent,
+    ResolutionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,188 @@
+<div class="page-header">
+  <h1>Karnaugh Map and Resolution</h1>
+</div>
+
+<div class="text-justify text-muted">
+  <p><small class="text-muted">
+    Resolution may be a quite complicated concept at the beginning but it eventually makes a lot of sense. However, this
+    website does not focus on the notion of resolution thoroughly and only shows a correspondence of Karnaugh map and
+    simple
+    resolution examples. If you wish to find out more on resolution, Google, unsurprisingly, may be a great place to
+    start with. Google search <em>resolution</em> <a href="https://www.google.co.uk/search?q=resolution+logic" target="_blank">here</a>.
+  </small></p>
+</div>
+
+
+<h3>Resolution</h3>
+<div class="text-justify">
+  <strong>Resolution</strong> is a procedure used to search for a state that satisfies a given set of
+  constraints,
+  \(\Sigma\). The idea is to choose one variable, \(X\) (the resolution variable), and to replace the clauses that
+  mention that variable by a set of new clauses, to give a new simpler, set of constraints
+  \(\Sigma_X\) such that:
+  <ul>
+    <li>\(X\) does not occur in \(\Sigma_X\)</li>
+    <li>any valuation (state) \(V\) that satisfies \(\Sigma_X\) can be extended to a valuation that
+      satisfies \(\Sigma\)</li>
+  </ul>
+
+
+  <p>
+    Let's represent it in a mathematical way. Suppose
+    $$ \Sigma = (X \lor \Gamma) \land (\neg X \lor \Delta) \land \Omega $$
+    where \( \Gamma, \Delta, \Omega \) are sets of constraints (disjunctions of literals) that do not mention \(X\).
+  </p>
+
+  Now, if we find a state \(V\) that satisfies:
+  <ul>
+    <li>\(\Delta \land \Omega\), we can extend \(V\) with the value \(X = \top\) to produce a state that
+      satisfies \(\Sigma\)</li>
+    <li>\(\Gamma \land \Omega\), we can extend \(V\) with the value \(X = \bot\) to satisfy \(\Sigma\)</li>
+  </ul>
+
+  <p>
+    In such case, \(\Sigma_X\) is defined as \((\Gamma \lor \Delta) \land \Sigma\). If we find a state that
+    satisfies \(\Sigma_X\), it satisfies either \(\Gamma\) or \(\Delta\), or both, and also satisfies \(\Omega\). As
+    shown above, we can extend this state to a state that satisfies \(\Sigma\) by assigning an appropriate value to
+    \(X\).
+  </p>
+
+  <p>
+    As an example, suppose we want to resolute on \(X\) the following:
+    $$ \Sigma = (X \lor A) \land (\neg X \lor B) \land (C \lor D) \land E $$
+    then, using the notation from above,
+  </p>
+  <p class="expr-left-align">\( \Gamma = \{{'{'}}A\{{'}'}} \)</p>
+  <p class="expr-left-align">\( \Delta = \{{'{'}}B\{{'}'}} \)</p>
+  <p class="expr-left-align">\( \Omega = \{{'{'}}C \lor D, E\{{'}'}} \)</p>
+
+  <p>
+    Therefore, \(\Sigma_X = (A \lor B) \land \underbrace{{'{'}}(C \lor D) \land E{{'}'}}_{{'{'}}\Omega{{'}'}}\).
+  </p>
+
+    \(\Omega\) must be always true, hence, \((C \lor D) \land E)\) must be always true. It is the case for states in
+    which
+    <ul>
+      <li>\(E = \top, C = \top, D = \bot\) or</li>
+      <li>\(E = \top, C = \bot, D = \top\) or</li>
+      <li>\(E = \top, C = \top, D = \top\).</li>
+    </ul>
+
+  <p>
+    We are left with \((A \lor B)\). If we choose \(A\) to be true, then we can make \(X\) false so that \(\neg
+    X \lor B\) is true, and, in turn, a whole \(\Sigma\) is true. If we choose \(B\) to be true, then we can make
+    \(X\) true so that \(X \lor A\) is true, and, again, an entire \(\Sigma\) is true. If both \(A\) and \(B\)
+    are true, the value of \(X\) does not matter at all.
+  </p>
+
+  <p>
+  This leads to the conclusion that we do not care about the value of \(X\) to satisfy a set of constraints,
+  \(\Sigma\), as \(X\) can be always assigned an appropriate value, which will make \(\Sigma\) satisfied.
+  </p>
+
+</div>
+
+<h3>Entailment</h3>
+<p>Given expressions \(\varphi, \theta, \psi\), we say:</p>
+<p class="text-center">
+  \(\varphi\) and \(\theta\) <strong>entail</strong> \(\psi\), i.e. \( \varphi, \theta \models \psi \), <br />
+  iff <br />
+  every state that satisfies both \(\varphi\) and \(\theta\) also satisfies \(\psi\)
+</p>
+<p>
+  \(\varphi\) and \(\theta\) are referred as <strong>premises</strong> of the entailment and \(\psi\) is its
+  <strong>conclusion</strong>.
+</p>
+<p>
+  An interesting property of the entailment, by definition, is that every state excluded by \(\psi\) is excluded by
+  at least one of \(\varphi\) and \(\theta\).
+</p>
+
+<h3>Visual representation</h3>
+Let's consider following constraints:
+
+<div class="row">
+  <div class="col-xs-6">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">\(A \lor \neg B\)</div>
+      <div class="panel-body">
+        <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+          <app-kmap-tutorial [correctCells]="[0,1,3,2,12,13,15,14,8,9,11,10]" [markedCells]="[4,5,7,6]"
+                                                 [correct]="false"></app-kmap-tutorial>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-6">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center">\(\neg A \lor \neg C\)</div>
+      <div class="panel-body">
+        <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <app-kmap-tutorial [correctCells]="[0,1,3,2,4,5,7,6,12,13,8,9]" [markedCells]="[15,14,11,10]"
+                           [correct]="false"></app-kmap-tutorial>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>
+  If we combine these two constraints into one single set \(\Sigma = (A \lor \neg B) \land (\neg A \lor \neg C) \), we
+  will obtain:
+</p>
+
+<div class="panel panel-default">
+  <div class="panel-heading text-center"> \(\Sigma = (A \lor \neg B) \land (\neg A \lor \neg C) \)</div>
+  <div class="panel-body">
+    <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+      <table class="kmap-tutorial">
+        <tr>
+          <td rowspan="2" colspan="2"></td>
+          <th colspan="4">CD</th>
+        </tr>
+        <tr>
+          <th>00</th><th>01</th><th>11</th><th>10</th>
+        </tr>
+        <ng-container *ngFor="let binary of ['00','01','11','10']; index as i">
+          <tr>
+            <ng-container *ngIf="i == 0"><th rowspan="4">AB</th></ng-container>
+            <th>{{binary}}</th>
+            <td *ngFor="let j of [0,1,2,3]">
+              <div class="content"
+                   [ngClass]="{
+                   'cell-mark-1': belongTo(i, j, [4,5,7,6]),
+                   'cell-mark-2': belongTo(i, j, [15,14,11,10]),
+                   'text-success': belongTo(i, j, [0,1,3,2,12,13,8,9]),
+                   'text-danger': !belongTo(i, j, [0,1,3,2,12,13,8,9])}">
+                {{belongTo(i, j, [0,1,3,2,12,13,8,9]) ? 1 : 0 }}
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+</div>
+
+<p>
+  Based on the property of the entailment at the end of the previous section, if we take any expression, say
+  \(\varrho\), which is excluded only by any of the states excluded also by \(\Sigma\), we could infer that
+  $$ (A \lor \neg B),\, (\neg A \lor \neg C) \models \varrho $$
+</p>
+<p>
+  We know find the largest such group using rules for grouping in the Karnaugh map and we see that the sought group is:
+</p>
+<div class="row">
+  <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+    <app-kmap-tutorial [correctCells]="[0,1,3,2,12,13,8,9]" [markedCells]="[15,14,7,6]"
+                       [correct]="false"></app-kmap-tutorial>
+  </div>
+</div>
+<p>
+  We then find the constraint which is excluded by \(B \land C\). By applying DeMorgan's law, we get that the sought
+  constraint is \(\neg B \lor \neg C\). We then proved that:
+  $$ (A \lor \neg B),\, (\neg A \lor \neg C) \models (\neg B \lor \neg C) $$
+  which is the same result we would obtain by following the formal resolution procedure.
+</p>
+

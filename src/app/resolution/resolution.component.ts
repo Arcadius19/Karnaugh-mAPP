@@ -12,6 +12,7 @@ export class ResolutionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
   }
 
   belongTo(i: number, j: number, cells: number[]): boolean {

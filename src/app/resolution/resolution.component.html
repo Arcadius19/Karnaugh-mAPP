@@ -52,12 +52,13 @@
     $$ \Sigma = (X \lor A) \land (\neg X \lor B) \land (C \lor D) \land E $$
     then, using the notation from above,
   </p>
-  <p class="expr-left-align">\( \Gamma = \{{'{'}}A\{{'}'}} \)</p>
-  <p class="expr-left-align">\( \Delta = \{{'{'}}B\{{'}'}} \)</p>
-  <p class="expr-left-align">\( \Omega = \{{'{'}}C \lor D, E\{{'}'}} \)</p>
+  <p class="expr-left-align"><span appMathJax mathString="\( \Gamma = \{A\} \)"></span></p>
+  <p class="expr-left-align"><span appMathJax mathString="\( \Delta = \{B\} \)"></span></p>
+  <p class="expr-left-align"><span appMathJax mathString="\( \Omega = \{C \lor D, E\} \)"></span></p>
 
   <p>
-    Therefore, \(\Sigma_X = (A \lor B) \land \underbrace{{'{'}}(C \lor D) \land E{{'}'}}_{{'{'}}\Omega{{'}'}}\).
+    Therefore, <span appMathJax
+                     mathString="\(\Sigma_X = (A \lor B) \land \underbrace{(C \lor D) \land E}_{\Omega}\)"></span>.
   </p>
 
     \(\Omega\) must be always true, hence, \((C \lor D) \land E)\) must be always true. It is the case for states in

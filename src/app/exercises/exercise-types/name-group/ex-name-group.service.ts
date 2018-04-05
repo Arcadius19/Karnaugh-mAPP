@@ -16,6 +16,7 @@ export class ExNameGroup extends Exercise {
       id = ExNameGroup.currentPracticeID;
       ExNameGroup.currentPracticeID++;
     }
+
     super(id, points);
     this.expressionGroup = expression;
     this.name = `Set ${id}`;

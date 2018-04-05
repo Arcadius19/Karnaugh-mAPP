@@ -49,14 +49,14 @@ app.post("/api/feedback", (req, res) => {
   const request = req.body;
   console.log(request);
 
-  client.connect((err, res) => {
+  client.connect((err, rescon) => {
     if (err) handleError(res, err.message, "Failed to connect.");
 
-    client.query('SELECT NOW() as now', (err, res) => {
+    client.query('SELECT NOW() as now', (err, result) => {
       done();
       if (err) handleError(res, err.message, "Failed to SELECT NOW().");
 
-      console.log(res.rows[0]);
+      console.log(result.rows[0]);
       res.send(200);
     });
   });

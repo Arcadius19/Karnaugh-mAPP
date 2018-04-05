@@ -17,8 +17,8 @@ export class ContactService {
   constructor(private http: HttpClient) { }
 
   sendFeedback(feedback: Feedback): Observable<any> {
-    return this.http.post('/api/feedback', JSON.stringify(feedback), httpOptions)
-      .pipe(catchError(this.handleError));
+    return this.http.post('/api/feedback', JSON.stringify(feedback), httpOptions);
+      // .pipe(catchError(this.handleError));
   }
 
   // Adapted from https://angular.io/guide/http#error-handling

@@ -21,7 +21,10 @@ export class FeedbackComponent implements OnInit {
   onSubmit() {
     let feedback = new Feedback(this.rating, this.comment);
     this.contactService.sendFeedback(feedback)
-      .subscribe(response => console.log('Lol: ', response));
+      .subscribe(
+        response => console.log('Response (component): ', response),
+        error => console.log('Error (component): ', error)
+      );
   }
 
 }

@@ -21,16 +21,7 @@ const pool = new Pool({
   ssl: true,
 });
 
-pool.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  done();
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-});
-
 pool.query('CREATE TABLE IF NOT EXISTS Feedback(id SERIAL PRIMARY KEY, content VARCHAR(1000));', (err, res) => {
-  done();
   if (err) console.log("ERROR: Failed to create a table. " + err.message);
   console.log('Table Feedback created');
 });
@@ -47,7 +38,6 @@ app.post("/api/feedback", (req, res) => {
   console.log('request: ' + req);
 
   pool.query('SELECT NOW() as now', (err, result) => {
-    done();
     if (err) handleError(res, err.message, "Failed to SELECT NOW().");
 
     console.log(result.rows[0]);

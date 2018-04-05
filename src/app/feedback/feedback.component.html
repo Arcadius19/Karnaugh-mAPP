@@ -4,7 +4,7 @@
 
 <form (ngSubmit)="onSubmit()" #feedbackForm="ngForm">
   <div class="panel-body" *ngIf="success == true">
-    <div class="alert alert-danger">
+    <div class="alert alert-success">
       Thank you for your feedback!
     </div>
   </div>
@@ -29,8 +29,5 @@
               name="comment"></textarea>
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary" [disabled]="rating==null && comment==null">Submit</button>
 </form>
-
-<div>Rating: {{rating}}</div>
-

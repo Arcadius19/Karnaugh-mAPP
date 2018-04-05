@@ -16,13 +16,13 @@ export class ContactService {
 
   constructor(private http: HttpClient) { }
 
-  sendFeedback(feedback: Feedback): any {
+  sendFeedback(feedback: Feedback): Observable<any> {
     return this.http.post('/api/feedback', JSON.stringify(feedback), httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   // Adapted from https://angular.io/guide/http#error-handling
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse | any) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
@@ -31,7 +31,8 @@ export class ContactService {
       console.error(`Server returned code ${error.status}, with a message: ${error.message}`);
     }
     // return an ErrorObservable with a user-facing error message
-    return new ErrorObservable( 'ERROR');
+    return new ErrorObservable( 'Sorry. Something went wrong. Please try again. ' +
+      'If the problem persists, send the feedback through from on he website.');
   }
 
 }

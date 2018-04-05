@@ -54,10 +54,12 @@ app.post('/api/feedback', (req, res) => {
   const values = [rating, comment];
 
   pool.query(query, values, (err, result) => {
-    if (err) handleError(res, err.message, 'Failed to send a feedback.');
-
-    console.log(result.rows[0]);
-    res.status(200).send(feedback);
+    if (err) {
+      handleError(res, err.message, 'Failed to send a feedback.');
+    } else {
+      console.log(result.rows[0]);
+      res.status(200).send(feedback);
+    }
   });
 
 });

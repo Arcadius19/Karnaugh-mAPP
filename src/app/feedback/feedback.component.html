@@ -4,26 +4,20 @@
 
 <form (ngSubmit)="onSubmit()" #feedbackForm="ngForm">
 
-
-    <label>Rate the app</label><br />
-    <div class="btn-group" data-toggle="buttons">
-      <label class="btn" [ngClass]="rating==1 ? 'btn-primary' : 'btn-default'">
-        <input type="radio" name="rating" ngModel value="1"> 1
-      </label>
-      <label class="btn" [ngClass]="rating==2 ? 'btn-primary' : 'btn-default'">
-        <input type="radio" name="rating" [(ngModel)]="rating" value="2"> 2
-      </label>
-      <label class="btn" [ngClass]="rating==3 ? 'btn-primary' : 'btn-default'">
-        <input type="radio" name="rating" [(ngModel)]="rating" [value]="3"> 3
-      </label>
-    </div>
-
+  <label>Rate the app</label><br />
+  <div class="btn-group" data-toggle="buttons">
+    <button *ngFor="let ratingValue of [1,2,3,4,5]"
+            class="btn" [ngClass]="rating==ratingValue ? 'btn-primary' : 'btn-default'"
+            (click)="rating = ratingValue">{{ratingValue}}
+    </button>
+  </div>
 
   <div class="form-group">
     <label for="comment">Comment</label>
     <textarea id="comment" class="form-control" rows="3" maxlength="1000" [(ngModel)]="comment"
               name="comment"></textarea>
   </div>
+
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 

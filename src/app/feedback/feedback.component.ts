@@ -12,6 +12,7 @@ export class FeedbackComponent implements OnInit {
   comment: string;
 
   submitted = false;
+  success = null;
 
   constructor(private contactService: ContactService) { }
 
@@ -19,11 +20,15 @@ export class FeedbackComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
     let feedback = new Feedback(this.rating, this.comment);
     this.contactService.sendFeedback(feedback)
       .subscribe(
-        response => console.log('Response (component): ', response),
-        error => console.log('Error (component): ', error)
+        response => {
+          console.log('Response (component): ', response);
+          this.success = true;
+        },
+        error => { this.success = false; }
       );
   }
 

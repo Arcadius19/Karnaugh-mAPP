@@ -28,7 +28,7 @@ const pool = new Pool({
 pool.query('CREATE TABLE IF NOT EXISTS Feedback(' +
   'id SERIAL PRIMARY KEY, ' +
   'rating SMALLINT CHECK (rating >= 1 AND rating <= 5), ' +
-  'content VARCHAR(1000));', (err, res) => {
+  'comment VARCHAR(1000));', (err, res) => {
   if (err) {
     console.log("ERROR: Failed to create a table. " + err.message)
   } else {

@@ -25,10 +25,15 @@ export class FeedbackComponent implements OnInit {
     this.contactService.sendFeedback(feedback)
       .subscribe(
         response => {
-          console.log('Response (component): ', response);
           this.success = true;
+          this.rating = null;
+          this.comment = null;
+          setTimeout(() => { this.success = null; }, 3000);
         },
-        error => { this.success = false; }
+        error => {
+          this.success = false;
+          setTimeout(() => { this.success = null; }, 4000);
+        }
       );
   }
 

@@ -3,6 +3,17 @@
 </div>
 
 <form (ngSubmit)="onSubmit()" #feedbackForm="ngForm">
+  <div class="panel-body" *ngIf="success == true">
+    <div class="alert alert-danger">
+      Thank you for your feedback!
+    </div>
+  </div>
+
+  <div class="panel-body" *ngIf="success == false">
+    <div class="alert alert-danger">
+      Sorry! There was a problem with submitting a form.
+    </div>
+  </div>
 
   <label>Rate the app</label><br />
   <div class="btn-group" data-toggle="buttons">

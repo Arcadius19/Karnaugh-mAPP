@@ -16,8 +16,8 @@ export class ContactService {
 
   constructor(private http: HttpClient) { }
 
-  sendFeedback(feedback: Feedback): Observable<Feedback> {
-    return this.http.post<Feedback>('api/feedback', feedback, httpOptions)
+  sendFeedback(feedback: Feedback): any {
+    return this.http.post('/api/feedback', JSON.stringify(feedback), httpOptions)
       .pipe(catchError(this.handleError));
   }
 
@@ -31,7 +31,7 @@ export class ContactService {
       console.error(`Server returned code ${error.status}, with a message: ${error.message}`);
     }
     // return an ErrorObservable with a user-facing error message
-    return new ErrorObservable( 'Something bad happened; please try again later.');
+    return new ErrorObservable( 'ERROR');
   }
 
 }

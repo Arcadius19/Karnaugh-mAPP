@@ -22,6 +22,7 @@ import {QuizMinimizeExprComponent} from './quiz/minimize-expr/quiz-minimize-expr
 import {PracticeLabelSquaresComponent} from './practice/practice-label-squares/practice-label-squares.component';
 import {TutorialComponent} from './tutorial/tutorial.component';
 import {ResolutionComponent} from './resolution/resolution.component';
+import {FeedbackComponent} from './feedback/feedback.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -91,8 +92,9 @@ const routes: Routes = [
       {path: '**', component: PageNotFoundComponent }
     ]
   },
-  { path: 'resolution', component: ResolutionComponent },
   { path: 'tutorial', component: TutorialComponent },
+  { path: 'resolution', component: ResolutionComponent },
+  { path: 'feedback', component: FeedbackComponent },
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

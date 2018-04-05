@@ -45,6 +45,7 @@ import {CompletionExUpdateService} from './quiz/completion-ex-update.service';
 import {TutorialComponent} from './tutorial/tutorial.component';
 import { KmapTutorialComponent } from './tutorial/kmap-tutorial/kmap-tutorial.component';
 import { ResolutionComponent } from './resolution/resolution.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import { ResolutionComponent } from './resolution/resolution.component';
     LabelSquaresComponent,
     TutorialComponent,
     KmapTutorialComponent,
-    ResolutionComponent
+    ResolutionComponent,
+    FeedbackComponent
   ],
   imports: [
     BrowserModule,

@@ -68,7 +68,6 @@ export class UserProgressComponent implements OnInit {
   }
 
   checkIfGroupCompleted(index): boolean {
-    console.log(this.exercises[index]);
     return this.exercises[index].questions.every(question => question.completed == true);
   }
 

@@ -62,15 +62,12 @@ export class InstantSolverComponent implements OnInit {
   }
 
   onSubmit(form: any): void {
-    console.log('Submitted value:', form);
     this.query = form.query;
     let evaluations = this.interKmapComponent.kmap.evaluate(this.query);
     this.interKmapComponent.marked = evaluations;
 
     this.dnfGroupsExpressions = BestGroupsSolver.findBestGroups(evaluations, true);
     this.cnfGroupsExpressions = BestGroupsSolver.findBestGroups(evaluations, false);
-    console.log('DNF groups: ', this.dnfGroupsExpressions);
-    console.log('CNF groups: ', this.cnfGroupsExpressions);
   }
 
   queryToMathJax() {

@@ -57,7 +57,7 @@ app.post('/api/feedback', (req, res) => {
     if (err) {
       handleError(res, err.message, 'Failed to send a feedback.');
     } else {
-      console.log(result.rows[0]);
+      console.log('Added new feedback: ', result.rows[0]);
       res.status(200).send(feedback);
     }
   });

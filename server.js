@@ -1,12 +1,12 @@
 const express = require('express');
 const http = require('http');
 const path = require('path');
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 const { Pool } = require('pg');
 
 function handleError(res, reason, message, code) {
-  console.log("ERROR: " + reason);
-  res.status(code || 500).send({"error": message});
+  console.log('ERROR: ' + reason);
+  res.status(code || 500).send({'error': message});
 }
 
 const app = express();
@@ -24,9 +24,12 @@ const pool = new Pool({
   ssl: true,
 });
 
-pool.query('CREATE TABLE IF NOT EXISTS Feedback(id SERIAL PRIMARY KEY, content VARCHAR(1000));', (err, res) => {
+pool.query('CREATE TABLE IF NOT EXISTS Feedback(' +
+  'id SERIAL PRIMARY KEY, ' +
+  'rating SMALLINT CHECK (rating >= 1 AND rating <= 5), ' +
+  'content VARCHAR(1000));', (err, res) => {
   if (err) console.log("ERROR: Failed to create a table. " + err.message);
-  console.log(res.rows[0]);
+  console.log('Table Feedback created or already in database.');
 });
 
 
@@ -36,15 +39,21 @@ app.set('port', port);
 const server = http.createServer(app);
 server.listen(port, () => console.log('Running'));
 
-app.post("/api/feedback", (req, res) => {
-  const request = req.body;
+app.post('/api/feedback', (req, res) => {
+  const feedback = req.body;
   console.log('request body: ', request);
 
-  pool.query('SELECT NOW() as now', (err, result) => {
-    if (err) handleError(res, err.message, "Failed to SELECT NOW().");
+  const rating = feedback.rating;
+  const comment = feedback.comment;
+
+  const query = 'INSERT INTO Feedback(rating, comment) VALUES($1, $2) RETURNING *';
+  const values = [rating, comment];
+
+  pool.query(query, values, (err, result) => {
+    if (err) handleError(res, err.message, 'Failed to send a feedback.');
 
     console.log(result.rows[0]);
-    res.status(200).send({"currentTime": result.rows[0]});
+    res.status(200).send(result.rows[0]);
   });
 
 });

@@ -1,3 +1,20 @@
-<p>
-  feedback works!
-</p>
+<div class="page-header">
+  <h1>Send Feedback <br /><small>Your voice matters</small></h1>
+</div>
+
+<form (ngSubmit)="onSubmit()" #feedbackForm="ngForm">
+  <div class="form-group">
+    <label for="comment">General Comment</label>
+    <textarea id="comment" class="form-control" rows="3" maxlength="1000" [(ngModel)]="comment"
+              name="comment"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+<br />
+<div class="panel panel-default">
+  <div class="panel-heading">Your comment</div>
+  <div class="panel-body">{{comment}}</div>
+</div>
+

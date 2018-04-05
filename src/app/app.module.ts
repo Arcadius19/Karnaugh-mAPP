@@ -46,6 +46,8 @@ import {TutorialComponent} from './tutorial/tutorial.component';
 import { KmapTutorialComponent } from './tutorial/kmap-tutorial/kmap-tutorial.component';
 import { ResolutionComponent } from './resolution/resolution.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import {HttpClientModule} from '@angular/common/http';
+import {ContactService} from './auxiliary/contact.service';
 
 
 @NgModule({
@@ -92,6 +94,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     ModalModule.forRoot(),
     TooltipModule.forRoot()
   ],
@@ -103,7 +106,8 @@ import { FeedbackComponent } from './feedback/feedback.component';
     ExKmapToExprService,
     MinimizeExprService,
     BsModalService,
-    CompletionExUpdateService
+    CompletionExUpdateService,
+    ContactService
   ],
   bootstrap: [AppComponent]
 })

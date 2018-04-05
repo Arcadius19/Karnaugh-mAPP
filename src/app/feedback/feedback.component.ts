@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ContactService} from '../auxiliary/contact.service';
+import {Feedback} from '../auxiliary/feedback';
 
 @Component({
   selector: 'app-feedback',
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./feedback.component.css']
 })
 export class FeedbackComponent implements OnInit {
+  rating: number;
+  comment: string;
 
-  constructor() { }
+  submitted = false;
+
+  constructor(private contactService: ContactService) { }
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    let feedback = new Feedback(this.rating, this.comment);
+    this.contactService.sendFeedback(feedback)
+      .subscribe(response => console.log('Lol: ', response));
   }
 
 }

@@ -31,7 +31,7 @@ client.query('SELECT table_schema,table_name FROM information_schema.tables;', (
 });
 
 client.query('CREATE TABLE IF NOT EXISTS Feedback(id SERIAL PRIMARY KEY, content VARCHAR(1000));', (err, res) => {
-  if (err) handleError(res, err.message, "Failed to create a table.");
+  if (err) console.log("ERROR: Failed to create a table. " + err.message);
   console.log('Table Feedback created');
 });
 

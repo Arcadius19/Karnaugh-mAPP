@@ -3,6 +3,11 @@ const http = require('http');
 const path = require('path');
 const { Client } = require('pg');
 
+function handleError(res, reason, message, code) {
+  console.log("ERROR: " + reason);
+  res.status(code || 500).json({"error": message});
+}
+
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -26,7 +31,7 @@ client.query('SELECT table_schema,table_name FROM information_schema.tables;', (
 });
 
 client.query('CREATE TABLE IF NOT EXISTS Feedback(id SERIAL PRIMARY KEY, content VARCHAR(1000));', (err, res) => {
-  if (err) throw err;
+  if (err) handleError(res, err.message, "Failed to create a table.");
   console.log('Table Feedback created');
 });
 
@@ -45,14 +50,16 @@ app.post("/api/feedback", (req, res) => {
   console.log(request);
 
   client.connect((err, res) => {
-    if (err) return next(err);
+    if (err) handleError(res, err.message, "Failed to connect.");
 
     client.query('SELECT NOW() as now', (err, res) => {
       done();
-      if (err) return next(err);
+      if (err) handleError(res, err.message, "Failed to SELECT NOW().");
 
       console.log(res.rows[0]);
       res.send(200);
     });
   });
+
+  client.end();
 });

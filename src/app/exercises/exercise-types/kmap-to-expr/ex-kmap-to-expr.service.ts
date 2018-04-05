@@ -27,17 +27,17 @@ let kmap = new KarnaughMap();
 
 let EXERCISES_TEST = [
   new ExKmapToExpr(kmap.mapToCells(kmap.evaluate('D')), 3, true),
-  new ExKmapToExpr(kmap.mapToCells(kmap.evaluate('A and C')), 3, true),
-  new ExKmapToExpr(kmap.mapToCells(kmap.evaluate('(A and C) or (B and not C)')), 4, true),
-  new ExKmapToExpr(kmap.mapToCells(kmap.evaluate('(A and B and D) or (not A and not C)')), 4, true),
-  new ExKmapToExpr([1, 3, 6, 14, 9, 11, 4, 12], 4, true),
-  new ExKmapToExpr([4, 12, 8, 13, 15, 6, 14, 10], 5, true),
-  new ExKmapToExpr([0, 4, 2, 6, 5, 7, 13, 15], 5, true),
-  new ExKmapToExpr([0, 4, 8, 2, 6, 5, 7, 13, 15, 10], 6, true),
-  new ExKmapToExpr([0, 8, 9, 6, 14, 10], 6, true),
-  new ExKmapToExpr([1, 4, 5, 7, 12, 15, 14, 8, 9], 7, true),
-  new ExKmapToExpr([0, 2, 4, 5, 7, 12, 13, 15, 14, 9], 7, true),
-  new ExKmapToExpr([3, 4, 5, 6, 13, 15, 14, 8, 11, 10], 8, true),
+  new ExKmapToExpr(kmap.mapToCells(kmap.evaluate('A and C')), 4, true),
+  new ExKmapToExpr(kmap.mapToCells(kmap.evaluate('(A and C) or (B and not C)')), 5, true),
+  new ExKmapToExpr(kmap.mapToCells(kmap.evaluate('(A and B and D) or (not A and not C)')), 5, true),
+  new ExKmapToExpr([1, 3, 6, 14, 9, 11, 4, 12], 5, true),
+  new ExKmapToExpr([4, 12, 8, 13, 15, 6, 14, 10], 6, true),
+  new ExKmapToExpr([0, 4, 2, 6, 5, 7, 13, 15], 6, true),
+  new ExKmapToExpr([0, 4, 8, 2, 6, 5, 7, 13, 15, 10], 7, true),
+  new ExKmapToExpr([0, 8, 9, 6, 14, 10], 7, true),
+  new ExKmapToExpr([1, 4, 5, 7, 12, 15, 14, 8, 9], 8, true),
+  new ExKmapToExpr([0, 2, 4, 5, 7, 12, 13, 15, 14, 9], 8, true),
+  new ExKmapToExpr([3, 4, 5, 6, 13, 15, 14, 8, 11, 10], 9, true),
 ];
 
 let EXERCISES_PRACTICE = [

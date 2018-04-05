@@ -5,7 +5,7 @@ import {Exercise} from '../../exercise';
 export class ExLabelSquares extends Exercise {
 
   constructor() {
-    super(1, 2);
+    super(1, 4);
     this.name = 'Label squares';
   }
 

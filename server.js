@@ -194,7 +194,7 @@ app.post('/api/user-testing', (req, res) => {
       handleError(res, err.message, 'Failed to submit a user testing form for Personal.');
     } else {
       console.log('Added new User Testing Personal response with an id: ', result.rows[0].id);
-      responseID = result.rows[0].id;
+      let responseID = result.rows[0].id;
 
       const queryGeneral = {
         text: 'INSERT INTO UTGeneral(id, navigation, beneficial, rating, comment) VALUES($1, $2, $3, $4, $5)',
@@ -208,22 +208,22 @@ app.post('/api/user-testing', (req, res) => {
 
       const queryTask1 = {
         text: 'INSERT INTO UTTask1(id, navigationEasy, feedbackInformative, comment) VALUES($1, $2, $3, $4)',
-        values: [responseID, task0.presentation, task0.helpful, task0.comment]
+        values: [responseID, task1.easyNavigation, task1.feedbackInformative, task1.comment]
       };
 
       const queryTask2 = {
         text: 'INSERT INTO UTTask2(id, labelSquares, exprToKmap, findBestGroups, nameGroup, kmapToExpr, minimiseExpr) VALUES($1, $2, $3, $4, $5, $6, $7)',
-        values: [responseID, task0.presentation, task0.helpful, task0.comment]
+        values: [responseID, task2.labelSquares, task2.exprToKmap, task2.findBestGroups, task2.nameGroup, task2.kmapToExpr, task2.minimiseExpr]
       };
 
       const queryTask3 = {
         text: 'INSERT INTO UTTask3(id, informativePoints, progress, reset, comment) VALUES($1, $2, $3, $4, $5)',
-        values: [responseID, task0.presentation, task0.helpful, task0.comment]
+        values: [responseID, task3.informativePoints, task3.progress, task3.reset, task3.comment]
       };
 
       const queryTask4 = {
         text: 'INSERT INTO UTTask4(id, navigation, syntax, parameters, presentation, stepsClear, comment) VALUES($1, $2, $3, $4, $5, $6, $7)',
-        values: [responseID, task0.presentation, task0.helpful, task0.comment]
+        values: [responseID, task4.navigation, task4.syntax, task4.parameters, task4.presentation, task4.stepsClear, task4.comment]
       };
 
       pool.query(queryGeneral, (err, result) => {

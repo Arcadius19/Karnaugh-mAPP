@@ -151,10 +151,12 @@ app.post('/api/feedback', (req, res) => {
     res.status(500).send({'error': 'All fields are empty'});
   }
 
-  const query = 'INSERT INTO Feedback(rating, comment) VALUES($1, $2) RETURNING *';
-  const values = [rating, comment];
+  const queryFeedback = {
+    text: 'INSERT INTO Feedback(submissionTime, rating, comment) VALUES(CURRENT_TIME, $1, $2) RETURNING *',
+    values: [rating, comment]
+  };
 
-  pool.query(query, values, (err, result) => {
+  pool.query(queryFeedback, (err, result) => {
     if (err) {
       handleError(res, err.message, 'Failed to send a feedback.');
     } else {
@@ -194,7 +196,7 @@ app.post('/api/user-testing', (req, res) => {
       handleError(res, err.message, 'Failed to submit a user testing form for Personal.');
     } else {
       console.log('Added new User Testing Personal response with an id: ', result.rows[0].id);
-      let responseID = result.rows[0].id;
+      responseID = result.rows[0].id;
 
       const queryGeneral = {
         text: 'INSERT INTO UTGeneral(id, navigation, beneficial, rating, comment) VALUES($1, $2, $3, $4, $5)',

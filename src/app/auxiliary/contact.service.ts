@@ -21,6 +21,11 @@ export class ContactService {
       .pipe(catchError(this.handleError));
   }
 
+  sendUserTestingResponse(utResponse: any): Observable<any> {
+    return this.http.post('/api/user-testing', JSON.stringify(utResponse), httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   // Adapted from https://angular.io/guide/http#error-handling
   private handleError(error: HttpErrorResponse | any) {
     if (error.error instanceof ErrorEvent) {

@@ -33,9 +33,9 @@
           <div class="btn-group btn-group-sm" data-toggle="buttons">
           <button *ngFor="let value of [{value: true, display: 'Yes'}, {value: false, display: 'No'}]"
                   class="btn btn-sm"
-                  [ngClass]="utForm.controls['personal'].controls['student'].value == value.value ? 'btn-primary' : 'btn-default'"
-                  (click)="utForm.controls['personal'].controls['student'].setValue(
-                  utForm.controls['personal'].controls['student'].value == value.value ? null : value.value)">
+                  [ngClass]="utForm.controls['personal'].controls['isStudent'].value == value.value ? 'btn-primary' : 'btn-default'"
+                  (click)="utForm.controls['personal'].controls['isStudent'].setValue(
+                  utForm.controls['personal'].controls['isStudent'].value == value.value ? null : value.value)">
             {{value.display}}
           </button>
         </div>
@@ -167,7 +167,7 @@
 
         <li class="list-group-item">
           <div class="form-group">
-            <label for="task1comment">4.Comment</label>
+            <label for="task1comment">3.Comment</label>
             <textarea id="task1comment" class="form-control" rows="3" maxlength="1000"
                       formControlName="comment"></textarea>
           </div>
@@ -331,7 +331,7 @@
     <div class="panel-heading" data-toggle="collapse" href="#collapse6">
       <strong>Task 4:</strong> Find the minimal conjunctive normal form of the expression:
       <span appMathJax mathString="\( A \land B \iff (\neg C \implies D) \)"></span>.
-      Rate how you feel about the following statement based on this experience:
+      Rate how you feel about the following statements based on this experience:
     </div>
     <div class="panel-collapse collapse" id="collapse6">
       <ul class="list-group">
@@ -403,7 +403,7 @@
 
         <li class="list-group-item">
           <div class="form-group">
-            <label for="task4comment">4.Comment</label>
+            <label for="task4comment">6.Comment</label>
             <textarea id="task4comment" class="form-control" rows="3" maxlength="1000"
                       formControlName="comment"></textarea>
           </div>

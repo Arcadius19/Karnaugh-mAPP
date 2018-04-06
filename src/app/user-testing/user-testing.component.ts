@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import {ContactService} from '../auxiliary/contact.service';
 
 @Component({
   selector: 'app-user-testing',
@@ -10,7 +11,7 @@ export class UserTestingComponent implements OnInit {
   utForm: FormGroup;
   success;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private contactService: ContactService, private fb: FormBuilder) {
   }
 
   ngOnInit() {
@@ -20,7 +21,7 @@ export class UserTestingComponent implements OnInit {
   createForm() {
     this.utForm = this.fb.group({ // <-- the parent FormGroup
       personal: this.fb.group({
-        student: null,
+        isStudent: null,
         tookCourse: null,
         kmapHear: null,
         kmapUse: null
@@ -68,8 +69,18 @@ export class UserTestingComponent implements OnInit {
 
   onSubmit() {
     this.ngOnInit();
-    this.success = true;
-    setTimeout(() => { this.success = null; }, 4000);
+    this.contactService.sendFeedback(this.utForm.value)
+      .subscribe(
+        response => {
+          this.ngOnInit();
+          this.success = true;
+          setTimeout(() => { this.success = null; }, 4000);
+        },
+        error => {
+          this.success = false;
+          setTimeout(() => { this.success = null; }, 4000);
+        }
+      );
   }
 
 }

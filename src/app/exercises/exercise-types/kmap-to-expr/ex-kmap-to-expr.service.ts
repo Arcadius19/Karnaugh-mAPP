@@ -44,7 +44,7 @@ let EXERCISES_PRACTICE = [
   new ExKmapToExpr(kmap.mapToCells(kmap.evaluate('B')), null),
   new ExKmapToExpr(kmap.mapToCells(kmap.evaluate('A and C')), null),
   new ExKmapToExpr(kmap.mapToCells(kmap.evaluate('(A and D) or (not B and not C)')), null),
-  new ExKmapToExpr(kmap.mapToCells(kmap.evaluate('(B and not C and D) or (not A and B')), null),
+  new ExKmapToExpr(kmap.mapToCells(kmap.evaluate('(B and not C and D) or (not A and B)')), null),
   new ExKmapToExpr([0, 4, 1, 8, 5, 7, 13, 15], null),
   new ExKmapToExpr([0, 1, 3, 2, 6, 7, 8, 9, 12, 13], null),
   new ExKmapToExpr([5, 7, 6, 13, 14, 8, 9, 10], null),

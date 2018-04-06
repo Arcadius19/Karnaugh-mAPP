@@ -23,6 +23,7 @@ import {PracticeLabelSquaresComponent} from './practice/practice-label-squares/p
 import {TutorialComponent} from './tutorial/tutorial.component';
 import {ResolutionComponent} from './resolution/resolution.component';
 import {FeedbackComponent} from './feedback/feedback.component';
+import {UserTestingComponent} from './user-testing/user-testing.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -95,6 +96,7 @@ const routes: Routes = [
   { path: 'tutorial', component: TutorialComponent },
   { path: 'resolution', component: ResolutionComponent },
   { path: 'feedback', component: FeedbackComponent },
+  { path: 'user-testing', component: UserTestingComponent },
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

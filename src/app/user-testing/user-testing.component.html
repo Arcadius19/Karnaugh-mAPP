@@ -1,0 +1,491 @@
+<div class="page-header">
+  <h1>User Testing <br /><small>Let's make this app better together!</small></h1>
+</div>
+
+<div class="panel-body submit-alert" *ngIf="success == true">
+  <div class="alert alert-success">
+    Thank you for participation in User Testing!
+  </div>
+</div>
+
+<div class="panel-body submit-alert" *ngIf="success == false">
+  <div class="alert alert-danger">
+    Oops! There was a problem with submitting a Sser Testing form.
+  </div>
+</div>
+
+<h3>Acknowledgment</h3>
+<div class="text-justify">
+  The following page is indicated for User Testing. If you would like to help to improve this app, please, take part in
+  the test by performing the tasks and answering the questions specified below. Participation is entirely voluntary.
+  You can answer any questions you want, i.e. you do not have to fill in all fields. You can also quit the form at
+  any time you like. The following form is entirely anonymous. Please, refrain from completing the user
+  testing more than once.
+</div>
+
+<h3>Instructions</h3>
+<div class="text-justify">
+  You will be asked to perform several tasks. Attempt the tasks in the application open in a new tab or window as
+  your input will be erased when navigating across the app. You are not required to complete all tasks nor to answer
+  all the questions. When the question uses the Likert scale, 1 means <em>the least relevant/strongly
+  disagree/tragedy</em>
+  and 5 means <em>the most relevant/strongly agree/awesome</em>.
+</div>
+
+<h3>User Testing Form</h3>
+<form [formGroup]="utForm" (ngSubmit)="onSubmit()">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" href="#collapse1"><strong>Personal Information</strong></div>
+    <div class="panel-collapse collapse" id="collapse1">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <label>1. Are you a student?</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+          <button *ngFor="let value of [{value: true, display: 'Yes'}, {value: false, display: 'No'}]"
+                  class="btn btn-sm"
+                  [ngClass]="utForm.controls['personal'].controls['student'].value == value.value ? 'btn-primary' : 'btn-default'"
+                  (click)="utForm.controls['personal'].controls['student'].setValue(
+                  utForm.controls['personal'].controls['student'].value == value.value ? null : value.value)">
+            {{value.display}}
+          </button>
+        </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>2. Have you taken Informatics 1 - Computation and Logic course at the University of
+            Edinburgh?</label><br />
+          <div class="btn-group" data-toggle="buttons">
+        <button *ngFor="let value of [{value: true, display: 'Yes'}, {value: false, display: 'No'}]"
+                class="btn btn-sm"
+                [ngClass]="utForm.controls['personal'].controls['tookCourse'].value == value.value ? 'btn-primary' : 'btn-default'"
+                (click)="utForm.controls['personal'].controls['tookCourse'].setValue(
+                utForm.controls['personal'].controls['tookCourse'].value == value.value ? null : value.value)">
+          {{value.display}}
+        </button>
+      </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>3. Have you heard about Karnaugh map before?</label><br />
+          <div class="btn-group" data-toggle="buttons">
+            <button *ngFor="let value of [{value: true, display: 'Yes'}, {value: false, display: 'No'}]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['personal'].controls['kmapHear'].value == value.value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['personal'].controls['kmapHear'].setValue(
+                    utForm.controls['personal'].controls['kmapHear'].value == value.value ? null : value.value)">
+              {{value.display}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>4. Do you know how to use Karnaugh map?</label><br />
+          <div class="btn-group" data-toggle="buttons">
+        <button *ngFor="let value of [{value: true, display: 'Yes'}, {value: false, display: 'No'}]"
+                class="btn btn-sm"
+                [ngClass]="utForm.controls['personal'].controls['kmapUse'].value == value.value ? 'btn-primary' : 'btn-default'"
+                (click)="utForm.controls['personal'].controls['kmapUse'].setValue(
+                utForm.controls['personal'].controls['kmapUse'].value == value.value ? null : value.value)">
+          {{value.display}}
+        </button>
+      </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default" formGroupName="task0">
+    <div class="panel-heading" data-toggle="collapse" href="#collapse2">
+      <strong>Task 0:</strong> If you are not familiar with Karnaugh Map at all or you are
+      stuck in any question because of the lack of complete knowledge about Karnaugh map,
+      please refer to the Tutorial page and answer the following questions:
+    </div>
+    <div class="panel-collapse collapse" id="collapse2">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <label>1. Information on the Tutorial page is presented in a pleasant and concise way.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task0'].controls['presentation'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task0'].controls['presentation'].setValue(
+                  utForm.controls['task0'].controls['presentation'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>2. I found the information on the Tutorial page helpful.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task0'].controls['helpful'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task0'].controls['helpful'].setValue(
+                  utForm.controls['task0'].controls['helpful'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <div class="form-group">
+            <label for="task0comment">3.Comment</label>
+            <textarea id="task0comment" class="form-control" rows="3" maxlength="1000"
+                      formControlName="comment"></textarea>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default" formGroupName="task1">
+    <div class="panel-heading" data-toggle="collapse" href="#collapse3">
+      <strong>Task 1:</strong> Go to Practice tab and complete any question from <em>Minimise the Expression</em>
+      set. Rate how you feel about the following statements relating to your experience:
+    </div>
+    <div class="panel-collapse collapse" id="collapse3">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <label>1. I found it easy to find the question.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task1'].controls['easyNavigation'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task1'].controls['easyNavigation'].setValue(
+                  utForm.controls['task1'].controls['easyNavigation'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>2. When I answered the question wrong, feedback was informative enough to find a mistake I made. (Do
+            not choose anything if you completed the question successfully at the first attempt)
+            .</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task1'].controls['feedbackInformative'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task1'].controls['feedbackInformative'].setValue(
+                  utForm.controls['task1'].controls['feedbackInformative'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <div class="form-group">
+            <label for="task1comment">4.Comment</label>
+            <textarea id="task1comment" class="form-control" rows="3" maxlength="1000"
+                      formControlName="comment"></textarea>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default" formGroupName="task2">
+    <div class="panel-heading" data-toggle="collapse" href="#collapse4">
+      <strong>Task 2:</strong> Go to Quiz tab and attempt (no need to complete) any question of each type. Rate how
+      clear the instructions are.
+    </div>
+    <div class="panel-collapse collapse" id="collapse4">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <label>1. Label Squares</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task2'].controls['labelSquares'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task2'].controls['labelSquares'].setValue(
+                  utForm.controls['task2'].controls['labelSquares'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>2. Expression to Karnaugh Map</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task2'].controls['exprToKmap'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task2'].controls['exprToKmap'].setValue(
+                  utForm.controls['task2'].controls['exprToKmap'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>3. Find the Best Groups</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task2'].controls['findBestGroups'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task2'].controls['findBestGroups'].setValue(
+                  utForm.controls['task2'].controls['findBestGroups'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>4. Name the Group</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task2'].controls['nameGroup'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task2'].controls['nameGroup'].setValue(
+                  utForm.controls['task2'].controls['nameGroup'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>5. Karnaugh Map to Expression</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task2'].controls['kmapToExpr'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task2'].controls['kmapToExpr'].setValue(
+                  utForm.controls['task2'].controls['kmapToExpr'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>6. Minimise the Expression</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task2'].controls['minimiseExpr'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task2'].controls['minimiseExpr'].setValue(
+                  utForm.controls['task2'].controls['minimiseExpr'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default" formGroupName="task3">
+    <div class="panel-heading" data-toggle="collapse" href="#collapse5">
+      <strong>Task 3:</strong> Complete any question in the Quiz section. Then attempt to find the information
+      on your general progress and clear all this information. Rate how you feel about the statements below based on
+      your experience:
+    </div>
+    <div class="panel-collapse collapse" id="collapse5">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <label>1. I was clearly notified whether my answer was correct and a number of points I was awarded for it
+            .</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task3'].controls['informativePoints'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task3'].controls['informativePoints'].setValue(
+                  utForm.controls['task3'].controls['informativePoints'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>2. I found it easy to find all information about my general progress in Quiz.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task3'].controls['progress'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task3'].controls['progress'].setValue(
+                  utForm.controls['task3'].controls['progress'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>3. I found it easy to reset all the information about my progress.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task3'].controls['reset'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task3'].controls['reset'].setValue(
+                  utForm.controls['task3'].controls['reset'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+
+        <li class="list-group-item">
+          <div class="form-group">
+            <label for="task3comment">4.Comment</label>
+            <textarea id="task3comment" class="form-control" rows="3" maxlength="1000"
+                      formControlName="comment"></textarea>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default" formGroupName="task4">
+    <div class="panel-heading" data-toggle="collapse" href="#collapse6">
+      <strong>Task 4:</strong> Find the minimal conjunctive normal form of the expression: A &and; B &rArr; (&not; C
+      &hArr; D) <span appMathJax mathString="\( A \land B \iff (\neg C \implies D) \)"></span>. Rate how you feel
+      about the following statement based on this experience:
+    </div>
+    <div class="panel-collapse collapse" id="collapse6">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <label>1. It was clear where to navigate to find the solution for the problem.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task4'].controls['navigation'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task4'].controls['navigation'].setValue(
+                  utForm.controls['task4'].controls['navigation'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>2. The instructions on how to type in the expression were clear.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task4'].controls['syntax'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task4'].controls['syntax'].setValue(
+                  utForm.controls['task4'].controls['syntax'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>3. It was clear how to adjust parameters of the tool to convert the expression to the desired form
+            .</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task4'].controls['parameters'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task4'].controls['parameters'].setValue(
+                  utForm.controls['task4'].controls['parameters'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>4. Final solution was presented in a clear way.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task4'].controls['presentation'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task4'].controls['presentation'].setValue(
+                  utForm.controls['task4'].controls['presentation'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>5. It is easy to see how the final solution was obtained.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['task4'].controls['stepsClear'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task4'].controls['stepsClear'].setValue(
+                  utForm.controls['task4'].controls['stepsClear'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <div class="form-group">
+            <label for="task4comment">4.Comment</label>
+            <textarea id="task4comment" class="form-control" rows="3" maxlength="1000"
+                      formControlName="comment"></textarea>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default" formGroupName="general">
+    <div class="panel-heading" data-toggle="collapse" href="#collapse7">
+      <strong>General Feedback</strong>
+    </div>
+    <div class="panel-collapse collapse" id="collapse7">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <label>1. I believe the website is easy to navigate around.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['general'].controls['navigation'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['general'].controls['navigation'].setValue(
+                  utForm.controls['general'].controls['navigation'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>2. I believe the website's content may be beneficial for people learning abut Karnaugh
+            map.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['general'].controls['beneficial'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['general'].controls['beneficial'].setValue(
+                  utForm.controls['general'].controls['beneficial'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>3. Rate the app in general.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['general'].controls['rating'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['general'].controls['rating'].setValue(
+                  utForm.controls['general'].controls['rating'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <div class="form-group">
+            <label for="generalcomment">4.Comment</label>
+            <textarea id="generalcomment" class="form-control" rows="3" maxlength="1000"
+                      formControlName="comment"></textarea>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="!utForm.valid">Submit</button>
+
+</form>
+
+<pre>
+  {{utForm.value | json}}
+</pre>

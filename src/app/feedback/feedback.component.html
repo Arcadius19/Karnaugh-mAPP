@@ -2,24 +2,25 @@
   <h1>Send Feedback <br /><small>Your voice matters</small></h1>
 </div>
 
+<div class="panel-body" *ngIf="success == true">
+  <div class="alert alert-success">
+    Thank you for your feedback!
+  </div>
+</div>
+
+<div class="panel-body" *ngIf="success == false">
+  <div class="alert alert-danger">
+    Sorry! There was a problem with submitting a form.
+  </div>
+</div>
+
 <form (ngSubmit)="onSubmit()" #feedbackForm="ngForm">
-  <div class="panel-body" *ngIf="success == true">
-    <div class="alert alert-success">
-      Thank you for your feedback!
-    </div>
-  </div>
 
-  <div class="panel-body" *ngIf="success == false">
-    <div class="alert alert-danger">
-      Sorry! There was a problem with submitting a form.
-    </div>
-  </div>
-
-  <label>Rate the app</label><br />
+  <h4>Rate the app</h4>
   <div class="btn-group" data-toggle="buttons">
     <button *ngFor="let ratingValue of [1,2,3,4,5]"
             class="btn" [ngClass]="rating==ratingValue ? 'btn-primary' : 'btn-default'"
-            (click)="rating = ratingValue">{{ratingValue}}
+            (click)="rating = (rating != ratingValue) ? ratingValue : null">{{ratingValue}}
     </button>
   </div>
 

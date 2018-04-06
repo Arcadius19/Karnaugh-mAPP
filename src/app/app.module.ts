@@ -48,6 +48,7 @@ import { ResolutionComponent } from './resolution/resolution.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ContactService} from './auxiliary/contact.service';
+import { UserTestingComponent } from './user-testing/user-testing.component';
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import {ContactService} from './auxiliary/contact.service';
     TutorialComponent,
     KmapTutorialComponent,
     ResolutionComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    UserTestingComponent
   ],
   imports: [
     BrowserModule,

@@ -79,6 +79,7 @@ export class KarnaughMap {
       }
       // that should never happen as the query was first validated in the form component
     } catch (err) {
+      console.log('Cannot parse:', query);
       console.log(err);
     }
 

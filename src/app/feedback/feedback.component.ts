@@ -32,7 +32,7 @@ export class FeedbackComponent implements OnInit {
         },
         error => {
           this.success = false;
-          setTimeout(() => { this.success = null; }, 4000);
+          setTimeout(() => { this.success = null; }, 3000);
         }
       );
   }

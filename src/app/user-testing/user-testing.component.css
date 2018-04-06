@@ -1,0 +1,13 @@
+.form-line {
+  margin-bottom: 10px;
+}
+
+.panel-heading:hover {
+  cursor: pointer;
+  background-color: #e1e1e1;
+}
+
+/*.submit-alert {*/
+  /*position: fixed;*/
+  /*top: 30px;*/
+/*}*/

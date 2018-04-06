@@ -48,78 +48,77 @@ pool.query('CREATE TABLE IF NOT EXISTS UTPersonal(' +
     console.log("ERROR: Failed to create a table UTPersonal. " + err.message)
   } else {
     console.log('Table UTPersonal created or already in database.');
+
+    pool.query('CREATE TABLE IF NOT EXISTS UTGeneral(' +
+      'id               INT         REFERENCES UTPersonal(id), ' +
+      'navigation       SMALLINT    CHECK (navigation >= 1 AND navigation <= 5), ' +
+      'beneficial       SMALLINT    CHECK (beneficial >= 1 AND beneficial <= 5), ' +
+      'rating           SMALLINT    CHECK (rating >= 1 AND rating <= 5), ' +
+      'comment          VARCHAR(1000));', (err, res) => {
+      if (err) {
+        console.log("ERROR: Failed to create a table UTGeneral. " + err.message)
+      } else {
+        console.log('Table UTGeneral created or already in database.');
+      }
+    });
+
+
+    pool.query('CREATE TABLE IF NOT EXISTS UTTask1(' +
+      'id                   INT         REFERENCES UTPersonal(id), ' +
+      'navigationEasy       SMALLINT    CHECK (navigationEasy >= 1 AND navigationEasy <= 5), ' +
+      'feedbackInformative  SMALLINT    CHECK (feedbackInformative >= 1 AND feedbackInformative <= 5), ' +
+      'comment              VARCHAR(1000));', (err, res) => {
+      if (err) {
+        console.log("ERROR: Failed to create a table UTTask1. " + err.message)
+      } else {
+        console.log('Table UTTask1 created or already in database.');
+      }
+    });
+
+    pool.query('CREATE TABLE IF NOT EXISTS UTTask2(' +
+      'id                   INT         REFERENCES UTPersonal(id), ' +
+      'labelSquares         SMALLINT    CHECK (labelSquares >= 1 AND labelSquares <= 5), ' +
+      'exprToKmap           SMALLINT    CHECK (exprToKmap >= 1 AND exprToKmap <= 5), ' +
+      'findBestGroups       SMALLINT    CHECK (findBestGroups >= 1 AND findBestGroups <= 5), ' +
+      'nameGroup            SMALLINT    CHECK (nameGroup >= 1 AND nameGroup <= 5), ' +
+      'kmapToExpr           SMALLINT    CHECK (kmapToExpr >= 1 AND kmapToExpr <= 5), ' +
+      'minimiseExpr         SMALLINT    CHECK (minimiseExpr >= 1 AND minimiseExpr <= 5));', (err, res) => {
+      if (err) {
+        console.log("ERROR: Failed to create a table UTTask2. " + err.message)
+      } else {
+        console.log('Table UTTask2 created or already in database.');
+      }
+    });
+
+    pool.query('CREATE TABLE IF NOT EXISTS UTTask3(' +
+      'id                   INT         REFERENCES UTPersonal(id), ' +
+      'informativePoints    SMALLINT    CHECK (informativePoints >= 1 AND informativePoints <= 5), ' +
+      'progress             SMALLINT    CHECK (progress >= 1 AND progress <= 5), ' +
+      'reset                SMALLINT    CHECK (reset >= 1 AND reset <= 5), ' +
+      'comment              VARCHAR(1000));', (err, res) => {
+      if (err) {
+        console.log("ERROR: Failed to create a table UTTask3. " + err.message)
+      } else {
+        console.log('Table UTTask3 created or already in database.');
+      }
+    });
+
+    pool.query('CREATE TABLE IF NOT EXISTS UTTask4(' +
+      'id            INT         REFERENCES UTPersonal(id), ' +
+      'navigation    SMALLINT    CHECK (navigation >= 1 AND navigation <= 5), ' +
+      'syntax        SMALLINT    CHECK (syntax >= 1 AND syntax <= 5), ' +
+      'parameters    SMALLINT    CHECK (parameters >= 1 AND parameters <= 5), ' +
+      'presentation  SMALLINT    CHECK (presentation >= 1 AND presentation <= 5), ' +
+      'stepsClear    SMALLINT    CHECK (stepsClear >= 1 AND stepsClear <= 5), ' +
+      'comment       VARCHAR(1000));', (err, res) => {
+      if (err) {
+        console.log("ERROR: Failed to create a table UTTask4. " + err.message)
+      } else {
+        console.log('Table UTTask4 created or already in database.');
+      }
+    });
   }
 });
-
-pool.query('CREATE TABLE IF NOT EXISTS UTGeneral(' +
-  'id               INT         REFERENCES UTPersonal(id), ' +
-  'navigation       SMALLINT    CHECK (navigation >= 1 AND navigation <= 5), ' +
-  'beneficial       SMALLINT    CHECK (beneficial >= 1 AND beneficial <= 5), ' +
-  'rating           SMALLINT    CHECK (rating >= 1 AND rating <= 5), ' +
-  'comment          VARCHAR(1000));', (err, res) => {
-  if (err) {
-    console.log("ERROR: Failed to create a table UTGeneral. " + err.message)
-  } else {
-    console.log('Table UTGeneral created or already in database.');
-  }
-});
-
-
-pool.query('CREATE TABLE IF NOT EXISTS UTTask1(' +
-  'id                   INT         REFERENCES UTPersonal(id), ' +
-  'navigationEasy       SMALLINT    CHECK (navigationEasy >= 1 AND navigationEasy <= 5), ' +
-  'feedbackInformative  SMALLINT    CHECK (feedbackInformative >= 1 AND feedbackInformative <= 5), ' +
-  'comment              VARCHAR(1000));', (err, res) => {
-  if (err) {
-    console.log("ERROR: Failed to create a table UTTask1. " + err.message)
-  } else {
-    console.log('Table UTTask1 created or already in database.');
-  }
-});
-
-pool.query('CREATE TABLE IF NOT EXISTS UTTask2(' +
-  'id                   INT         REFERENCES UTPersonal(id), ' +
-  'labelSquares         SMALLINT    CHECK (labelSquares >= 1 AND labelSquares <= 5), ' +
-  'exprToKmap           SMALLINT    CHECK (exprToKmap >= 1 AND exprToKmap <= 5), ' +
-  'findBestGroups       SMALLINT    CHECK (findBestGroups >= 1 AND findBestGroups <= 5), ' +
-  'nameGroup            SMALLINT    CHECK (nameGroup >= 1 AND nameGroup <= 5), ' +
-  'kmapToExpr           SMALLINT    CHECK (kmapToExpr >= 1 AND kmapToExpr <= 5), ' +
-  'minimiseExpr         SMALLINT    CHECK (minimiseExpr >= 1 AND minimiseExpr <= 5));', (err, res) => {
-  if (err) {
-    console.log("ERROR: Failed to create a table UTTask2. " + err.message)
-  } else {
-    console.log('Table UTTask2 created or already in database.');
-  }
-});
-
-pool.query('CREATE TABLE IF NOT EXISTS UTTask3(' +
-  'id                   INT         REFERENCES UTPersonal(id), ' +
-  'informativePoints    SMALLINT    CHECK (informativePoints >= 1 AND informativePoints <= 5), ' +
-  'progress             SMALLINT    CHECK (progress >= 1 AND progress <= 5), ' +
-  'reset                SMALLINT    CHECK (reset >= 1 AND reset <= 5), ' +
-  'comment              VARCHAR(1000));', (err, res) => {
-  if (err) {
-    console.log("ERROR: Failed to create a table UTTask3. " + err.message)
-  } else {
-    console.log('Table UTTask3 created or already in database.');
-  }
-});
-
-pool.query('CREATE TABLE IF NOT EXISTS UTTask4(' +
-  'id            INT         REFERENCES UTPersonal(id), ' +
-  'navigation    SMALLINT    CHECK (navigation >= 1 AND navigation <= 5), ' +
-  'syntax        SMALLINT    CHECK (syntax >= 1 AND syntax <= 5), ' +
-  'parameters    SMALLINT    CHECK (parameters >= 1 AND parameters <= 5), ' +
-  'presentation  SMALLINT    CHECK (presentation >= 1 AND presentation <= 5), ' +
-  'stepsClear    SMALLINT    CHECK (stepsClear >= 1 AND stepsClear <= 5), ' +
-  'comment       VARCHAR(1000));', (err, res) => {
-  if (err) {
-    console.log("ERROR: Failed to create a table UTTask4. " + err.message)
-  } else {
-    console.log('Table UTTask4 created or already in database.');
-  }
-});
-
 
 const port = process.env.PORT || 3000;
 app.set('port', port);
@@ -155,7 +154,7 @@ app.post('/api/feedback', (req, res) => {
 
 app.post('/api/user-testing', (req, res) => {
   const utForm = req.body;
-  console.log('User Testing form submitted: ', feedback);
+  console.log('User Testing form submitted: ', utForm);
 
   const personal = utForm.personal;
   const general = utForm.general;
@@ -171,6 +170,7 @@ app.post('/api/user-testing', (req, res) => {
       task2 == null && task3 == null && task4 == null) {
     console.log('ERROR: ' + 'All fields are empty');
     res.status(500).send({'error': 'All fields are empty'});
+    return;
   }
 
   const query = 'INSERT INTO UTPersonal(submissionTime, isStudent, tookCourse, kmapHear, kmapUse) VALUES(timestamp, $1, $2, $3, $4) RETURNING id';

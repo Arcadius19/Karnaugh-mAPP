@@ -68,8 +68,7 @@ export class UserTestingComponent implements OnInit {
   }
 
   onSubmit() {
-    this.ngOnInit();
-    this.contactService.sendFeedback(this.utForm.value)
+    this.contactService.sendUserTestingResponse(this.utForm.value)
       .subscribe(
         response => {
           this.ngOnInit();

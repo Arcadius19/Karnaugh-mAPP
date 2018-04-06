@@ -177,8 +177,6 @@ app.post('/api/user-testing', (req, res) => {
   const task3 = utForm.task4;
   const task4 = utForm.task4;
 
-  var responseID;
-
   if (personal == null && general == null && task0 == null && task1 == null &&
       task2 == null && task3 == null && task4 == null) {
     console.log('ERROR: ' + 'All fields are empty');
@@ -195,7 +193,7 @@ app.post('/api/user-testing', (req, res) => {
     if (err) {
       handleError(res, err.message, 'Failed to submit a user testing form for Personal.');
     } else {
-      console.log('Added new User Testing Personal response with an id: ', result.rows[0]);
+      console.log('Added new User Testing Personal response with an id: ', result.rows[0].id);
       responseID = result.rows[0].id;
 
       const queryGeneral = {

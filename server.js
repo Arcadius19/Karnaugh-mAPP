@@ -205,7 +205,7 @@ app.post('/api/user-testing', (req, res) => {
           handleError(res, err.message, 'Failed to submit a user testing response for General.');
         } else {
           console.log('Added new User Testing General response with an id: ', result.rows[0]);
-          responseID = result.rows[0];
+          responseID = result.rows[0].id;
           res.status(200).send(utForm);
         }
       });

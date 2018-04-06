@@ -27,42 +27,42 @@ export class UserTestingComponent implements OnInit {
         kmapUse: null
       }),
       task0: this.fb.group({
-        presentation: '',
-        helpful: '',
-        comment: ''
+        presentation: null,
+        helpful: null,
+        comment: null
       }),
       task1: this.fb.group({
-        easyNavigation: '',
-        feedbackInformative: '',
-        comment: ''
+        easyNavigation: null,
+        feedbackInformative: null,
+        comment: null
       }),
       task2: this.fb.group({
-        labelSquares: '',
-        exprToKmap: '',
-        findBestGroups: '',
-        nameGroup: '',
-        kmapToExpr: '',
-        minimiseExpr: ''
+        labelSquares: null,
+        exprToKmap: null,
+        findBestGroups: null,
+        nameGroup: null,
+        kmapToExpr: null,
+        minimiseExpr: null
       }),
       task3: this.fb.group({
-        informativePoints: '',
-        progress: '',
-        reset: '',
-        comment: ''
+        informativePoints: null,
+        progress: null,
+        reset: null,
+        comment: null
       }),
       task4: this.fb.group({
-        navigation: '',
-        syntax: '',
-        parameters: '',
-        presentation: '',
-        stepsClear: '',
-        comment: ''
+        navigation: null,
+        syntax: null,
+        parameters: null,
+        presentation: null,
+        stepsClear: null,
+        comment: null
       }),
       general: this.fb.group({
-        navigation: '',
-        beneficial: '',
-        rating: '',
-        comment: ''
+        navigation: null,
+        beneficial: null,
+        rating: null,
+        comment: null
       })
     });
   }

@@ -43,7 +43,7 @@ pool.query('CREATE TABLE IF NOT EXISTS UTPersonal(' +
   'submissionTime   TIMESTAMP, ' +
   'isStudent        BOOLEAN, ' +
   'tookCourse       BOOLEAN, ' +
-  'kmapHear        BOOLEAN, ' +
+  'kmapHear         BOOLEAN, ' +
   'kmapUse          BOOLEAN);', (err, res) => {
   if (err) {
     console.log("ERROR: Failed to create a table UTPersonal. " + err.message)
@@ -179,6 +179,15 @@ app.post('/api/user-testing', (req, res) => {
   const task3 = utForm.task4;
   const task4 = utForm.task4;
 
+  let responseID;
+
+  if (personal == undefined || general == undefined || task0 == undefined || task1 == undefined ||
+    task2 == undefined || task3 == undefined || task4 == undefined) {
+    console.log('ERROR: ' + 'Some fields are undefined');
+    res.status(500).send({'error': 'Some fields are undefined'});
+    return;
+  }
+
   if (personal == null && general == null && task0 == null && task1 == null &&
       task2 == null && task3 == null && task4 == null) {
     console.log('ERROR: ' + 'All fields are empty');
@@ -196,7 +205,7 @@ app.post('/api/user-testing', (req, res) => {
       handleError(res, err.message, 'Failed to submit a user testing form for Personal.');
     } else {
       console.log('Added new User Testing Personal response with an id: ', result.rows[0].id);
-      responseID = result.rows[0].id;
+      responseID = parseInt(result.rows[0].id);
 
       const queryGeneral = {
         text: 'INSERT INTO UTGeneral(id, navigation, beneficial, rating, comment) VALUES($1, $2, $3, $4, $5)',

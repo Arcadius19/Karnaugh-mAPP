@@ -177,7 +177,7 @@ app.post('/api/user-testing', (req, res) => {
   const task3 = utForm.task4;
   const task4 = utForm.task4;
 
-  let responseID;
+  var responseID;
 
   if (personal == null && general == null && task0 == null && task1 == null &&
       task2 == null && task3 == null && task4 == null) {

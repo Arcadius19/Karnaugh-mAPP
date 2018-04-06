@@ -26,6 +26,8 @@ const pool = new Pool({
   ssl: true,
 });
 
+
+// ====== INITIALIZING DATABASE (if does not exist) =====
 pool.query('CREATE TABLE IF NOT EXISTS Feedback(' +
   'id               SERIAL      PRIMARY KEY, ' +
   'submissionTime   TIMESTAMP, ' +
@@ -152,7 +154,7 @@ app.post('/api/feedback', (req, res) => {
   }
 
   const queryFeedback = {
-    text: 'INSERT INTO Feedback(submissionTime, rating, comment) VALUES(CURRENT_TIME, $1, $2) RETURNING *',
+    text: 'INSERT INTO Feedback(submissionTime, rating, comment) VALUES(CURRENT_TIMESTAMP, $1, $2) RETURNING *',
     values: [rating, comment]
   };
 

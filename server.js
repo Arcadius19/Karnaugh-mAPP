@@ -186,27 +186,100 @@ app.post('/api/user-testing', (req, res) => {
     return;
   }
 
-  const query = 'INSERT INTO UTPersonal(submissionTime, isStudent, tookCourse, kmapHear, kmapUse) VALUES(CURRENT_TIMESTAMP, $1, $2, $3, $4) RETURNING id';
-  const values = [personal.isStudent, personal.tookCourse, personal.kmapHear, personal.kmapUse];
+  const queryPersonal = {
+    text: 'INSERT INTO UTPersonal(submissionTime, isStudent, tookCourse, kmapHear, kmapUse) VALUES(CURRENT_TIMESTAMP, $1, $2, $3, $4) RETURNING id',
+    values: [personal.isStudent, personal.tookCourse, personal.kmapHear, personal.kmapUse]
+  };
 
-  pool.query(query, values, (err, result) => {
+  pool.query(queryPersonal, (err, result) => {
     if (err) {
       handleError(res, err.message, 'Failed to submit a user testing form for Personal.');
     } else {
       console.log('Added new User Testing Personal response with an id: ', result.rows[0]);
-      responseID = result.rows[0];
-      // res.status(200).send(feedback);
+      responseID = result.rows[0].id;
 
-      const queryGeneral = 'INSERT INTO UTGeneral(id, navigation, beneficial, rating, comment) VALUES($1, $2, $3, $4, $5)';
-      const valuesGeneral = [responseID, general.navigation, general.beneficial, general.rating, general.comment];
+      const queryGeneral = {
+        text: 'INSERT INTO UTGeneral(id, navigation, beneficial, rating, comment) VALUES($1, $2, $3, $4, $5)',
+        values: [responseID, general.navigation, general.beneficial, general.rating, general.comment]
+      };
 
-      pool.query(queryGeneral, valuesGeneral, (err, result) => {
+      const queryTask0 = {
+        text: 'INSERT INTO UTTask0(id, presentation, helpful, comment) VALUES($1, $2, $3, $4)',
+        values: [responseID, task0.presentation, task0.helpful, task0.comment]
+      };
+
+      const queryTask1 = {
+        text: 'INSERT INTO UTTask1(id, navigationEasy, feedbackInformative, comment) VALUES($1, $2, $3, $4)',
+        values: [responseID, task0.presentation, task0.helpful, task0.comment]
+      };
+
+      const queryTask2 = {
+        text: 'INSERT INTO UTTask2(id, labelSquares, exprToKmap, findBestGroups, nameGroup, kmapToExpr, minimiseExpr) VALUES($1, $2, $3, $4, $5, $6, $7)',
+        values: [responseID, task0.presentation, task0.helpful, task0.comment]
+      };
+
+      const queryTask3 = {
+        text: 'INSERT INTO UTTask3(id, informativePoints, progress, reset, comment) VALUES($1, $2, $3, $4, $5)',
+        values: [responseID, task0.presentation, task0.helpful, task0.comment]
+      };
+
+      const queryTask4 = {
+        text: 'INSERT INTO UTTask4(id, navigation, syntax, parameters, presentation, stepsClear, comment) VALUES($1, $2, $3, $4, $5, $6, $7)',
+        values: [responseID, task0.presentation, task0.helpful, task0.comment]
+      };
+
+      pool.query(queryGeneral, (err, result) => {
         if (err) {
-          handleError(res, err.message, 'Failed to submit a user testing response for General.');
+          handleError(res, err.message, 'Failed to submit a user testing response for General with an ID: ', responseID);
         } else {
-          console.log('Added new User Testing General response with an id: ', result.rows[0]);
-          responseID = result.rows[0].id;
-          res.status(200).send(utForm);
+          console.log('Added new User Testing General response with an ID: ', responseID);
+
+          pool.query(queryTask0, (err, result) => {
+            if (err) {
+              handleError(res, err.message, 'Failed to submit a user testing response for Task0 with an ID: ', responseID);
+            } else {
+              console.log('Added new User Testing Task0 response with an ID: ', responseID);
+
+              pool.query(queryTask1, (err, result) => {
+                if (err) {
+                  handleError(res, err.message, 'Failed to submit a user testing response for Task1 with an ID: ', responseID);
+                } else {
+                  console.log('Added new User Testing Task1 response with an ID: ', responseID);
+
+                  pool.query(queryTask2, (err, result) => {
+                    if (err) {
+                      handleError(res, err.message, 'Failed to submit a user testing response for Task2 with an ID: ', responseID);
+                    } else {
+                      console.log('Added new User Testing General Task2 with an ID: ', responseID);
+
+                      pool.query(queryTask3, (err, result) => {
+                        if (err) {
+                          handleError(res, err.message, 'Failed to submit a user testing response for Task3 with an ID: ', responseID);
+                        } else {
+                          console.log('Added new User Testing General Task3 with an ID: ', responseID);
+
+                          pool.query(queryTask4, (err, result) => {
+                            if (err) {
+                              handleError(res, err.message, 'Failed to submit a user testing response for Task4 with an ID: ', responseID);
+                            } else {
+                              console.log('Added new User Testing General Task4 with an ID: ', responseID);
+
+                              // Finally send a success response
+                              res.status(200).send(utForm);
+                            }
+                          });
+
+                        }
+                      });
+
+                    }
+                  });
+
+                }
+              });
+
+            }
+          });
         }
       });
 

@@ -6,6 +6,7 @@ const { Pool } = require('pg');
 
 function handleError(res, reason, message, code) {
   console.log('ERROR: ' + reason);
+  console.log('ERROR MESSAGE: ' + message);
   res.status(code || 500).send({'error': message});
 }
 
@@ -59,6 +60,18 @@ pool.query('CREATE TABLE IF NOT EXISTS UTPersonal(' +
         console.log("ERROR: Failed to create a table UTGeneral. " + err.message)
       } else {
         console.log('Table UTGeneral created or already in database.');
+      }
+    });
+
+    pool.query('CREATE TABLE IF NOT EXISTS UTTask0(' +
+      'id                   INT         REFERENCES UTPersonal(id), ' +
+      'presentation         SMALLINT    CHECK (presentation >= 1 AND presentation <= 5), ' +
+      'helpful              SMALLINT    CHECK (helpful >= 1 AND helpful <= 5), ' +
+      'comment              VARCHAR(1000));', (err, res) => {
+      if (err) {
+        console.log("ERROR: Failed to create a table UTTask0. " + err.message)
+      } else {
+        console.log('Table UTTask0 created or already in database.');
       }
     });
 
@@ -173,7 +186,7 @@ app.post('/api/user-testing', (req, res) => {
     return;
   }
 
-  const query = 'INSERT INTO UTPersonal(submissionTime, isStudent, tookCourse, kmapHear, kmapUse) VALUES(timestamp, $1, $2, $3, $4) RETURNING id';
+  const query = 'INSERT INTO UTPersonal(submissionTime, isStudent, tookCourse, kmapHear, kmapUse) VALUES(CURRENT_TIMESTAMP, $1, $2, $3, $4) RETURNING id';
   const values = [personal.isStudent, personal.tookCourse, personal.kmapHear, personal.kmapUse];
 
   pool.query(query, values, (err, result) => {

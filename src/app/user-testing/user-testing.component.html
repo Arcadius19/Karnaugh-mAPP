@@ -2,18 +2,6 @@
   <h1>User Testing <br /><small>Let's make this app better together!</small></h1>
 </div>
 
-<div class="panel-body submit-alert" *ngIf="success == true">
-  <div class="alert alert-success">
-    Thank you for participation in User Testing!
-  </div>
-</div>
-
-<div class="panel-body submit-alert" *ngIf="success == false">
-  <div class="alert alert-danger">
-    Oops! There was a problem with submitting a Sser Testing form.
-  </div>
-</div>
-
 <h3>Acknowledgment</h3>
 <div class="text-justify">
   The following page is indicated for User Testing. If you would like to help to improve this app, please, take part in
@@ -35,7 +23,8 @@
 <h3>User Testing Form</h3>
 <form [formGroup]="utForm" (ngSubmit)="onSubmit()">
 
-  <div class="panel panel-default">
+  <div class="panel panel-default" formGroupName="personal"
+       [ngClass]="{'panel-success': success, 'panel-danger': success==false}">
     <div class="panel-heading" data-toggle="collapse" href="#collapse1"><strong>Personal Information</strong></div>
     <div class="panel-collapse collapse" id="collapse1">
       <ul class="list-group">
@@ -95,7 +84,7 @@
     </div>
   </div>
 
-  <div class="panel panel-default" formGroupName="task0">
+  <div class="panel panel-default" formGroupName="task0" [ngClass]="{'panel-success': success, 'panel-danger': success==false}">
     <div class="panel-heading" data-toggle="collapse" href="#collapse2">
       <strong>Task 0:</strong> If you are not familiar with Karnaugh Map at all or you are
       stuck in any question because of the lack of complete knowledge about Karnaugh map,
@@ -141,7 +130,7 @@
     </div>
   </div>
 
-  <div class="panel panel-default" formGroupName="task1">
+  <div class="panel panel-default" formGroupName="task1" [ngClass]="{'panel-success': success, 'panel-danger': success==false}">
     <div class="panel-heading" data-toggle="collapse" href="#collapse3">
       <strong>Task 1:</strong> Go to Practice tab and complete any question from <em>Minimise the Expression</em>
       set. Rate how you feel about the following statements relating to your experience:
@@ -188,7 +177,7 @@
     </div>
   </div>
 
-  <div class="panel panel-default" formGroupName="task2">
+  <div class="panel panel-default" formGroupName="task2" [ngClass]="{'panel-success': success, 'panel-danger': success==false}">
     <div class="panel-heading" data-toggle="collapse" href="#collapse4">
       <strong>Task 2:</strong> Go to Quiz tab and attempt (no need to complete) any question of each type. Rate how
       clear the instructions are.
@@ -277,7 +266,7 @@
     </div>
   </div>
 
-  <div class="panel panel-default" formGroupName="task3">
+  <div class="panel panel-default" formGroupName="task3" [ngClass]="{'panel-success': success, 'panel-danger': success==false}">
     <div class="panel-heading" data-toggle="collapse" href="#collapse5">
       <strong>Task 3:</strong> Complete any question in the Quiz section. Then attempt to find the information
       on your general progress and clear all this information. Rate how you feel about the statements below based on
@@ -338,11 +327,11 @@
     </div>
   </div>
 
-  <div class="panel panel-default" formGroupName="task4">
+  <div class="panel panel-default" formGroupName="task4" [ngClass]="{'panel-success': success, 'panel-danger': success==false}">
     <div class="panel-heading" data-toggle="collapse" href="#collapse6">
-      <strong>Task 4:</strong> Find the minimal conjunctive normal form of the expression: A &and; B &rArr; (&not; C
-      &hArr; D) <span appMathJax mathString="\( A \land B \iff (\neg C \implies D) \)"></span>. Rate how you feel
-      about the following statement based on this experience:
+      <strong>Task 4:</strong> Find the minimal conjunctive normal form of the expression:
+      <span appMathJax mathString="\( A \land B \iff (\neg C \implies D) \)"></span>.
+      Rate how you feel about the following statement based on this experience:
     </div>
     <div class="panel-collapse collapse" id="collapse6">
       <ul class="list-group">
@@ -424,7 +413,7 @@
     </div>
   </div>
 
-  <div class="panel panel-default" formGroupName="general">
+  <div class="panel panel-default" formGroupName="general" [ngClass]="{'panel-success': success, 'panel-danger': success==false}">
     <div class="panel-heading" data-toggle="collapse" href="#collapse7">
       <strong>General Feedback</strong>
     </div>
@@ -483,6 +472,19 @@
   </div>
 
   <button type="submit" class="btn btn-primary" [disabled]="!utForm.valid">Submit</button>
+
+
+  <div class="panel-body submit-alert" *ngIf="success == true">
+    <div class="alert alert-success">
+      Thank you for participation in User Testing!
+    </div>
+  </div>
+
+  <div class="panel-body submit-alert" *ngIf="success == false">
+    <div class="alert alert-danger">
+      Oops! There was a problem with submitting a Sser Testing form.
+    </div>
+  </div>
 
 </form>
 

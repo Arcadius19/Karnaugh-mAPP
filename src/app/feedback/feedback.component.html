@@ -16,15 +16,17 @@
 
 <form (ngSubmit)="onSubmit()" #feedbackForm="ngForm">
 
-  <h4>Rate the app</h4>
-  <div class="btn-group" data-toggle="buttons">
-    <button *ngFor="let ratingValue of [1,2,3,4,5]"
-            class="btn" [ngClass]="rating==ratingValue ? 'btn-primary' : 'btn-default'"
-            (click)="rating = (rating != ratingValue) ? ratingValue : null">{{ratingValue}}
-    </button>
+  <div class="form-line">
+    <label>Rate the app</label><br />
+    <div class="btn-group" data-toggle="buttons">
+      <button *ngFor="let ratingValue of [1,2,3,4,5]"
+              class="btn" [ngClass]="rating==ratingValue ? 'btn-primary' : 'btn-default'"
+              (click)="rating = (rating != ratingValue) ? ratingValue : null">{{ratingValue}}
+      </button>
+    </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group form-line">
     <label for="comment">Comment</label>
     <textarea id="comment" class="form-control" rows="3" maxlength="1000" [(ngModel)]="comment"
               name="comment"></textarea>

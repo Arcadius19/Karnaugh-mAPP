@@ -59,10 +59,12 @@ export class UserTestingComponent implements OnInit {
         comment: null
       }),
       general: this.fb.group({
-        navigation: null,
         beneficial: null,
+        navigation: null,
+        aesthetic: null,
         rating: null,
-        comment: null
+        commentUseful: null,
+        commentImprove: null
       })
     });
   }

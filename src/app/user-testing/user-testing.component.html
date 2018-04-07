@@ -121,7 +121,7 @@
 
         <li class="list-group-item">
           <div class="form-group">
-            <label for="task0comment">3. comment</label>
+            <label for="task0comment">3. Comment</label>
             <textarea id="task0comment" class="form-control" rows="3" maxlength="1000"
                       formControlName="comment"></textarea>
           </div>
@@ -168,7 +168,7 @@
 
         <li class="list-group-item">
           <div class="form-group">
-            <label for="task1comment">3. comment</label>
+            <label for="task1comment">3. Comment</label>
             <textarea id="task1comment" class="form-control" rows="3" maxlength="1000"
                       formControlName="comment"></textarea>
           </div>
@@ -318,7 +318,7 @@
 
         <li class="list-group-item">
           <div class="form-group">
-            <label for="task3comment">4. comment</label>
+            <label for="task3comment">4. Comment</label>
             <textarea id="task3comment" class="form-control" rows="3" maxlength="1000"
                       formControlName="comment"></textarea>
           </div>
@@ -331,7 +331,7 @@
   <div class="panel panel-default" formGroupName="task4" [ngClass]="{'panel-success': success, 'panel-danger': success==false}">
     <div class="panel-heading" data-toggle="collapse" data-target="#collapse6" href="#collapse6">
       <strong>Task 4:</strong> Find the minimal conjunctive normal form of the expression:
-      <span appMathJax mathString="\( A \land B \iff (\neg C \implies D) \)"></span>.
+      <span appMathJax mathString="\( A \land B \iff (\neg C \implies D) \)"></span> using <em>Karnaugh mAPP</em>.
       Rate how you feel about the following statements based on this experience:
     </div>
     <div class="panel-collapse collapse" id="collapse6">
@@ -404,7 +404,7 @@
 
         <li class="list-group-item">
           <div class="form-group">
-            <label for="task4comment">6. comment</label>
+            <label for="task4comment">6. Comment</label>
             <textarea id="task4comment" class="form-control" rows="3" maxlength="1000"
                       formControlName="comment"></textarea>
           </div>
@@ -420,21 +420,8 @@
     </div>
     <div class="panel-collapse collapse" id="collapse7">
       <ul class="list-group">
-        <li class="list-group-item">
-          <label>1. I believe the website is easy to navigate around.</label><br />
-          <div class="btn-group btn-group-sm" data-toggle="buttons">
-            <button *ngFor="let value of [1,2,3,4,5]"
-                    class="btn btn-sm"
-                    [ngClass]="utForm.controls['general'].controls['navigation'].value == value ? 'btn-primary' : 'btn-default'"
-                    (click)="utForm.controls['general'].controls['navigation'].setValue(
-                  utForm.controls['general'].controls['navigation'].value == value ? null : value)">
-              {{value}}
-            </button>
-          </div>
-        </li>
-
-        <li class="list-group-item">
-          <label>2. I believe the website's content may be beneficial for people learning abut Karnaugh
+                <li class="list-group-item">
+          <label>1. I believe the website's content may be beneficial for people learning abut Karnaugh
             map.</label><br />
           <div class="btn-group btn-group-sm" data-toggle="buttons">
             <button *ngFor="let value of [1,2,3,4,5]"
@@ -448,7 +435,33 @@
         </li>
 
         <li class="list-group-item">
-          <label>3. Rate the app in general.</label><br />
+          <label>2. I believe the website is easy to navigate around.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['general'].controls['navigation'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['general'].controls['navigation'].setValue(
+                  utForm.controls['general'].controls['navigation'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>3. I believe the website's design is aesthetically pleasant.</label><br />
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <button *ngFor="let value of [1,2,3,4,5]"
+                    class="btn btn-sm"
+                    [ngClass]="utForm.controls['general'].controls['navigation'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['general'].controls['navigation'].setValue(
+                  utForm.controls['general'].controls['navigation'].value == value ? null : value)">
+              {{value}}
+            </button>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <label>4. Rate the app in general.</label><br />
           <div class="btn-group btn-group-sm" data-toggle="buttons">
             <button *ngFor="let value of [1,2,3,4,5]"
                     class="btn btn-sm"
@@ -462,8 +475,16 @@
 
         <li class="list-group-item">
           <div class="form-group">
-            <label for="generalcomment">4. comment</label>
-            <textarea id="generalcomment" class="form-control" rows="3" maxlength="1000"
+            <label for="generallike">5. Comment on anything you found particularly useful/interesting.</label>
+            <textarea id="generallike" class="form-control" rows="3" maxlength="1000"
+                      formControlName="comment"></textarea>
+          </div>
+        </li>
+
+        <li class="list-group-item">
+          <div class="form-group">
+            <label for="generalimprove">6. Comment on anything you think could be improved.</label>
+            <textarea id="generalimprove" class="form-control" rows="3" maxlength="1000"
                       formControlName="comment"></textarea>
           </div>
         </li>

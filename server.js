@@ -26,7 +26,6 @@ const pool = new Pool({
   ssl: true,
 });
 
-
 // ====== INITIALIZING DATABASE (if does not exist) =====
 pool.query('CREATE TABLE IF NOT EXISTS Feedback(' +
   'id               SERIAL      PRIMARY KEY, ' +
@@ -53,11 +52,13 @@ pool.query('CREATE TABLE IF NOT EXISTS UTPersonal(' +
     console.log('Table UTPersonal created or already in database.');
 
     pool.query('CREATE TABLE IF NOT EXISTS UTGeneral(' +
-      'id               INT         REFERENCES UTPersonal(id), ' +
-      'navigation       SMALLINT    CHECK (navigation >= 1 AND navigation <= 5), ' +
+      'id               INT         REFERENCES UTPersonal(id)   ON DELETE CASCADE, ' +
       'beneficial       SMALLINT    CHECK (beneficial >= 1 AND beneficial <= 5), ' +
+      'navigation       SMALLINT    CHECK (navigation >= 1 AND navigation <= 5), ' +
+      'aesthetic        SMALLINT    CHECK (aesthetic >= 1 AND aesthetic <= 5), ' +
       'rating           SMALLINT    CHECK (rating >= 1 AND rating <= 5), ' +
-      'comment          VARCHAR(1000));', (err, res) => {
+      'commentUseful    VARCHAR(1000), ' +
+      'commentImprove   VARCHAR(1000));', (err, res) => {
       if (err) {
         console.log("ERROR: Failed to create a table UTGeneral. " + err.message)
       } else {
@@ -66,7 +67,7 @@ pool.query('CREATE TABLE IF NOT EXISTS UTPersonal(' +
     });
 
     pool.query('CREATE TABLE IF NOT EXISTS UTTask0(' +
-      'id                   INT         REFERENCES UTPersonal(id), ' +
+      'id                   INT         REFERENCES UTPersonal(id)   ON DELETE CASCADE, ' +
       'presentation         SMALLINT    CHECK (presentation >= 1 AND presentation <= 5), ' +
       'helpful              SMALLINT    CHECK (helpful >= 1 AND helpful <= 5), ' +
       'comment              VARCHAR(1000));', (err, res) => {
@@ -79,7 +80,7 @@ pool.query('CREATE TABLE IF NOT EXISTS UTPersonal(' +
 
 
     pool.query('CREATE TABLE IF NOT EXISTS UTTask1(' +
-      'id                   INT         REFERENCES UTPersonal(id), ' +
+      'id                   INT         REFERENCES UTPersonal(id)   ON DELETE CASCADE, ' +
       'navigationEasy       SMALLINT    CHECK (navigationEasy >= 1 AND navigationEasy <= 5), ' +
       'feedbackInformative  SMALLINT    CHECK (feedbackInformative >= 1 AND feedbackInformative <= 5), ' +
       'comment              VARCHAR(1000));', (err, res) => {
@@ -91,7 +92,7 @@ pool.query('CREATE TABLE IF NOT EXISTS UTPersonal(' +
     });
 
     pool.query('CREATE TABLE IF NOT EXISTS UTTask2(' +
-      'id                   INT         REFERENCES UTPersonal(id), ' +
+      'id                   INT         REFERENCES UTPersonal(id)   ON DELETE CASCADE, ' +
       'labelSquares         SMALLINT    CHECK (labelSquares >= 1 AND labelSquares <= 5), ' +
       'exprToKmap           SMALLINT    CHECK (exprToKmap >= 1 AND exprToKmap <= 5), ' +
       'findBestGroups       SMALLINT    CHECK (findBestGroups >= 1 AND findBestGroups <= 5), ' +
@@ -106,7 +107,7 @@ pool.query('CREATE TABLE IF NOT EXISTS UTPersonal(' +
     });
 
     pool.query('CREATE TABLE IF NOT EXISTS UTTask3(' +
-      'id                   INT         REFERENCES UTPersonal(id), ' +
+      'id                   INT         REFERENCES UTPersonal(id)   ON DELETE CASCADE, ' +
       'informativePoints    SMALLINT    CHECK (informativePoints >= 1 AND informativePoints <= 5), ' +
       'progress             SMALLINT    CHECK (progress >= 1 AND progress <= 5), ' +
       'reset                SMALLINT    CHECK (reset >= 1 AND reset <= 5), ' +
@@ -119,7 +120,7 @@ pool.query('CREATE TABLE IF NOT EXISTS UTPersonal(' +
     });
 
     pool.query('CREATE TABLE IF NOT EXISTS UTTask4(' +
-      'id            INT         REFERENCES UTPersonal(id), ' +
+      'id            INT         REFERENCES UTPersonal(id)    ON DELETE CASCADE, ' +
       'navigation    SMALLINT    CHECK (navigation >= 1 AND navigation <= 5), ' +
       'syntax        SMALLINT    CHECK (syntax >= 1 AND syntax <= 5), ' +
       'parameters    SMALLINT    CHECK (parameters >= 1 AND parameters <= 5), ' +
@@ -210,8 +211,8 @@ app.post('/api/user-testing', (req, res) => {
       responseID = parseInt(result.rows[0].id);
 
       const queryGeneral = {
-        text: 'INSERT INTO UTGeneral(id, navigation, beneficial, rating, comment) VALUES($1, $2, $3, $4, $5)',
-        values: [responseID, general.navigation, general.beneficial, general.rating, general.comment]
+        text: 'INSERT INTO UTGeneral(id, beneficial, navigation, aesthetic, rating, commentUseful, commentImprove) VALUES($1, $2, $3, $4, $5, $6, $7)',
+        values: [responseID, general.beneficial, general.navigation, general.aesthetic, general.rating, general.commentUseful, general.commentImprove]
       };
 
       const queryTask0 = {

@@ -21,7 +21,7 @@
 </div>
 
 <h3>User Testing Form</h3>
-<form [formGroup]="utForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="utForm" (ngSubmit)="onSubmit()" id="utForm">
 
   <div class="panel panel-default" formGroupName="personal"
        [ngClass]="{'panel-success': success, 'panel-danger': success==false}">
@@ -452,9 +452,9 @@
           <div class="btn-group btn-group-sm" data-toggle="buttons">
             <button *ngFor="let value of [1,2,3,4,5]"
                     class="btn btn-sm"
-                    [ngClass]="utForm.controls['general'].controls['navigation'].value == value ? 'btn-primary' : 'btn-default'"
-                    (click)="utForm.controls['general'].controls['navigation'].setValue(
-                  utForm.controls['general'].controls['navigation'].value == value ? null : value)">
+                    [ngClass]="utForm.controls['general'].controls['aesthetic'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['general'].controls['aesthetic'].setValue(
+                  utForm.controls['general'].controls['aesthetic'].value == value ? null : value)">
               {{value}}
             </button>
           </div>
@@ -477,7 +477,7 @@
           <div class="form-group">
             <label for="generallike">5. Comment on anything you found particularly useful/interesting.</label>
             <textarea id="generallike" class="form-control" rows="3" maxlength="1000"
-                      formControlName="comment"></textarea>
+                      formControlName="commentUseful"></textarea>
           </div>
         </li>
 
@@ -485,7 +485,7 @@
           <div class="form-group">
             <label for="generalimprove">6. Comment on anything you think could be improved.</label>
             <textarea id="generalimprove" class="form-control" rows="3" maxlength="1000"
-                      formControlName="comment"></textarea>
+                      formControlName="commentImprove"></textarea>
           </div>
         </li>
 
@@ -493,7 +493,9 @@
     </div>
   </div>
 
-  <button type="submit" class="btn btn-primary" [disabled]="!utForm.valid">Submit</button>
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary" [disabled]="!utForm.valid">Submit</button>
+  </div>
 
 
   <div class="panel-body submit-alert" *ngIf="success == true">

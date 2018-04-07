@@ -110,7 +110,7 @@ pool.query('CREATE TABLE IF NOT EXISTS UTPersonal(' +
       'id                   INT         REFERENCES UTPersonal(id)   ON DELETE CASCADE, ' +
       'informativePoints    SMALLINT    CHECK (informativePoints >= 1 AND informativePoints <= 5), ' +
       'progress             SMALLINT    CHECK (progress >= 1 AND progress <= 5), ' +
-      'reset                SMALLINT    CHECK (reset >= 1 AND reset <= 5), ' +
+      'reset                SMALLINT    CHECK (easyReset >= 1 AND easyReset <= 5), ' +
       'comment              VARCHAR(1000));', (err, res) => {
       if (err) {
         console.log("ERROR: Failed to create a table UTTask3. " + err.message)
@@ -232,7 +232,7 @@ app.post('/api/user-testing', (req, res) => {
 
       const queryTask3 = {
         text: 'INSERT INTO UTTask3(id, informativePoints, progress, reset, comment) VALUES($1, $2, $3, $4, $5)',
-        values: [responseID, task3.informativePoints, task3.progress, task3.reset, task3.comment]
+        values: [responseID, task3.informativePoints, task3.progress, task3.easyReset, task3.comment]
       };
 
       const queryTask4 = {
@@ -262,19 +262,19 @@ app.post('/api/user-testing', (req, res) => {
                     if (err) {
                       handleError(res, err.message, 'Failed to submit a user testing response for Task2 with an ID: ', responseID);
                     } else {
-                      console.log('Added new User Testing General Task2 with an ID: ', responseID);
+                      console.log('Added new User Testing Task2 with an ID: ', responseID);
 
                       pool.query(queryTask3, (err, result) => {
                         if (err) {
                           handleError(res, err.message, 'Failed to submit a user testing response for Task3 with an ID: ', responseID);
                         } else {
-                          console.log('Added new User Testing General Task3 with an ID: ', responseID);
+                          console.log('Added new User Testing Task3 with an ID: ', responseID);
 
                           pool.query(queryTask4, (err, result) => {
                             if (err) {
                               handleError(res, err.message, 'Failed to submit a user testing response for Task4 with an ID: ', responseID);
                             } else {
-                              console.log('Added new User Testing General Task4 with an ID: ', responseID);
+                              console.log('Added new User Testing Task4 with an ID: ', responseID);
 
                               // Finally send a success response
                               res.status(200).send(utForm);

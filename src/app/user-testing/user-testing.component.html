@@ -307,9 +307,9 @@
           <div class="btn-group btn-group-sm" data-toggle="buttons">
             <button *ngFor="let value of [1,2,3,4,5]"
                     class="btn btn-sm"
-                    [ngClass]="utForm.controls['task3'].controls['reset'].value == value ? 'btn-primary' : 'btn-default'"
-                    (click)="utForm.controls['task3'].controls['reset'].setValue(
-                  utForm.controls['task3'].controls['reset'].value == value ? null : value)">
+                    [ngClass]="utForm.controls['task3'].controls['easyReset'].value == value ? 'btn-primary' : 'btn-default'"
+                    (click)="utForm.controls['task3'].controls['easyReset'].setValue(
+                  utForm.controls['task3'].controls['easyReset'].value == value ? null : value)">
               {{value}}
             </button>
           </div>

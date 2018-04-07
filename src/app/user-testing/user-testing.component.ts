@@ -47,7 +47,7 @@ export class UserTestingComponent implements OnInit {
       task3: this.fb.group({
         informativePoints: null,
         progress: null,
-        reset: null,
+        easyReset: null,
         comment: null
       }),
       task4: this.fb.group({

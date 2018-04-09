@@ -179,7 +179,7 @@ app.post('/api/user-testing', (req, res) => {
   const task0 = utForm.task0;
   const task1 = utForm.task1;
   const task2 = utForm.task2;
-  const task3 = utForm.task4;
+  const task3 = utForm.task3;
   const task4 = utForm.task4;
 
   let responseID;

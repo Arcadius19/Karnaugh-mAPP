@@ -1,7 +1,7 @@
-import { BestGroupsSolver } from '../app/auxiliary/best-groups-solver-new';
+import { BestGroupsSolver } from '../app/auxiliary/best-groups-solver';
 import {ExpressionGroup} from '../app/auxiliary/expression-group';
 
-describe('New Best Group Solver', () => {
+describe('Best Group Solver', () => {
 
   it('should find the best groups - multiple options', () => {
     let marked = [

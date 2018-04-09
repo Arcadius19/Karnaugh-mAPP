@@ -36,7 +36,7 @@ export class ContactService {
       console.error(`Server returned code ${error.status}, with a message: ${error.message}`);
     }
     // return an ErrorObservable with a user-facing error message
-    return new ErrorObservable( error.error);
+    return new ErrorObservable(error.error);
   }
 
 }

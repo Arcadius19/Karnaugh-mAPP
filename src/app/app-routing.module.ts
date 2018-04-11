@@ -19,7 +19,7 @@ import {PracticeKmapToExprComponent} from './practice/kmap-to-expr/practice-kmap
 import {InstantSolverComponent} from './instant-solver/instant-solver.component';
 import {PracticeMinimizeExprComponent} from './practice/minimize-expr/practice-minimize-expr.component';
 import {QuizMinimizeExprComponent} from './quiz/minimize-expr/quiz-minimize-expr.component';
-import {PracticeLabelSquaresComponent} from './practice/practice-label-squares/practice-label-squares.component';
+import {PracticeLabelSquaresComponent} from './practice/label-squares/practice-label-squares.component';
 import {TutorialComponent} from './tutorial/tutorial.component';
 import {ResolutionComponent} from './resolution/resolution.component';
 import {FeedbackComponent} from './feedback/feedback.component';

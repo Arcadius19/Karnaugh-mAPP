@@ -32,5 +32,6 @@
               name="comment"></textarea>
   </div>
 
-  <button type="submit" class="btn btn-primary" [disabled]="rating==null && comment==null">Submit</button>
+  <button type="submit" class="btn btn-primary" [disabled]="rating==null && (comment==null || comment=='')">Submit
+  </button>
 </form>

@@ -38,14 +38,19 @@
          aria-selected="false">Implementation</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="evaluation-tab" data-toggle="tab" href="#evaluation" role="tab"
+      <a class="nav-link text-success" id="evaluation-tab" data-toggle="tab" href="#evaluation" role="tab"
          aria-controls="evaluation"
          aria-selected="false">Evaluation</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="improvements-tab" data-toggle="tab" href="#improvements" role="tab"
+      <a class="nav-link text-success" id="improvements-tab" data-toggle="tab" href="#improvements" role="tab"
          aria-controls="improvements"
          aria-selected="false">Future Work</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="fix-tab" data-toggle="tab" href="#fix" role="tab"
+         aria-controls="improvements"
+         aria-selected="false">To Fix</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" id="bibliography-tab" data-toggle="tab" href="#bibliography" role="tab"
@@ -281,16 +286,46 @@
         <li class="text-success">Unit Testing</li>
         <li class="text-success">Ensuring High Information and Service Quality</li>
         <li class="text-success">Analysis of 'Use' Factor</li>
-        <li>User Testing</li>
-        <li>Refer to Learning Aspects; whether we did what was supposed to be done</li>
+        <li class="text-success">User Testing
+          <ul>
+            <li class="text-warning">Update screenshot of Name the Group exercise</li></li>
+          </ul>
+        </li>
+        <li class="text-success">System Impact</li>
       </ol>
     </div>
 
     <!--FURTHER DEVELOPMENT-->
     <div class="tab-pane fade" id="improvements" role="tabpanel" aria-labelledby="improvements-tab">
       <ol>
-        <li>Questions realted to resolution</li>
-        <li>Karnaugh Map with more variables</li>
+        <li class="text-success">Questions related to resolution</li>
+        <li class="text-success">Karnaugh Map with more variables</li>
+        <li class="text-success">Tracking which questions were answered wrong the most</li>
+        <li class="text-success">Admin interface to update questions and see statistics</li>
+      </ol>
+    </div>
+
+    <!--TO FIX-->
+    <div class="tab-pane fade" id="fix" role="tabpanel" aria-labelledby="improvements-tab">
+      <ol>
+        <li class="text-success">Abstract
+          <ul><small>
+            <li>Abstract could be expanded. What is the key message of each section? Each one in one or
+              two sentences (maybe even three). Hard to do, but it really helps to orient the reader.</li>
+          </small></ul>
+        </li>
+        <li class="text-success">Reference Veitch and Karnaugh</li>
+        <li class="text-success">Sec 1.4 says 'desirable' and then list 'undesirable'</li>
+        <li class="text-warning">Sec 2.2.2 Your list of principles is a bit terse. A sentence so explain your mechanics
+          and need for lists might help link this back to 2.2.1</li>
+        <li class="text-success">Sec 3.1.4 “eager” is not regular in English. We say “more eager”, never “eagerer”</li>
+        <li class="text-success">Sec 3.2.3.2 meaning of "transitory"</li>
+        <li class="text-success">Sec 4.1.2 something missing from final sentence of first paragraph?</li>
+      </ol>
+
+      <ol class="text-warning">
+        <li>Evaluation: undesired features from exisiting tools eliminated</li>
+        <li>Future Work: Don't Cares ?</li>
       </ol>
     </div>
 

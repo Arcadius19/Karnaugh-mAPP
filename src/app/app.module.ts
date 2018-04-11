@@ -39,7 +39,7 @@ import { MinimizeExprComponent } from './exercises/exercise-types/minimize-expr/
 import { PracticeMinimizeExprComponent } from './practice/minimize-expr/practice-minimize-expr.component';
 import {MinimizeExprService} from './exercises/exercise-types/minimize-expr/minimize-expr.service';
 import { QuizMinimizeExprComponent } from './quiz/minimize-expr/quiz-minimize-expr.component';
-import { PracticeLabelSquaresComponent } from './practice/practice-label-squares/practice-label-squares.component';
+import { PracticeLabelSquaresComponent } from './practice/label-squares/practice-label-squares.component';
 import { LabelSquaresComponent } from './exercises/exercise-types/label-squares/label-squares.component';
 import {CompletionExUpdateService} from './quiz/completion-ex-update.service';
 import {TutorialComponent} from './tutorial/tutorial.component';

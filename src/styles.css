@@ -116,3 +116,9 @@ table.kmap-wrong {
   border: 3px solid #ebccd1;
 }
 
+html,body {
+  margin:0;
+  padding:0;
+  height:100%;
+}
+

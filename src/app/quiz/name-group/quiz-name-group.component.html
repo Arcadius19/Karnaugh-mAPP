@@ -1,6 +1,6 @@
 <ng-container *ngIf="!(exercise$ | async) as exercise">
   <div class="page-header header-no-top-margin">
-    <h2>Find the best groups <br>
+    <h2>Name the Group <br>
       <small >Loading...</small>
     </h2>
   </div>
@@ -8,7 +8,7 @@
 
 <ng-container *ngIf="exercise$ | async as exercise">
   <div class="custom-header">
-    <h2>Name the group <br>
+    <h2>Name the Group <br>
       <small >Question {{exercise.id}}</small>
     </h2>
   </div>

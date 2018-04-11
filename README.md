@@ -1,4 +1,12 @@
-# HonoursProject
+# Karnaugh mAPP
+
+Karnaugh mAPP is an interactive tool for learning of the Karnaugh map concept. It was created as a part of the honorus project at the [University of Edinburgh.](https://www.ed.ac.uk/)
+
+Current live version may be found at [https://karnaugh-mapp.herokuapp.com/](https://karnaugh-mapp.herokuapp.com/)
+
+This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. To view a copy of the license, visit [https://creativecommons.org/licenses/by-nc/4.0/](https://creativecommons.org/licenses/by-nc/4.0/)
+
+## Development
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.
 

@@ -15,7 +15,7 @@
   "dependencies": {
     "@angular-devkit/build-optimizer": "^0.4.0",
     "@angular/animations": "^5.2.4",
-    "@angular/cli": "1.6.4",
+    "@angular/cli": "14.2.8",
     "@angular/common": "^5.2.4",
     "@angular/compiler": "^5.2.4",
     "@angular/compiler-cli": "^5.2.4",
@@ -38,7 +38,7 @@
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
-    "@angular/cli": "1.6.4",
+    "@angular/cli": "14.2.8",
     "@angular/compiler-cli": "^5.2.4",
     "@angular/language-service": "^5.2.4",
     "@types/d3": "^4.13.0",
